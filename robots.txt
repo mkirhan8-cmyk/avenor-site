@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://avenor.com.ua/sitemap.xml
