@@ -140,3 +140,7 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .ab-stats b{display:block;font-size:clamp(28px,3.4vw,48px);font-weight:700;line-height:1.1;white-space:nowrap;color:var(--ink)}
 .ab-stats span{display:block;margin-top:8px;font-size:15px;line-height:1.4;color:var(--mute)}
 @media (max-width:700px){.ab-stats{grid-template-columns:1fr 1fr;gap:24px 16px}.ab-stats b{font-size:clamp(26px,8vw,34px)}}
+/* блок цифр: счётчик 0 -> число, моноширинные цифры, суффикс появляется в конце */
+.ab-stats b{font-variant-numeric:tabular-nums}
+.ab-stats b i,.ab-stats b s,.ab-stats b u{font-style:normal;text-decoration:none}
+.ab-stats b s{transition:opacity .3s}.ab-stats b.cnt s{opacity:0}
