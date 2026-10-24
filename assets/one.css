@@ -144,3 +144,6 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .ab-stats b{font-variant-numeric:tabular-nums}
 .ab-stats b i,.ab-stats b s,.ab-stats b u{font-style:normal;text-decoration:none}
 .ab-stats b s{transition:opacity .3s}.ab-stats b.cnt s{opacity:0}
+
+.af{display:flex;gap:14px;align-items:flex-start;margin-top:32px;padding-top:24px;border-top:1px solid rgba(20,24,28,.16);color:var(--ink)}
+.af svg{flex:none;margin-top:2px;color:var(--wheat-ink)}.af h3{font-size:17px;margin:0 0 6px}.af p{margin:0;max-width:46em;font-size:15px;color:var(--mute)}
