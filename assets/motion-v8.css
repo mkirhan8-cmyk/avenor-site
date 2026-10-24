@@ -12,13 +12,13 @@
   @supports not (animation-timeline:view()){
     .mv-js .mv-line{stroke-dashoffset:1;transition:stroke-dashoffset 1.4s ease-out}
     .mv-js .mv-ship{offset-distance:0%;transition:offset-distance 1.4s ease-out}
-    .mv-js .mv-in{opacity:0;transform:translateY(12px);transition:opacity .45s ease-out,transform .45s ease-out;transition-delay:calc(var(--i,0)*60ms)}
+    .mv-js .mv-in{transform:translateY(12px);transition:transform .45s ease-out;transition-delay:calc(var(--i,0)*60ms)}
     .mv-js .mv-on .mv-line,.mv-js .mv-line.mv-on{stroke-dashoffset:0}
     .mv-js .mv-on .mv-ship,.mv-js .mv-ship.mv-on{offset-distance:100%}
-    .mv-js .mv-in.mv-on{opacity:1;transform:none}
+    .mv-js .mv-in.mv-on{transform:none}
   }
 }
 @keyframes mv-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes mv-go{from{offset-distance:0%}to{offset-distance:100%}}
-@keyframes mv-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mv-up{from{transform:translateY(12px)}to{transform:none}} /* без opacity: блок виден всегда, в т.ч. на снимке всей страницы (Safari, 24.10) */
 .mv-in:nth-child(4n+2){--i:1}.mv-in:nth-child(4n+3){--i:2}.mv-in:nth-child(4n+4){--i:3}
