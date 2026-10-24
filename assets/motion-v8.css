@@ -1,0 +1,24 @@
+/* motion-v8: PLAN-v8 п.2. Классы-крючки: .mv-route (svg) > path.mv-line[pathLength=1], .mv-ship (иконка), .mv-in (блок).
+   Без поддержки animation-timeline страница статична и читается (запасной JS ставит .mv-on). */
+.mv-line{stroke-dasharray:1;stroke-dashoffset:0}
+.mv-ship{offset-rotate:auto;offset-distance:100%}
+.mv-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .mv-line{animation:mv-draw linear both;animation-timeline:view();animation-range:entry 10% cover 45%}
+    .mv-ship{animation:mv-go linear both;animation-timeline:view();animation-range:entry 10% cover 45%}
+    .mv-in{animation:mv-up .45s ease-out backwards;animation-timeline:view();animation-range:entry 0% entry 40%;animation-delay:calc(var(--i,0)*60ms)}
+  }
+  @supports not (animation-timeline:view()){
+    .mv-js .mv-line{stroke-dashoffset:1;transition:stroke-dashoffset 1.4s ease-out}
+    .mv-js .mv-ship{offset-distance:0%;transition:offset-distance 1.4s ease-out}
+    .mv-js .mv-in{opacity:0;transform:translateY(12px);transition:opacity .45s ease-out,transform .45s ease-out;transition-delay:calc(var(--i,0)*60ms)}
+    .mv-js .mv-on .mv-line,.mv-js .mv-line.mv-on{stroke-dashoffset:0}
+    .mv-js .mv-on .mv-ship,.mv-js .mv-ship.mv-on{offset-distance:100%}
+    .mv-js .mv-in.mv-on{opacity:1;transform:none}
+  }
+}
+@keyframes mv-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes mv-go{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes mv-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mv-in:nth-child(4n+2){--i:1}.mv-in:nth-child(4n+3){--i:2}.mv-in:nth-child(4n+4){--i:3}
