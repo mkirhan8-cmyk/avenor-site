@@ -106,3 +106,8 @@ body{font-size:16px}
 .trust{margin:30px 0 0;font-size:12px;letter-spacing:.06em;color:#C9D0D6}
 .rq label>span i{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:#8A9096}
 .about{display:block}
+.stk{display:none}
+@media(max-width:768px){.stk{display:flex;align-items:center;justify-content:center;position:fixed;left:16px;right:16px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:20;min-height:52px;background:var(--wheat);color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:3px;box-shadow:0 6px 24px rgba(10,13,16,.35);opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.stk.on{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){.stk{transition:none}}
