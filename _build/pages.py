@@ -12,17 +12,20 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://avenor.com.ua"
 WA = "https://wa.me/380739556243"
 
-# page key -> (UA path, EN path)
+LANGS = ("uk", "en", "tr")
+HOMES = {"uk": "/", "en": "/en/", "tr": "/tr/"}
+LABEL = {"uk": "UA", "en": "EN", "tr": "TR"}
+# page key -> (UA path, EN path, TR path)
 PATHS = {
-    "products": ("/produktsiya.html", "/en/products.html"),
-    "meal": ("/shrot.html", "/en/sunflower-meal.html"),
-    "routes": ("/marshruty.html", "/en/routes.html"),
-    "quality": ("/yakist.html", "/en/quality.html"),
-    "order": ("/yak-zamovyty.html", "/en/how-to-order.html"),
-    "about": ("/pro-kompaniyu.html", "/en/about.html"),
-    "faq": ("/faq.html", "/en/faq.html"),
-    "contacts": ("/kontakty.html", "/en/contacts.html"),
-    "privacy": ("/privacy.html", "/en/privacy.html"),
+    "products": ("/produktsiya.html", "/en/products.html", "/tr/urunler.html"),
+    "meal": ("/shrot.html", "/en/sunflower-meal.html", "/tr/aycicegi-kuspesi.html"),
+    "routes": ("/marshruty.html", "/en/routes.html", "/tr/rotalar.html"),
+    "quality": ("/yakist.html", "/en/quality.html", "/tr/kalite.html"),
+    "order": ("/yak-zamovyty.html", "/en/how-to-order.html", "/tr/nasil-siparis-verilir.html"),
+    "about": ("/pro-kompaniyu.html", "/en/about.html", "/tr/hakkimizda.html"),
+    "faq": ("/faq.html", "/en/faq.html", "/tr/sss.html"),
+    "contacts": ("/kontakty.html", "/en/contacts.html", "/tr/iletisim.html"),
+    "privacy": ("/privacy.html", "/en/privacy.html", "/tr/gizlilik.html"),
 }
 # old EN addresses with Ukrainian slugs -> English page
 EN_ALIASES = {
@@ -45,13 +48,19 @@ T = {
                 "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy"},
         "more": "Learn more",
     },
+    "tr": {
+        "home": "Ana sayfa", "request": "Fiyat isteyin", "menu": "Menü", "skip": "İçeriğe geç",
+        "nav": {"products": "Ürünler", "meal": "Ayçiçeği küspesi", "routes": "Rotalar", "quality": "Kalite",
+                "order": "Nasıl sipariş verilir", "about": "Hakkımızda", "faq": "SSS", "contacts": "İletişim", "privacy": "Gizlilik"},
+        "more": "Daha fazla",
+    },
 }
 
 e = html.escape
 
 
 def L(lang, key):
-    return PATHS[key][0 if lang == "uk" else 1]
+    return PATHS[key][LANGS.index(lang)]
 
 
 def inline(s, lang):
@@ -108,6 +117,11 @@ def b_groups(items, lang):
     return '<div class="grid3">' + "".join(out) + "</div>"
 
 
+def b_news(items, foot, lang):
+    li = "".join(f'<li><time>{d}</time><p>{inline(t, lang)} <a href="{u}" rel="noopener" target="_blank">{src}</a></p></li>' for d, t, src, u in items)
+    return f'<ul class="news">{li}</ul><p class="note">{foot}</p>'
+
+
 def b_p(text, lang):
     return f'<p class="pg-p">{inline(text, lang)}</p>'
 
@@ -125,7 +139,7 @@ def b_links(items, lang):
 
 
 BLOCKS = {"terms": b_terms, "work": b_work, "ticks": b_ticks, "table": b_table, "routes": b_routes, "steps": b_steps,
-          "faq": b_faq, "groups": b_groups, "p": b_p, "note": b_note, "dl": b_dl, "links": b_links}
+          "faq": b_faq, "groups": b_groups, "p": b_p, "news": b_news, "note": b_note, "dl": b_dl, "links": b_links}
 
 
 def render_block(b, lang):
@@ -142,7 +156,7 @@ def chunk(src, pattern):
     return m.group(0)
 
 
-HOME = {"uk": (ROOT / "index.html").read_text("utf-8"), "en": (ROOT / "en/index.html").read_text("utf-8")}
+HOME = {k: (ROOT / (HOMES[k].lstrip("/") + "index.html")).read_text("utf-8") for k in LANGS}
 FORM = {k: chunk(v, r'<section class="soft" id="request">.*?</section>') for k, v in HOME.items()}
 FOOTER = {k: chunk(v, r"<footer>.*?</footer>") for k, v in HOME.items()}
 STICKY = {k: chunk(v, r'<a class="stk".*?</a>') + "\n" + chunk(v, r"<script>\(function\(\)\{var k=document\.querySelector\('\.stk'\).*?</script>")
@@ -151,15 +165,16 @@ STICKY = {k: chunk(v, r'<a class="stk".*?</a>') + "\n" + chunk(v, r"<script>\(fu
 
 def header(lang, key):
     t = T[lang]
-    ua, en = PATHS[key] if key else ("/", "/en/")
+    alts = PATHS[key] if key else tuple(HOMES[k] for k in LANGS)
     links = "".join(f'<a href="{L(lang, k)}"' + (' aria-current="page"' if k == key or (key == "meal" and k == "products") else "")
                     + f'>{t["nav"][k]}</a>' for k in NAV)
-    home = "/" if lang == "uk" else "/en/"
+    home = HOMES[lang]
+    langs = "".join(f'<a href="{alts[i]}" hreflang="{k}"' + (' aria-current="true"' if k == lang else "") + f'>{LABEL[k]}</a>'
+                    for i, k in enumerate(LANGS))
     return (f'<header class="top"><div class="wrap">'
             f'<a href="{home}" aria-label="AVENOR TRADE"><img src="/assets/lockup-lat-white.svg" alt="AVENOR TRADE" width="150" height="26"></a>'
             f'<nav class="mnav" aria-label="{t["menu"]}">{links}</nav><span class="sp"></span>'
-            f'<nav class="lang" aria-label="Language"><a href="{ua}" hreflang="uk"' + (' aria-current="true"' if lang == "uk" else "") +
-            f'>UA</a><a href="{en}" hreflang="en"' + (' aria-current="true"' if lang == "en" else "") + '>EN</a></nav>'
+            f'<nav class="lang" aria-label="Language">{langs}</nav>'
             f'<a class="btn btn-s" href="#request">{t["request"]}</a>'
             f'<details class="burger"><summary aria-label="{t["menu"]}"><span></span></summary><nav>{links}'
             f'<a href="{L(lang, "faq")}">{t["nav"]["faq"]}</a></nav></details>'
@@ -168,15 +183,15 @@ def header(lang, key):
 
 def page(lang, key, p):
     t = T[lang]
-    ua, en = PATHS[key]
-    url = SITE + (ua if lang == "uk" else en)
-    home = "/" if lang == "uk" else "/en/"
+    alts = PATHS[key]
+    url = SITE + L(lang, key)
+    home = HOMES[lang]
     crumbs = [(home, t["home"])]
     if key == "meal":
         crumbs.append((L(lang, "products"), t["nav"]["products"]))
     crumbs_html = "".join(f'<a href="{h}">{n}</a><span>/</span>' for h, n in crumbs) + f'<span aria-current="page">{t["nav"][key]}</span>'
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + h} for i, (h, n) in enumerate(crumbs + [(ua if lang == "uk" else en, t["nav"][key])])]}]
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + h} for i, (h, n) in enumerate(crumbs + [(L(lang, key), t["nav"][key])])]}]
     if p.get("faq_ld"):
         qa = [(q, re.sub(r"<[^>]+>", "", inline(a, lang))) for q, a in p["faq_ld"]]
         ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
@@ -203,9 +218,7 @@ def page(lang, key, p):
 <title>{e(p["title"])}</title>
 <meta name="description" content="{e(p["desc"])}">
 <link rel="canonical" href="{url}">
-<link rel="alternate" hreflang="uk" href="{SITE}{ua}">
-<link rel="alternate" hreflang="en" href="{SITE}{en}">
-<link rel="alternate" hreflang="x-default" href="{SITE}{ua}">
+{"".join(f'<link rel="alternate" hreflang="{k}" href="{SITE}{alts[i]}">' + chr(10) for i, k in enumerate(LANGS))}<link rel="alternate" hreflang="x-default" href="{SITE}{alts[0]}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AVENOR TRADE">
 <meta property="og:url" content="{url}">
@@ -248,15 +261,19 @@ def page(lang, key, p):
 
 MORE = {"products": "products", "routes": "routes", "terms": "order", "about": "about"}
 MORE_TXT = {"uk": {"products": "Уся продукція", "routes": "Усі маршрути й ризики", "terms": "Як замовити і хто що робить за базисом", "about": "Про компанію й реквізити"},
-            "en": {"products": "All products", "routes": "All routes and risks", "terms": "How to order and who does what", "about": "About us and company details"}}
+            "en": {"products": "All products", "routes": "All routes and risks", "terms": "How to order and who does what", "about": "About us and company details"},
+            "tr": {"products": "Tüm ürünler", "routes": "Tüm rotalar ve riskler", "terms": "Nasıl sipariş verilir, kim ne yapar", "about": "Hakkımızda ve şirket bilgileri"}}
 
 
 def patch_home(lang):
     """Add the page menu and 'more' links to the accepted one-page card; idempotent."""
-    f = ROOT / ("index.html" if lang == "uk" else "en/index.html")
+    f = ROOT / (HOMES[lang].lstrip("/") + "index.html")
     s = f.read_text("utf-8")
     s = re.sub(r'<header class="top">.*?</header>', lambda m: header(lang, None), s, count=1, flags=re.S)
     s = re.sub(r'<p class="pmore">.*?</p>', "", s)
+    alts = "".join(f'<link rel="alternate" hreflang="{k}" href="{SITE}{HOMES[k]}">' for k in LANGS)
+    alts += f'<link rel="alternate" hreflang="x-default" href="{SITE}/">'
+    s = re.sub(r'(?:<link rel="alternate" hreflang="[^"]+" href="[^"]+">\s*)+', lambda m: alts, s, count=1)
     for sec, key in MORE.items():
         start = s.index(f'id="{sec}"')
         end = s.index("</section>", start)
@@ -276,22 +293,22 @@ def redirect(lang, target):
 
 
 def sitemap():
-    urls = [("/", "/en/")] + list(PATHS.values())
+    urls = [tuple(HOMES[k] for k in LANGS)] + list(PATHS.values())
     out = ['<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
-    for ua, en in urls:
-        alt = (f'<xhtml:link rel="alternate" hreflang="uk" href="{SITE}{ua}"/><xhtml:link rel="alternate" hreflang="en" href="{SITE}{en}"/>'
-               f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{ua}"/>')
-        out += [f"<url><loc>{SITE}{ua}</loc>{alt}</url>", f"<url><loc>{SITE}{en}</loc>{alt}</url>"]
+    for alts in urls:
+        alt = "".join(f'<xhtml:link rel="alternate" hreflang="{k}" href="{SITE}{alts[i]}"/>' for i, k in enumerate(LANGS))
+        alt += f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{alts[0]}"/>'
+        out += [f"<url><loc>{SITE}{u}</loc>{alt}</url>" for u in alts]
     out.append("</urlset>")
     return "".join(out)
 
 
 def main():
     from content import PAGES
-    for lang in ("uk", "en"):
+    for lang in LANGS:
         patch_home(lang)
     for key in PATHS:
-        for i, lang in enumerate(("uk", "en")):
+        for i, lang in enumerate(LANGS):
             out = ROOT / PATHS[key][i].lstrip("/")
             out.write_text(page(lang, key, PAGES[lang][key]), "utf-8")
             print("wrote", out.relative_to(ROOT))
