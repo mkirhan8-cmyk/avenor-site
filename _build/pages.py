@@ -22,6 +22,7 @@ PATHS = {
     "about": ("/pro-kompaniyu.html", "/en/about.html"),
     "faq": ("/faq.html", "/en/faq.html"),
     "contacts": ("/kontakty.html", "/en/contacts.html"),
+    "privacy": ("/privacy.html", "/en/privacy.html"),
 }
 # old EN addresses with Ukrainian slugs -> English page
 EN_ALIASES = {
@@ -35,13 +36,13 @@ T = {
     "uk": {
         "home": "Головна", "request": "Запросити ціну", "menu": "Меню", "skip": "До змісту",
         "nav": {"products": "Продукція", "meal": "Соняшниковий шрот", "routes": "Маршрути", "quality": "Якість",
-                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти"},
+                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти", "privacy": "Конфіденційність"},
         "more": "Детальніше",
     },
     "en": {
         "home": "Home", "request": "Request a quote", "menu": "Menu", "skip": "Skip to content",
         "nav": {"products": "Products", "meal": "Sunflower meal", "routes": "Routes", "quality": "Quality",
-                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts"},
+                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy"},
         "more": "Learn more",
     },
 }
@@ -79,7 +80,7 @@ def b_table(head, rows, lang):
     th = "".join(f"<th scope=\"col\">{h}</th>" for h in head)
     tr = "".join("<tr>" + "".join((f"<th scope=\"row\">{inline(c, lang)}</th>" if j == 0 else f"<td data-l=\"{head[j]}\">{inline(c, lang)}</td>")
                                   for j, c in enumerate(r)) + "</tr>" for r in rows)
-    cls = "tbl wide" if len(head) > 2 else "tbl narrow"
+    cls = "tbl narrow" if len(head) == 2 and all(len(r[1]) < 30 for r in rows) else "tbl wide"
     return f'<div class="{cls}"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
 
 

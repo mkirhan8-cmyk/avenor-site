@@ -248,6 +248,22 @@ UK = {
                 ("note", LEGAL_UK)]},
         ],
     },
+    "privacy": {
+        "title": "Конфіденційність | AVENOR TRADE",
+        "desc": "Які дані з форми запиту отримує ТОВ «АВЕНОР ТРЕЙД», навіщо, скільки зберігає і як їх видалити.",
+        "img": 8, "h1": "Конфіденційність",
+        "lead": "Коротко про те, що відбувається з даними із форми запиту.",
+        "sections": [
+            {"blocks": [("dl", [
+                ("Хто", "ТОВ «АВЕНОР ТРЕЙД», ЄДРПОУ 46637137, Одеса. Контакт: info@avenor.com.ua"),
+                ("Що отримуємо", "Лише те, що ви вказали: контакт, ім’я, компанію й деталі запиту. Cookies і аналітики на сайті немає."),
+                ("Навіщо", "Відповісти на запит, підготувати пропозицію й договір. Дані не продаємо."),
+                ("Де", "На нашому сервері в Україні й у пошті. Заявка проходить через сервіси доставки у США, Канаді та Індії."),
+                ("Скільки", "Запит без договору — до 2 років, за договором — строки, яких вимагає закон."),
+                ("Ваші права", "Напишіть на info@avenor.com.ua — покажемо, виправимо або видалимо ваші дані протягом 30 днів.")]),
+                ("note", LEGAL_UK)]},
+        ],
+    },
 }
 
 EN = {
@@ -416,6 +432,22 @@ EN = {
             {"eyebrow": "For banks", "h2": "Counterparty checks", "blocks": [
                 ("dl", [("Company", "AVENOR TRADE LLC"), ("EDRPOU code", "46637137"), ("Address", ADDR_EN)]),
                 ("p", "To request company documents, write to info@avenor.com.ua and state the purpose."),
+                ("note", LEGAL_EN)]},
+        ],
+    },
+    "privacy": {
+        "title": "Privacy | AVENOR TRADE",
+        "desc": "What data AVENOR TRADE LLC receives from the request form, why, how long it is kept and how to delete it.",
+        "img": 8, "h1": "Privacy",
+        "lead": "In short: what happens to the data you send through the request form.",
+        "sections": [
+            {"blocks": [("dl", [
+                ("Who", "AVENOR TRADE LLC, EDRPOU 46637137, Odesa, Ukraine. Contact: info@avenor.com.ua"),
+                ("What we receive", "Only what you enter: contact, name, company and request details. No cookies or analytics on this site."),
+                ("Why", "To answer your request and prepare an offer and a contract. We do not sell data."),
+                ("Where", "On our server in Ukraine and in our mailbox. Requests pass through delivery services in the USA, Canada and India."),
+                ("How long", "A request without a contract — up to 2 years; under a contract — as long as the law requires."),
+                ("Your rights", "Write to info@avenor.com.ua — we will show, correct or delete your data within 30 days.")]),
                 ("note", LEGAL_EN)]},
         ],
     },
