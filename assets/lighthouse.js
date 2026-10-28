@@ -5,7 +5,7 @@
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d');
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var W, H, D, HZ, LX, LY, TT, MX, MY, stars = [], clouds, gulls = [], run = true, t0 = performance.now(), last = t0;
+  var W, H, D, HZ, LX, LY, TT, SL, MX, MY, stars = [], clouds, gulls = [], run = true, t0 = performance.now(), last = t0;
   var A = -1.2, aim = null, aimUntil = 0, flash = 0, onShip = 0;
 
   function rnd(s) { var x = Math.sin(s * 127.1) * 43758.5453; return x - Math.floor(x); }
@@ -19,7 +19,9 @@
     ctx.setTransform(D, 0, 0, D, 0, 0);
     HZ = H * 0.6;
     LX = W < 600 ? W * 0.2 : W * 0.15;
-    TT = HZ - H * 0.4;
+    /* масштаб як з берега: маяк ближче, але невисокий; судно далі, проте довше й вище за третину маяка */
+    TT = HZ - Math.min(H * 0.32, W * 0.36);
+    SL = Math.min((HZ - TT) * 2.2, W * 0.8, 560);
     MX = W * 0.82; MY = H * 0.15;
     stars = [];
     for (var i = 0; i < 110; i++) stars.push([rnd(i) * W, rnd(i + 9) * HZ * 0.75, rnd(i + 3) * 1.1 + 0.3, rnd(i + 5) * 6]);
@@ -132,6 +134,7 @@
     return g;
   }
   function tower(glow, t) {
+    var H = (HZ - TT) / 0.4; /* деталі башти масштабуються від її висоти */
     var bw = Math.max(13, H * 0.05), tw = bw * 0.8, foot = MT - H * 0.004, base = MT - H * 0.036, top = TT, i, y, w, k;
     /* цоколь: два кола один на одному */
     var p1 = bw * 2.3, p2 = bw * 1.6;
@@ -365,11 +368,11 @@
   /* сухогруз (балкер) іде далі по морю, зі зсувом на пів кола від контейнеровоза:
      чорний корпус, 5 трюмів із кришками, 4 палубні крани, біла надбудова на кормі */
   function bulker(t, beamA) {
-    var L0 = Math.min(W * 0.38, 540), span0 = W + L0 * 1.4;
-    var L = Math.min(W * 0.3, 420), hh = L * 0.06, span = W + L * 1.4;
+    var L0 = SL, span0 = W + L0 * 1.4;
+    var L = SL * 0.72, hh = L * 0.06, span = W + L * 1.4;
     var ph = ((span0 * 0.38 + (still ? 0 : t * W * 0.000016)) / span0 + 0.5) % 1;
     var sx = W + L * 0.2 - ph * span;
-    var wl = HZ + H * 0.018 + Math.sin(t * 0.0013 + 2) * 0.8;
+    var wl = HZ + H * 0.004 + Math.sin(t * 0.0013 + 2) * 0.8;
     if (sx > W + 4 || sx + L < -4) return { x: sx + L * 0.5, w: L, y: wl, lit: 0, bridge: sx + L * 0.88, off: true };
     var lit = Math.exp(-Math.pow(wrap(beamA - az(sx + L * 0.5, wl - hh * 2)), 2) / 0.02);
     if (!(lit >= 0)) lit = 0;
@@ -457,10 +460,11 @@
 
   /* контейнеровоз іде справа наліво; ніс ліворуч (x=0), корма праворуч (x=L) */
   function ship(t, beamA) {
-    var L = Math.min(W * 0.38, 540), hh = L * 0.055, span = W + L * 1.4;
+    var L = SL, hh = L * 0.055, span = W + L * 1.4;
     var sx = W + L * 0.2 - ((span * 0.38 + (still ? 0 : t * W * 0.000016)) % span);
-    var wl = HZ + H * 0.045 + Math.sin(t * 0.0011) * 1.2;
+    var wl = HZ + H * 0.012 + Math.sin(t * 0.0011) * 1.2;
     var lit = Math.exp(-Math.pow(wrap(beamA - az(sx + L * 0.5, wl - hh * 2)), 2) / 0.02);
+    if (!(lit >= 0)) lit = 0;
     var i, j, x;
     /* відображення корпусу у воді */
     ctx.fillStyle = 'rgba(4,6,9,.45)';
@@ -632,12 +636,13 @@
     var bk = bulker(t, A);
     if (!bk.off) trail(bk.bridge, bk.w * 0.05, 0.16, t, '255,214,140', bk.y);
     if (bk.lit > 0.05) trail(bk.x, bk.w * 0.5, bk.lit * 0.15, t, '255,226,170', bk.y);
-    mole(t);
-    tower(Math.max(0, -Math.sin(A)), t);
-    trail(LX, H * 0.05, 0.3, t, '255,214,140', MB);
+    /* судно йде за молом і маяком: воно далі від берега */
     var sh = ship(t, A); onShip = Math.max(sh.lit, bk.lit) || 0;
     trail(sh.bridge, sh.w * 0.05, 0.22, t, '255,214,140', sh.y);
     if (sh.lit > 0.05) trail(sh.x, sh.w * 0.6, sh.lit * 0.2, t, '255,226,170', sh.y);
+    mole(t);
+    tower(Math.max(0, -Math.sin(A)), t);
+    trail(LX, H * 0.05, 0.3, t, '255,214,140', MB);
     var b = beam(A);
     if (b.s > 0.1 && Math.abs(b.c) > 0.15) trail(LX + (b.ex - LX) * 0.55, H * 0.06, b.alpha * 0.3, t, '255,226,170');
     if (!still && run) requestAnimationFrame(frame);
