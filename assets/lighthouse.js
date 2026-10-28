@@ -118,102 +118,121 @@
     ctx.beginPath(); ctx.moveTo(0, MB + 1); ctx.lineTo(end + H * 0.03, MB + 1); ctx.stroke();
   }
 
-  /* Воронцовський маяк: білий циліндр на двоярусному цоколі, консолі під галереєю,
-     засклений ліхтар із ромбічними рамами й лінзою Френеля, купол із флюгаркою */
-  function tower(glow, t) {
-    var bw = Math.max(13, H * 0.05), tw = bw * 0.86, base = MT - H * 0.034, top = TT, i, y, w;
-    /* цоколь */
-    ctx.fillStyle = '#161c22'; ctx.fillRect(LX - bw * 1.25, MT - H * 0.014, bw * 2.5, H * 0.014);
-    ctx.fillStyle = '#26303a'; ctx.fillRect(LX - bw * 1.25, MT - H * 0.014, bw * 2.5, 1.2);
-    var pg = ctx.createLinearGradient(LX - bw * 0.8, 0, LX + bw * 0.8, 0);
-    pg.addColorStop(0, '#3f464d'); pg.addColorStop(0.4, '#b9c0c6'); pg.addColorStop(1, '#2c3238');
-    ctx.fillStyle = pg; ctx.fillRect(LX - bw * 0.78, base, bw * 1.56, MT - H * 0.014 - base);
-    ctx.fillStyle = '#1b2228'; ctx.fillRect(LX - bw * 0.82, base - 2, bw * 1.64, 2.5);
-    ctx.beginPath(); ctx.moveTo(LX - bw * 0.13, MT - H * 0.014); ctx.lineTo(LX - bw * 0.13, base + H * 0.007);
-    ctx.arc(LX, base + H * 0.007, bw * 0.13, Math.PI, 0); ctx.lineTo(LX + bw * 0.13, MT - H * 0.014); ctx.fill();
-    ctx.fillStyle = 'rgba(255,214,140,.8)'; ctx.fillRect(LX - 1, base + H * 0.004, 2, 2);
-    /* ствол */
-    var g = ctx.createLinearGradient(LX - bw / 2, 0, LX + bw / 2, 0);
-    g.addColorStop(0, '#4f565d'); g.addColorStop(0.28, '#dfe3e6'); g.addColorStop(0.42, '#f4f6f7'); g.addColorStop(0.65, '#c3c9ce'); g.addColorStop(1, '#353c43');
+  /* Воронцовський маяк: білий циліндр на круглому двоярусному цоколі, розширення-консоль під
+     круглою галереєю, циліндричний ліхтар із вертикальним переплетом, купол-півсфера з флюгаркою.
+     Усе кругле малюємо з еліпсами, щоб читався об'єм. */
+  function cyl(x, yTop, yBot, w, g) {
+    var e = w * 0.12;
     ctx.fillStyle = g;
-    ctx.beginPath(); ctx.moveTo(LX - bw / 2, base - 2); ctx.lineTo(LX - tw / 2, top); ctx.lineTo(LX + tw / 2, top); ctx.lineTo(LX + bw / 2, base - 2); ctx.fill();
-    ctx.strokeStyle = 'rgba(60,70,80,.18)'; ctx.lineWidth = 0.8;
-    for (i = 1; i < 12; i++) {
-      y = base - (base - top) * i / 12; w = bw - (bw - tw) * i / 12;
-      ctx.beginPath(); ctx.moveTo(LX - w / 2, y); ctx.lineTo(LX + w / 2, y); ctx.stroke();
-    }
-    ctx.strokeStyle = 'rgba(255,255,255,.25)';
-    ctx.beginPath(); ctx.moveTo(LX - bw * 0.16, base - 2); ctx.lineTo(LX - tw * 0.16, top); ctx.stroke();
-    /* місячний контровий світ праворуч, тінь під галереєю, тепла підсвітка від ліхтаря */
-    ctx.strokeStyle = 'rgba(190,210,235,.45)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(LX + bw / 2 - 0.8, base - 2); ctx.lineTo(LX + tw / 2 - 0.8, top); ctx.stroke();
-    var ao = ctx.createLinearGradient(0, top, 0, top + H * 0.05);
-    ao.addColorStop(0, 'rgba(10,14,20,.45)'); ao.addColorStop(1, 'rgba(10,14,20,0)');
-    ctx.fillStyle = ao; ctx.fillRect(LX - bw / 2, top, bw, H * 0.05);
-    var wg = ctx.createLinearGradient(0, top - H * 0.02, 0, top + H * 0.12);
-    wg.addColorStop(0, rgba('255,214,150', 0.12 + 0.18 * glow)); wg.addColorStop(1, 'rgba(255,214,150,0)');
-    ctx.fillStyle = wg; ctx.fillRect(LX - bw / 2, top, bw, H * 0.12);
-    /* шви кладки цоколя */
-    ctx.strokeStyle = 'rgba(20,26,32,.35)'; ctx.lineWidth = 0.6;
-    for (i = 1; i < 4; i++) {
-      y = base + (MT - H * 0.014 - base) * i / 4;
-      ctx.beginPath(); ctx.moveTo(LX - bw * 0.78, y); ctx.lineTo(LX + bw * 0.78, y); ctx.stroke();
-    }
-    /* вікна по спіралі сходів */
+    ctx.beginPath(); ctx.moveTo(x - w / 2, yTop); ctx.lineTo(x - w / 2, yBot); ctx.ellipse(x, yBot, w / 2, e, 0, Math.PI, 0, true); ctx.lineTo(x + w / 2, yTop); ctx.fill();
+  }
+  function shade(x, w, dark, mid, hi) {
+    var g = ctx.createLinearGradient(x - w / 2, 0, x + w / 2, 0);
+    g.addColorStop(0, dark); g.addColorStop(0.3, mid); g.addColorStop(0.45, hi); g.addColorStop(0.75, mid); g.addColorStop(1, dark);
+    return g;
+  }
+  function tower(glow, t) {
+    var bw = Math.max(13, H * 0.05), tw = bw * 0.8, foot = MT - H * 0.004, base = MT - H * 0.036, top = TT, i, y, w, k;
+    /* цоколь: два кола один на одному */
+    var p1 = bw * 2.3, p2 = bw * 1.6;
+    cyl(LX, MT - H * 0.016, foot, p1, shade(LX, p1, '#14191e', '#2e363e', '#4a535c'));
+    ctx.fillStyle = '#3a434c'; ctx.beginPath(); ctx.ellipse(LX, MT - H * 0.016, p1 / 2, p1 * 0.12, 0, 0, 6.2832); ctx.fill();
+    cyl(LX, base, MT - H * 0.016, p2, shade(LX, p2, '#3a4148', '#a9b1b8', '#d3d8dc'));
+    ctx.strokeStyle = 'rgba(30,36,42,.35)'; ctx.lineWidth = 0.6;
+    for (i = 1; i < 3; i++) { y = base + (MT - H * 0.016 - base) * i / 3; ctx.beginPath(); ctx.ellipse(LX, y, p2 / 2, p2 * 0.12, 0, 0, Math.PI); ctx.stroke(); }
+    ctx.fillStyle = '#c9cfd4'; ctx.beginPath(); ctx.ellipse(LX, base, p2 / 2, p2 * 0.12, 0, 0, 6.2832); ctx.fill();
+    /* двері з аркою */
+    var dw = bw * 0.24, dh = (MT - H * 0.016 - base) * 0.75, dy = MT - H * 0.016;
+    ctx.fillStyle = '#1b2228';
+    ctx.beginPath(); ctx.moveTo(LX - dw / 2, dy + p2 * 0.1); ctx.lineTo(LX - dw / 2, dy - dh + dw / 2); ctx.arc(LX, dy - dh + dw / 2, dw / 2, Math.PI, 0); ctx.lineTo(LX + dw / 2, dy + p2 * 0.1); ctx.fill();
+    ctx.fillStyle = 'rgba(255,214,140,.85)'; ctx.fillRect(LX - 0.8, dy - dh * 0.55, 1.6, 1.6);
+    /* ствол: м'яке звуження догори, циліндричне світлотіньове моделювання */
+    var g = shade(LX, bw, '#4b525a', '#d5dade', '#f6f8f9');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(LX - bw / 2, base);
+    ctx.bezierCurveTo(LX - bw / 2 + (bw - tw) * 0.15, base - (base - top) * 0.5, LX - tw / 2, top + (base - top) * 0.2, LX - tw / 2, top);
+    ctx.lineTo(LX + tw / 2, top);
+    ctx.bezierCurveTo(LX + tw / 2, top + (base - top) * 0.2, LX + bw / 2 - (bw - tw) * 0.15, base - (base - top) * 0.5, LX + bw / 2, base);
+    ctx.ellipse(LX, base, bw / 2, bw * 0.1, 0, 0, Math.PI);
+    ctx.fill();
+    function wAt(y) { var q = (base - y) / (base - top); return bw - (bw - tw) * (1 - Math.pow(1 - q, 1.6)); }
+    /* шви бетонних кілець — дугами, як на циліндрі */
+    ctx.strokeStyle = 'rgba(70,80,90,.16)'; ctx.lineWidth = 0.7;
+    for (i = 1; i < 14; i++) { y = base - (base - top) * i / 14; w = wAt(y); ctx.beginPath(); ctx.ellipse(LX, y, w / 2, w * 0.09, 0, 0.15, Math.PI - 0.15); ctx.stroke(); }
+    /* місячний контровий світ і тінь під галереєю */
+    ctx.strokeStyle = 'rgba(190,210,235,.4)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(LX + bw / 2 - 0.8, base); ctx.bezierCurveTo(LX + bw / 2 - 0.8 - (bw - tw) * 0.15, base - (base - top) * 0.5, LX + tw / 2 - 0.8, top + (base - top) * 0.2, LX + tw / 2 - 0.8, top); ctx.stroke();
+    var ao = ctx.createLinearGradient(0, top, 0, top + H * 0.06);
+    ao.addColorStop(0, 'rgba(10,14,20,.5)'); ao.addColorStop(1, 'rgba(10,14,20,0)');
+    ctx.fillStyle = ao; ctx.fillRect(LX - bw / 2, top, bw, H * 0.06);
+    var wg = ctx.createLinearGradient(0, top - H * 0.02, 0, top + H * 0.14);
+    wg.addColorStop(0, rgba('255,214,150', 0.1 + 0.2 * glow)); wg.addColorStop(1, 'rgba(255,214,150,0)');
+    ctx.fillStyle = wg; ctx.fillRect(LX - bw / 2, top, bw, H * 0.14);
+    /* вузькі вікна сходової клітки з арочним верхом, по спіралі */
     for (i = 0; i < 6; i++) {
-      y = base - (base - top) * (0.14 + i * 0.14); var ox = Math.sin(i * 1.9) * bw * 0.18;
-      ctx.fillStyle = '#20272e'; ctx.fillRect(LX + ox - 1.6, y, 3.2, H * 0.014);
-      ctx.fillStyle = rgba('255,214,140', 0.5 + 0.3 * (i % 2)); ctx.fillRect(LX + ox - 1, y + 1, 2, H * 0.014 - 2);
+      y = base - (base - top) * (0.12 + i * 0.14); w = wAt(y); var ang = i * 1.1 - 2.2, ox = Math.sin(ang) * w * 0.32, ww = 2.4 * Math.max(0.35, Math.cos(ang)), wh = H * 0.016;
+      ctx.fillStyle = '#20272e'; ctx.beginPath(); ctx.moveTo(LX + ox - ww / 2 - 0.6, y + wh); ctx.lineTo(LX + ox - ww / 2 - 0.6, y + ww / 2); ctx.arc(LX + ox, y + ww / 2, ww / 2 + 0.6, Math.PI, 0); ctx.lineTo(LX + ox + ww / 2 + 0.6, y + wh); ctx.fill();
+      ctx.fillStyle = rgba('255,214,140', 0.55 + 0.3 * (i % 2)); ctx.beginPath(); ctx.moveTo(LX + ox - ww / 2, y + wh - 0.6); ctx.lineTo(LX + ox - ww / 2, y + ww / 2 + 0.4); ctx.arc(LX + ox, y + ww / 2 + 0.4, ww / 2, Math.PI, 0); ctx.lineTo(LX + ox + ww / 2, y + wh - 0.6); ctx.fill();
     }
-    /* консолі й галерея */
-    ctx.fillStyle = '#cfd5da';
-    ctx.beginPath(); ctx.moveTo(LX - tw / 2, top + 3); ctx.lineTo(LX - tw * 0.92, top - 4); ctx.lineTo(LX + tw * 0.92, top - 4); ctx.lineTo(LX + tw / 2, top + 3); ctx.fill();
-    ctx.fillStyle = 'rgba(40,48,56,.5)';
-    for (i = 0; i < 9; i++) {
-      var bxp = LX - tw * 0.85 + tw * 1.7 * i / 8, bl = 4 + (1 - Math.abs(i - 4) / 4) * 3;
-      ctx.beginPath(); ctx.moveTo(bxp - 0.8, top - 4); ctx.quadraticCurveTo(bxp - 0.8, top - 4 + bl, bxp + 0.6, top - 4 + bl * 1.1); ctx.lineTo(bxp + 0.8, top - 4); ctx.fill();
+    /* консоль: плавне розширення до галереї */
+    var gw = tw * 1.9, gy = top - 5;
+    ctx.fillStyle = shade(LX, gw, '#59616a', '#cfd5da', '#eef1f3');
+    ctx.beginPath(); ctx.moveTo(LX - tw / 2, top + 4); ctx.quadraticCurveTo(LX - tw / 2, gy + 1, LX - gw / 2, gy); ctx.lineTo(LX + gw / 2, gy); ctx.quadraticCurveTo(LX + tw / 2, gy + 1, LX + tw / 2, top + 4); ctx.fill();
+    /* кругла галерея: плита, обідок, перила з перспективою */
+    ctx.fillStyle = '#20272e'; ctx.beginPath(); ctx.ellipse(LX, gy, gw / 2, gw * 0.13, 0, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = '#0f1419'; ctx.beginPath(); ctx.ellipse(LX, gy, gw / 2, gw * 0.13, 0, 0, Math.PI); ctx.lineTo(LX - gw / 2, gy - 2.2); ctx.ellipse(LX, gy - 2.2, gw / 2, gw * 0.13, 0, Math.PI, 0, true); ctx.fill();
+    var rh = H * 0.022, ry = gy - 2.2;
+    ctx.strokeStyle = '#11161b'; ctx.lineWidth = 1.1;
+    ctx.beginPath(); ctx.ellipse(LX, ry - rh, gw / 2 - 0.5, gw * 0.13, 0, 0, Math.PI); ctx.stroke();
+    ctx.lineWidth = 0.6; ctx.beginPath(); ctx.ellipse(LX, ry - rh * 0.5, gw / 2 - 0.5, gw * 0.13, 0, 0, Math.PI); ctx.stroke();
+    ctx.lineWidth = 0.9;
+    for (i = 0; i < 16; i++) {
+      k = (i + 0.5) / 16 * Math.PI * 2; var cx = LX + Math.cos(k) * (gw / 2 - 0.5), cy = Math.sin(k) * gw * 0.13;
+      if (Math.sin(k) < 0) continue;
+      ctx.beginPath(); ctx.moveTo(cx, ry + cy); ctx.lineTo(cx, ry - rh + cy); ctx.stroke();
     }
-    ctx.fillStyle = '#11161b'; ctx.fillRect(LX - tw * 0.98, top - 6.5, tw * 1.96, 2.8);
-    var rh = H * 0.02;
-    ctx.fillRect(LX - tw * 0.98, top - 6.5 - rh, tw * 1.96, 1.3);
-    ctx.fillRect(LX - tw * 0.98, top - 6.5 - rh * 0.5, tw * 1.96, 0.7);
-    for (i = 0; i <= 8; i++) ctx.fillRect(LX - tw * 0.98 + tw * 1.96 * i / 8 - 0.5, top - 6.5 - rh, 1, rh);
-    /* ліхтарне приміщення */
-    var lh = H * 0.052, lw = tw * 0.8, ly = top - 6.5 - lh;
-    ctx.fillStyle = '#11161b'; ctx.fillRect(LX - lw * 0.56, ly + lh * 0.82, lw * 1.12, lh * 0.18);
-    var gl = ly, gh = lh * 0.82;
+    /* ліхтар: циліндр зі склом і вертикальним переплетом */
+    var lw = tw * 0.92, lh = H * 0.056, lb = ry - 1, gl = lb - lh;
+    cyl(LX, lb - lh * 0.16, lb + 1, lw * 1.08, shade(LX, lw * 1.08, '#0c1014', '#2a323a', '#3b444d'));
+    var gh = lh * 0.84;
+    ctx.save(); ctx.beginPath(); ctx.rect(LX - lw / 2, gl, lw, gh); ctx.clip();
     ctx.fillStyle = rgba('255,222,150', 0.55 + 0.4 * glow); ctx.fillRect(LX - lw / 2, gl, lw, gh);
-    /* лінза Френеля: світле ядро з кільцями */
-    var lg = ctx.createRadialGradient(LX, gl + gh / 2, 0, LX, gl + gh / 2, lw * 0.55);
+    var lg = ctx.createRadialGradient(LX, gl + gh / 2, 0, LX, gl + gh / 2, lw * 0.6);
     lg.addColorStop(0, 'rgba(255,255,245,1)'); lg.addColorStop(0.5, rgba('255,240,200', 0.7 + 0.3 * glow)); lg.addColorStop(1, 'rgba(255,220,150,0)');
     ctx.fillStyle = lg; ctx.fillRect(LX - lw / 2, gl, lw, gh);
+    /* кільця лінзи Френеля та обертова панель */
     ctx.fillStyle = 'rgba(160,120,60,.35)';
-    for (i = 1; i < 6; i++) ctx.fillRect(LX - lw * 0.28, gl + gh * i / 6, lw * 0.56, 0.6);
-    /* панель лінзи, що обертається разом із променем */
+    for (i = 1; i < 7; i++) ctx.fillRect(LX - lw * 0.26, gl + gh * i / 7, lw * 0.52, 0.6);
     var pc = Math.cos(A), px = LX + pc * lw * 0.32, pa = Math.max(0, -Math.sin(A));
     var pgr = ctx.createLinearGradient(px - lw * 0.2, 0, px + lw * 0.2, 0);
     pgr.addColorStop(0, 'rgba(255,255,255,0)'); pgr.addColorStop(0.5, rgba('255,255,250', 0.35 + 0.65 * pa)); pgr.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = pgr; ctx.fillRect(LX - lw / 2, gl, lw, gh);
-    ctx.strokeStyle = '#11161b'; ctx.lineWidth = 1;
-    ctx.save(); ctx.beginPath(); ctx.rect(LX - lw / 2, gl, lw, gh); ctx.clip();
-    for (i = -3; i <= 3; i++) {
-      ctx.beginPath(); ctx.moveTo(LX + i * lw * 0.3 - lw * 0.3, gl + gh); ctx.lineTo(LX + i * lw * 0.3 + lw * 0.3, gl); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(LX + i * lw * 0.3 + lw * 0.3, gl + gh); ctx.lineTo(LX + i * lw * 0.3 - lw * 0.3, gl); ctx.stroke();
+    /* переплет: вертикальні стійки, розставлені по колу, і косі тяги */
+    ctx.strokeStyle = '#11161b';
+    for (i = 0; i < 10; i++) {
+      k = (i + 0.5) / 10 * Math.PI; var mx = LX - Math.cos(k) * lw / 2;
+      ctx.lineWidth = 0.6 + Math.sin(k) * 0.8;
+      ctx.beginPath(); ctx.moveTo(mx, gl); ctx.lineTo(mx, gl + gh); ctx.stroke();
     }
+    ctx.lineWidth = 0.6;
+    ctx.beginPath(); ctx.ellipse(LX, gl + gh * 0.5, lw / 2, lw * 0.1, 0, 0, Math.PI); ctx.stroke();
     ctx.restore();
-    ctx.strokeRect(LX - lw / 2, gl, lw, gh);
-    /* відблиски на склі */
-    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(LX - lw * 0.42, gl + 1, 0.8, gh - 2);
-    /* купол, флюгарка, громовідвід */
-    ctx.fillStyle = '#11161b';
-    ctx.fillRect(LX - lw * 0.62, ly - 2.5, lw * 1.24, 2.8);
-    ctx.beginPath(); ctx.ellipse(LX, ly - 2.5, lw * 0.6, lh * 0.5, 0, Math.PI, 0); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,.18)';
-    ctx.beginPath(); ctx.ellipse(LX - lw * 0.18, ly - 2.5 - lh * 0.28, lw * 0.16, lh * 0.08, -0.4, 0, 6.2832); ctx.fill();
-    ctx.fillStyle = '#11161b';
-    ctx.beginPath(); ctx.arc(LX, ly - 2.5 - lh * 0.55, 2.6, 0, 6.2832); ctx.fill();
-    ctx.fillRect(LX - 0.5, ly - 2.5 - lh * 0.55 - H * 0.03, 1, H * 0.03);
-    ctx.fillRect(LX - 3, ly - 2.5 - lh * 0.55 - H * 0.022, 6, 0.8);
+    ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillRect(LX - lw * 0.36, gl + 1, 0.8, gh - 2);
+    /* купол-півсфера з вентиляційною кулею та громовідводом */
+    var dr = lw * 0.62, dy0 = gl;
+    ctx.fillStyle = '#0d1115'; ctx.beginPath(); ctx.ellipse(LX, dy0, dr, dr * 0.16, 0, 0, 6.2832); ctx.fill();
+    var dg = ctx.createRadialGradient(LX - dr * 0.35, dy0 - dr * 0.55, 0, LX, dy0 - dr * 0.2, dr * 1.1);
+    dg.addColorStop(0, '#5a646e'); dg.addColorStop(0.45, '#1c232a'); dg.addColorStop(1, '#080b0e');
+    ctx.fillStyle = dg; ctx.beginPath(); ctx.ellipse(LX, dy0, dr * 0.92, dr * 0.85, 0, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = rgba('255,214,150', 0.15 + 0.25 * glow); ctx.beginPath(); ctx.ellipse(LX, dy0, dr * 0.92, dr * 0.12, 0, Math.PI, 0); ctx.fill();
+    var vb = dy0 - dr * 0.85;
+    var vg = ctx.createRadialGradient(LX - 1, vb - 3, 0, LX, vb - 2.4, 3.2);
+    vg.addColorStop(0, '#6a747e'); vg.addColorStop(1, '#0b0f13');
+    ctx.fillStyle = vg; ctx.beginPath(); ctx.arc(LX, vb - 2.4, 2.8, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = '#0b0f13';
+    ctx.fillRect(LX - 0.5, vb - 2.4 - H * 0.03, 1, H * 0.03);
+    ctx.fillRect(LX - 3, vb - 2.4 - H * 0.022, 6, 0.8);
     LY = gl + gh / 2;
   }
 
@@ -248,6 +267,101 @@
 
   var BOXES = ['#9a5530', '#2f5576', '#9a7024', '#5f666e', '#7a332c', '#3b6650', '#b07430', '#2b4260', '#c9c3b5', '#8e2f2a', '#3d6f8a'];
 
+  /* обрис корпусу: бульб, похилий розвалистий форштевень, бак із сідловатістю, палуба, ют, кругла корма.
+     fc, dk, pp — висоти баку, палуби та юту в частках hh; ppx — де починається ют */
+  function hullPath(L, hh, fc, dk, pp, ppx) {
+    ctx.beginPath();
+    ctx.moveTo(L * 0.08, hh * 0.06);
+    ctx.bezierCurveTo(L * 0.03, hh * 0.1, -L * 0.006, hh * 0.02, -L * 0.002, -hh * 0.2);
+    ctx.bezierCurveTo(L * 0.001, -hh * 0.4, L * 0.014, -hh * 0.46, L * 0.02, -hh * 0.52);
+    ctx.bezierCurveTo(L * 0.012, -hh * 0.8, -L * 0.006, -hh * fc * 0.85, -L * 0.02, -hh * fc);
+    ctx.quadraticCurveTo(L * 0.05, -hh * (fc - 0.05), L * 0.098, -hh * (fc - 0.07));
+    ctx.quadraticCurveTo(L * 0.112, -hh * (fc - 0.08), L * 0.116, -hh * dk);
+    ctx.quadraticCurveTo(L * 0.5, -hh * (dk - 0.06), L * ppx, -hh * dk);
+    ctx.quadraticCurveTo(L * ppx + L * 0.008, -hh * dk, L * ppx + L * 0.012, -hh * pp);
+    ctx.lineTo(L * 0.97, -hh * (pp + 0.03));
+    ctx.bezierCurveTo(L * 1.008, -hh * (pp + 0.02), L * 1.012, -hh * 0.8, L * 0.988, -hh * 0.45);
+    ctx.bezierCurveTo(L * 0.975, -hh * 0.2, L * 0.955, -hh * 0.02, L * 0.92, hh * 0.06);
+    ctx.closePath();
+  }
+  /* фарбує корпус: темна основа, борт кольором, червона ватерлінія, тінь донизу, шви листів */
+  function paintHull(L, hh, fc, dk, pp, ppx, side, lit) {
+    ctx.fillStyle = '#0a0d10'; hullPath(L, hh, fc, dk, pp, ppx); ctx.fill();
+    ctx.save(); hullPath(L, hh, fc, dk, pp, ppx); ctx.clip();
+    ctx.globalAlpha = 0.16 + lit * 0.78; ctx.fillStyle = side; ctx.fillRect(-L * 0.05, -hh * 2, L * 1.1, hh * 2.2);
+    ctx.fillStyle = '#7a2a22'; ctx.fillRect(-L * 0.05, -hh * 0.3, L * 1.1, hh * 0.5);
+    ctx.globalAlpha = 1;
+    var sg = ctx.createLinearGradient(0, -hh * fc, 0, hh * 0.1);
+    sg.addColorStop(0, 'rgba(255,255,255,.1)'); sg.addColorStop(0.12, 'rgba(255,255,255,0)'); sg.addColorStop(0.7, 'rgba(0,0,0,.12)'); sg.addColorStop(1, 'rgba(0,0,0,.45)');
+    ctx.fillStyle = sg; ctx.fillRect(-L * 0.05, -hh * 2, L * 1.1, hh * 2.2);
+    var bg = ctx.createLinearGradient(-L * 0.02, 0, L * 0.12, 0);
+    bg.addColorStop(0, 'rgba(0,0,0,.35)'); bg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bg; ctx.fillRect(-L * 0.05, -hh * 2, L * 0.2, hh * 2.2);
+    ctx.strokeStyle = rgba('200,210,220', 0.06 + lit * 0.2); ctx.lineWidth = 0.6;
+    for (var i = 1; i < 22; i++) { var x = L * (0.03 + i * 0.044); ctx.beginPath(); ctx.moveTo(x, -hh * 1.6); ctx.lineTo(x, -hh * 0.32); ctx.stroke(); }
+    ctx.beginPath(); ctx.moveTo(0, -hh * 0.72); ctx.quadraticCurveTo(L * 0.5, -hh * 0.7, L, -hh * 0.72); ctx.stroke();
+    ctx.restore();
+    /* світла кромка палуби вздовж сідловатості */
+    ctx.strokeStyle = rgba('225,230,235', 0.18 + lit * 0.45); ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(L * 0.116, -hh * dk); ctx.quadraticCurveTo(L * 0.5, -hh * (dk - 0.06), L * ppx, -hh * dk); ctx.stroke();
+  }
+  /* надбудова: яруси з відступом, похилий фронт ходового містка, крила; фарба по кліпу */
+  function house(bx, bw, base, bh, n, col, lit, seed) {
+    var st = bw * 0.035, th = bh / n, k, top = base - bh;
+    function path() {
+      ctx.beginPath(); ctx.moveTo(bx, base);
+      for (k = 0; k < n - 1; k++) { ctx.lineTo(bx + st * k, base - th * (k + 1)); ctx.lineTo(bx + st * (k + 1), base - th * (k + 1)); }
+      ctx.lineTo(bx + st * (n - 1) - bw * 0.07, top);
+      ctx.lineTo(bx + bw + bw * 0.03, top); ctx.lineTo(bx + bw, top + th * 0.4); ctx.lineTo(bx + bw, base); ctx.closePath();
+    }
+    ctx.fillStyle = '#0a0d10'; path(); ctx.fill();
+    var wy = base - th * (n - 1);
+    ctx.fillRect(bx - bw * 0.36, wy - 1, bw * 1.72, th * 0.22);
+    ctx.save(); path(); ctx.clip();
+    ctx.globalAlpha = 0.16 + lit * 0.8; ctx.fillStyle = col; ctx.fillRect(bx - bw, top - 2, bw * 3, bh + 4); ctx.globalAlpha = 1;
+    var hg = ctx.createLinearGradient(bx, 0, bx + bw, 0);
+    hg.addColorStop(0, 'rgba(255,255,255,.08)'); hg.addColorStop(1, 'rgba(0,0,0,.28)');
+    ctx.fillStyle = hg; ctx.fillRect(bx - bw * 0.2, top, bw * 1.4, bh);
+    ctx.fillStyle = 'rgba(0,0,0,.35)';
+    for (k = 1; k < n; k++) ctx.fillRect(bx - bw * 0.2, base - th * k - 0.4, bw * 1.4, 0.7);
+    /* похиле скло містка */
+    ctx.fillStyle = '#0d1418';
+    ctx.beginPath(); ctx.moveTo(bx + st * (n - 1) - bw * 0.06, top + th * 0.18); ctx.lineTo(bx + bw, top + th * 0.18); ctx.lineTo(bx + bw, top + th * 0.62); ctx.lineTo(bx + st * (n - 1) - bw * 0.02, top + th * 0.62); ctx.fill();
+    ctx.fillStyle = 'rgba(255,214,140,.9)';
+    for (k = 0; k < 8; k++) { var xx = bx + st * (n - 1) + bw * (0.02 + k * 0.12); ctx.fillRect(xx, top + th * 0.24, bw * 0.085, th * 0.32); }
+    /* каюти: ілюмінатори по ярусах */
+    for (var j = 1; j < n; j++) for (k = 0; k < 4; k++) {
+      ctx.fillStyle = rnd(k * 5 + j * 11 + seed) > 0.42 ? 'rgba(255,214,140,.72)' : 'rgba(30,38,46,.9)';
+      ctx.fillRect(bx + st * (n - 1 - j) + bw * (0.12 + k * 0.21), base - th * (n - j) + th * 0.3, bw * 0.09, th * 0.36);
+    }
+    ctx.restore();
+    ctx.globalAlpha = 0.16 + lit * 0.8; ctx.fillStyle = col; ctx.fillRect(bx - bw * 0.36, wy - 1, bw * 1.72, th * 0.22); ctx.globalAlpha = 1;
+    return top;
+  }
+  /* труба: обтічна, з нахилом назад, кольорова смуга і кіптява по кліпу */
+  function funnel(fx, fw, deck, ft, lit, band, mark) {
+    function path() {
+      ctx.beginPath(); ctx.moveTo(fx, deck);
+      ctx.bezierCurveTo(fx + fw * 0.02, deck - (deck - ft) * 0.5, fx + fw * 0.08, ft + (deck - ft) * 0.15, fx + fw * 0.2, ft);
+      ctx.lineTo(fx + fw * 1.2, ft - fw * 0.12);
+      ctx.bezierCurveTo(fx + fw * 1.22, ft + (deck - ft) * 0.3, fx + fw * 1.1, deck - (deck - ft) * 0.2, fx + fw * 1.06, deck);
+      ctx.closePath();
+    }
+    ctx.fillStyle = '#0b0e12'; path(); ctx.fill();
+    ctx.save(); path(); ctx.clip();
+    ctx.globalAlpha = 0.2 + lit * 0.75;
+    ctx.fillStyle = band; ctx.fillRect(fx - 2, ft + (deck - ft) * 0.14, fw * 1.4, (deck - ft) * 0.5);
+    ctx.fillStyle = '#d9dde0'; ctx.fillRect(fx - 2, ft + (deck - ft) * 0.26, fw * 1.4, (deck - ft) * 0.16);
+    if (mark) { ctx.fillStyle = mark; ctx.beginPath(); ctx.arc(fx + fw * 0.62, ft + (deck - ft) * 0.34, fw * 0.2, 0, 6.2832); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    var fg = ctx.createLinearGradient(fx, 0, fx + fw * 1.2, 0);
+    fg.addColorStop(0, 'rgba(255,255,255,.1)'); fg.addColorStop(0.5, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(0,0,0,.4)');
+    ctx.fillStyle = fg; ctx.fillRect(fx - 2, ft - fw, fw * 1.6, deck - ft + fw);
+    ctx.fillStyle = '#05070a'; ctx.fillRect(fx - 2, ft - fw * 0.3, fw * 1.6, (deck - ft) * 0.1 + fw * 0.3);
+    ctx.restore();
+    ctx.fillStyle = '#05070a'; ctx.fillRect(fx + fw * 0.4, ft - fw * 0.22, 1.4, fw * 0.25); ctx.fillRect(fx + fw * 0.8, ft - fw * 0.26, 1.4, fw * 0.25);
+  }
+
   /* сухогруз (балкер) іде далі по морю, зі зсувом на пів кола від контейнеровоза:
      чорний корпус, 5 трюмів із кришками, 4 палубні крани, біла надбудова на кормі */
   function bulker(t, beamA) {
@@ -268,23 +382,15 @@
     ctx.beginPath(); ctx.ellipse(sx + L * 0.03, wl, L * 0.035, 1.5, 0, 0, 6.2832); ctx.fill();
     ctx.save(); ctx.translate(sx, wl); ctx.rotate(Math.sin(t * 0.0008 + 1) * 0.005);
     /* корпус */
-    ctx.fillStyle = '#0a0d10';
-    ctx.beginPath(); ctx.moveTo(L * 0.04, 0); ctx.quadraticCurveTo(-L * 0.005, -hh * 0.2, L * 0.012, -hh * 0.6);
-    ctx.lineTo(-L * 0.012, -hh * 1.45); ctx.lineTo(L * 0.1, -hh * 1.45); ctx.lineTo(L * 0.115, -hh * 1.15);
-    ctx.lineTo(L, -hh * 1.15); ctx.lineTo(L * 0.997, -hh * 0.45); ctx.lineTo(L * 0.96, 0); ctx.fill();
-    ctx.globalAlpha = 0.15 + lit * 0.75; ctx.fillStyle = '#23272d';
-    ctx.beginPath(); ctx.moveTo(L * 0.02, -hh * 0.32); ctx.lineTo(-L * 0.008, -hh * 1.43); ctx.lineTo(L * 0.1, -hh * 1.43); ctx.lineTo(L * 0.115, -hh * 1.13); ctx.lineTo(L * 0.995, -hh * 1.13); ctx.lineTo(L * 0.993, -hh * 0.32); ctx.fill();
-    ctx.fillStyle = '#6e2620';
-    ctx.beginPath(); ctx.moveTo(L * 0.035, -hh * 0.04); ctx.lineTo(L * 0.962, -hh * 0.04); ctx.lineTo(L * 0.99, -hh * 0.32); ctx.lineTo(L * 0.02, -hh * 0.32); ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = rgba('235,238,240', 0.25 + lit * 0.55);
-    ctx.fillRect(L * 0.115, -hh * 1.15, L * 0.885, 0.8);
+    paintHull(L, hh, 1.5, 1.15, 1.22, 0.83, '#23272d', lit);
     /* трюми з кришками і комінгсами */
     var hx0 = L * 0.14, hw = L * 0.105, gap = L * 0.03;
     for (i = 0; i < 5; i++) {
       x = hx0 + i * (hw + gap);
-      ctx.fillStyle = '#0a0d10'; ctx.fillRect(x, -hh * 1.6, hw, hh * 0.45);
-      ctx.globalAlpha = 0.18 + lit * 0.75; ctx.fillStyle = '#7c2f26'; ctx.fillRect(x, -hh * 1.6, hw, hh * 0.45);
+      /* кришка трюму з опуклим верхом */
+      ctx.beginPath(); ctx.moveTo(x, -hh * 1.15); ctx.lineTo(x, -hh * 1.5); ctx.quadraticCurveTo(x + hw * 0.5, -hh * 1.68, x + hw, -hh * 1.5); ctx.lineTo(x + hw, -hh * 1.15); ctx.closePath();
+      ctx.fillStyle = '#0a0d10'; ctx.fill();
+      ctx.globalAlpha = 0.18 + lit * 0.75; ctx.fillStyle = '#7c2f26'; ctx.fill();
       ctx.fillStyle = 'rgba(0,0,0,.35)';
       for (j = 1; j < 4; j++) ctx.fillRect(x + hw * j / 4, -hh * 1.6, 0.6, hh * 0.45);
       ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(x, -hh * 1.6, hw, 0.7);
@@ -309,25 +415,11 @@
     ctx.fillStyle = '#0a0d10';
     ctx.fillRect(L * 0.05, -hh * 3.0, 1.4, hh * 1.55); ctx.fillRect(L * 0.037, -hh * 2.5, L * 0.03, 1);
     /* надбудова і труба */
-    var bx = L * 0.84, bw = L * 0.1, bh = hh * 3.4, top = -hh * 1.15 - bh;
-    ctx.fillStyle = '#0a0d10'; ctx.fillRect(bx, top, bw, bh); ctx.fillRect(bx - bw * 0.25, top + bh * 0.05, bw * 1.45, hh * 0.18);
-    ctx.globalAlpha = 0.16 + lit * 0.8; ctx.fillStyle = '#e8ebed';
-    ctx.fillRect(bx, top, bw, bh); ctx.fillRect(bx - bw * 0.25, top + bh * 0.05, bw * 1.45, hh * 0.18);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = 'rgba(0,0,0,.3)';
-    for (i = 1; i < 5; i++) ctx.fillRect(bx, top + bh * (0.2 + i * 0.16), bw, 0.6);
-    ctx.fillStyle = '#0d1418'; ctx.fillRect(bx + bw * 0.05, top + bh * 0.1, bw * 0.9, hh * 0.22);
-    ctx.fillStyle = 'rgba(255,214,140,.9)';
-    for (i = 0; i < 6; i++) ctx.fillRect(bx + bw * (0.08 + i * 0.15), top + bh * 0.11, bw * 0.1, hh * 0.18);
-    for (j = 0; j < 4; j++) for (i = 0; i < 3; i++) {
-      ctx.fillStyle = rnd(i * 7 + j * 13 + 3) > 0.45 ? 'rgba(255,214,140,.65)' : 'rgba(30,38,46,.9)';
-      ctx.fillRect(bx + bw * (0.14 + i * 0.28), top + bh * (0.34 + j * 0.16), bw * 0.12, hh * 0.13);
-    }
-    ctx.fillStyle = '#0a0d10'; ctx.fillRect(bx + bw * 0.45, top - hh * 1.2, 1.3, hh * 1.2); ctx.fillRect(bx + bw * 0.2, top - hh * 0.75, bw * 0.55, 1);
-    var fx = bx + bw * 1.08, fw = L * 0.035, ft = top + bh * 0.2;
-    ctx.beginPath(); ctx.moveTo(fx, -hh * 1.15); ctx.lineTo(fx + fw * 0.1, ft); ctx.lineTo(fx + fw * 1.05, ft - 1.5); ctx.lineTo(fx + fw, -hh * 1.15); ctx.fill();
-    ctx.globalAlpha = 0.2 + lit * 0.75; ctx.fillStyle = '#2b4260'; ctx.fillRect(fx + fw * 0.12, ft + hh * 0.3, fw * 0.86, hh * 1.1);
-    ctx.fillStyle = '#d9dde0'; ctx.fillRect(fx + fw * 0.12, ft + hh * 0.6, fw * 0.86, hh * 0.4); ctx.globalAlpha = 1;
+    var bx = L * 0.845, bw = L * 0.1, bh = hh * 3.4;
+    var top = house(bx, bw, -hh * 1.2, bh, 5, '#e8ebed', lit, 3);
+    ctx.fillStyle = '#0a0d10'; ctx.fillRect(bx + bw * 0.5, top - hh * 1.2, 1.3, hh * 1.2); ctx.fillRect(bx + bw * 0.25, top - hh * 0.75, bw * 0.55, 1);
+    var fx = bx + bw * 1.06, fw = L * 0.034, ft = top + bh * 0.16;
+    funnel(fx, fw, -hh * 1.2, ft, lit, '#2b4260', null);
     if (!still) for (i = 0; i < 7; i++) {
       var age = (t * 0.0003 + i / 7) % 1;
       ctx.fillStyle = rgba('120,126,134', 0.18 * (1 - age));
@@ -337,8 +429,8 @@
       ctx.save(); ctx.globalAlpha = lit;
       ctx.fillStyle = 'rgba(240,242,244,.9)'; ctx.textBaseline = 'middle';
       ctx.font = '700 ' + (hh * 0.26).toFixed(1) + 'px Montserrat,Arial,sans-serif';
-      ctx.textAlign = 'left'; ctx.fillText('AVENOR', L * 0.055, -hh * 1.25);
-      ctx.textAlign = 'right'; ctx.fillText('ODESA', L * 0.97, -hh * 0.95);
+      ctx.textAlign = 'left'; ctx.fillText('AVENOR', L * 0.026, -hh * 1.22);
+      ctx.textAlign = 'center'; ctx.fillText('AVENOR', L * 0.93, -hh * 1.0); ctx.fillText('ODESA', L * 0.93, -hh * 0.76);
       ctx.fillStyle = 'rgba(235,238,240,.8)';
       for (i = 0; i < 4; i++) { ctx.fillRect(L * 0.03 + i * 0.3, -hh * (0.38 + i * 0.14), 2, 0.7); ctx.fillRect(L * 0.975, -hh * (0.38 + i * 0.14), 2, 0.7); }
       ctx.fillStyle = 'rgba(130,70,45,.5)';
@@ -391,26 +483,8 @@
     ctx.beginPath(); ctx.ellipse(sx + L * 0.09, wl + 1.5, L * 0.05, 1.2, 0, 0, 6.2832); ctx.fill();
     ctx.save();
     ctx.translate(sx, wl); ctx.rotate(Math.sin(t * 0.0009) * 0.004);
-    /* корпус: бак із ширстреком, прямий борт, транцева корма */
-    ctx.fillStyle = '#0b0e12';
-    ctx.beginPath();
-    ctx.moveTo(L * 0.035, 0);
-    ctx.quadraticCurveTo(-L * 0.006, -hh * 0.18, L * 0.012, -hh * 0.55);
-    ctx.lineTo(-L * 0.014, -hh * 1.35);
-    ctx.lineTo(L * 0.09, -hh * 1.35); ctx.lineTo(L * 0.11, -hh * 1.06);
-    ctx.lineTo(L * 0.84, -hh * 1.06); ctx.lineTo(L * 0.86, -hh * 1.14);
-    ctx.lineTo(L, -hh * 1.14); ctx.lineTo(L * 0.998, -hh * 0.4); ctx.lineTo(L * 0.965, 0);
-    ctx.fill();
-    var hullA = 0.18 + lit * 0.8;
-    ctx.globalAlpha = hullA; ctx.fillStyle = '#22364b';
-    ctx.beginPath(); ctx.moveTo(L * 0.02, -hh * 0.3); ctx.lineTo(-L * 0.01, -hh * 1.33); ctx.lineTo(L * 0.09, -hh * 1.33); ctx.lineTo(L * 0.11, -hh * 1.04);
-    ctx.lineTo(L * 0.84, -hh * 1.04); ctx.lineTo(L * 0.86, -hh * 1.12); ctx.lineTo(L * 0.997, -hh * 1.12); ctx.lineTo(L * 0.995, -hh * 0.3); ctx.fill();
-    ctx.fillStyle = '#7a2a22';
-    ctx.beginPath(); ctx.moveTo(L * 0.03, -hh * 0.04); ctx.lineTo(L * 0.968, -hh * 0.04); ctx.lineTo(L * 0.99, -hh * 0.3); ctx.lineTo(L * 0.018, -hh * 0.3); ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.strokeStyle = rgba('200,210,220', 0.08 + lit * 0.25); ctx.lineWidth = 0.6;
-    for (i = 1; i < 22; i++) { x = L * (0.04 + i * 0.043); ctx.beginPath(); ctx.moveTo(x, -hh * 1.04); ctx.lineTo(x, -hh * 0.32); ctx.stroke(); }
-    ctx.beginPath(); ctx.moveTo(L * 0.11, -hh * 0.72); ctx.lineTo(L * 0.99, -hh * 0.72); ctx.stroke();
+    /* корпус: бульб, розвалистий форштевень, бак, сідловата палуба, ют, крейсерська корма */
+    paintHull(L, hh, 1.38, 1.06, 1.14, 0.84, '#22364b', lit);
     /* марки осадки, якір, клюз */
     ctx.fillStyle = rgba('235,238,240', 0.3 + lit * 0.6);
     for (i = 0; i < 4; i++) ctx.fillRect(L * 0.028 + i * 0.4, -hh * (0.36 + i * 0.13), 2.2, 0.8);
@@ -459,23 +533,9 @@
         ctx.globalAlpha = 1;
       }
     }
-    /* надбудова на 6 палуб, ходовий місток із крилами, радарна щогла */
-    var bx = L * 0.775, bw = L * 0.078, bh = hh * 3.9, top = -hh * 1.14 - bh;
-    ctx.fillStyle = '#0b0e12';
-    ctx.fillRect(bx, top, bw, bh);
-    ctx.fillRect(bx - bw * 0.32, top + bh * 0.05, bw * 1.64, hh * 0.2);
-    ctx.globalAlpha = 0.16 + lit * 0.8; ctx.fillStyle = '#e4e8eb';
-    ctx.fillRect(bx, top, bw, bh); ctx.fillRect(bx - bw * 0.32, top + bh * 0.05, bw * 1.64, hh * 0.2);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = 'rgba(0,0,0,.35)';
-    for (i = 1; i < 6; i++) ctx.fillRect(bx, top + bh * (0.17 + i * 0.14), bw, 0.7);
-    ctx.fillStyle = '#0d1418'; ctx.fillRect(bx + bw * 0.04, top + bh * 0.1, bw * 0.92, hh * 0.24);
-    ctx.fillStyle = 'rgba(255,214,140,.95)';
-    for (i = 0; i < 7; i++) ctx.fillRect(bx + bw * (0.06 + i * 0.13), top + bh * 0.105, bw * 0.1, hh * 0.2);
-    for (j = 0; j < 5; j++) for (i = 0; i < 4; i++) {
-      ctx.fillStyle = rnd(i * 5 + j * 11) > 0.4 ? 'rgba(255,214,140,.7)' : 'rgba(30,38,46,.9)';
-      ctx.fillRect(bx + bw * (0.1 + i * 0.22), top + bh * (0.3 + j * 0.14), bw * 0.09, hh * 0.14);
-    }
+    /* надбудова на 6 палуб із відступами, похилий місток із крилами, радарна щогла */
+    var bx = L * 0.775, bw = L * 0.078, bh = hh * 3.9;
+    var top = house(bx, bw, -hh * 1.14, bh, 6, '#e4e8eb', lit, 0);
     ctx.fillStyle = '#0b0e12';
     ctx.fillRect(bx + bw * 0.42, top - hh * 1.4, 1.6, hh * 1.4);
     ctx.fillRect(bx + bw * 0.15, top - hh * 0.8, bw * 0.6, 1.2);
@@ -492,15 +552,8 @@
     ctx.restore();
     ctx.fillStyle = '#0b0e12'; ctx.fillRect(L * 0.935, -hh * 1.75, 1.2, hh * 0.63); ctx.fillRect(L * 0.99, -hh * 1.35, 1.2, hh * 0.23);
     /* труба з кольоровою смугою й кіптявою */
-    var fx = bx + bw * 1.25, fw = L * 0.038, ft = top + bh * 0.18;
-    ctx.fillStyle = '#0b0e12';
-    ctx.beginPath(); ctx.moveTo(fx, -hh * 1.14); ctx.lineTo(fx + fw * 0.12, ft); ctx.lineTo(fx + fw * 1.08, ft - 2); ctx.lineTo(fx + fw, -hh * 1.14); ctx.fill();
-    ctx.globalAlpha = 0.2 + lit * 0.75;
-    ctx.fillStyle = '#2b4260'; ctx.fillRect(fx + fw * 0.14, ft + hh * 0.35, fw * 0.88, hh * 1.5);
-    ctx.fillStyle = '#d9dde0'; ctx.fillRect(fx + fw * 0.14, ft + hh * 0.72, fw * 0.88, hh * 0.5);
-    ctx.fillStyle = '#e0b43a'; ctx.beginPath(); ctx.arc(fx + fw * 0.58, ft + hh * 0.97, hh * 0.15, 0, 6.2832); ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = '#05070a'; ctx.fillRect(fx + fw * 0.12, ft - 1, fw * 0.96, hh * 0.35);
+    var fx = bx + bw * 1.22, fw = L * 0.036, ft = top + bh * 0.16;
+    funnel(fx, fw, -hh * 1.14, ft, lit, '#2b4260', '#e0b43a');
     /* дим із труби, зноситься назад */
     if (!still) for (i = 0; i < 9; i++) {
       var age = (t * 0.00035 + i / 9) % 1, px = fx + fw * 0.6 + age * L * 0.22, py = ft - 2 - age * hh * 3.2 - Math.sin(age * 6 + i) * 2;
@@ -523,8 +576,8 @@
       ctx.font = '700 ' + (hh * 0.46).toFixed(1) + 'px Montserrat,Arial,sans-serif';
       ctx.textAlign = 'center'; ctx.fillText('A V E N O R   T R A D E', L * 0.46, -hh * 0.7);
       ctx.font = '700 ' + (hh * 0.22).toFixed(1) + 'px Montserrat,Arial,sans-serif';
-      ctx.textAlign = 'left'; ctx.fillText('AVENOR', L * 0.06, -hh * 1.2);
-      ctx.textAlign = 'right'; ctx.fillText('ODESA', L * 0.965, -hh * 0.92);
+      ctx.textAlign = 'left'; ctx.fillText('AVENOR', L * 0.028, -hh * 1.12);
+      ctx.textAlign = 'center'; ctx.fillText('AVENOR', L * 0.93, -hh * 0.98); ctx.fillText('ODESA', L * 0.93, -hh * 0.74);
       /* іржаві патьоки з клюза і шпигатів */
       ctx.fillStyle = 'rgba(130,70,45,.5)';
       ctx.fillRect(L * 0.043, -hh * 1.0, 0.8, hh * 0.5);
