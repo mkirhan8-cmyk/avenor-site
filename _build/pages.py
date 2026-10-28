@@ -26,6 +26,7 @@ PATHS = {
     "faq": ("/faq.html", "/en/faq.html", "/tr/sss.html"),
     "contacts": ("/kontakty.html", "/en/contacts.html", "/tr/iletisim.html"),
     "privacy": ("/privacy.html", "/en/privacy.html", "/tr/gizlilik.html"),
+    "sell": ("/prodaty.html", "/en/sell.html", "/tr/satis.html"),
 }
 # old EN addresses with Ukrainian slugs -> English page
 EN_ALIASES = {
@@ -39,19 +40,19 @@ T = {
     "uk": {
         "home": "Головна", "request": "Запросити ціну", "menu": "Меню", "skip": "До змісту",
         "nav": {"products": "Продукція", "meal": "Соняшниковий шрот", "routes": "Маршрути", "quality": "Якість",
-                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти", "privacy": "Конфіденційність"},
+                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти", "privacy": "Конфіденційність", "sell": "Продати нам"},
         "more": "Детальніше",
     },
     "en": {
         "home": "Home", "request": "Request a quote", "menu": "Menu", "skip": "Skip to content",
         "nav": {"products": "Products", "meal": "Sunflower meal", "routes": "Routes", "quality": "Quality",
-                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy"},
+                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy", "sell": "Sell to us"},
         "more": "Learn more",
     },
     "tr": {
         "home": "Ana sayfa", "request": "Fiyat isteyin", "menu": "Menü", "skip": "İçeriğe geç",
         "nav": {"products": "Ürünler", "meal": "Ayçiçeği küspesi", "routes": "Rotalar", "quality": "Kalite",
-                "order": "Nasıl sipariş verilir", "about": "Hakkımızda", "faq": "SSS", "contacts": "İletişim", "privacy": "Gizlilik"},
+                "order": "Nasıl sipariş verilir", "about": "Hakkımızda", "faq": "SSS", "contacts": "İletişim", "privacy": "Gizlilik", "sell": "Bize satın"},
         "more": "Daha fazla",
     },
 }
@@ -210,8 +211,8 @@ def page(lang, key, p):
         body = "".join(render_block(b, lang) for b in s["blocks"])
         secs.append(f'<section class="pg {cls}"' + (f' id="{s["id"]}"' if s.get("id") else "") +
                     f'><div class="wrap">{eyebrow}{h2}{lead}{body}</div></section>')
-    acts = (f'<div class="acts"><a class="btn" href="#request">{t["request"]}</a>'
-            f'<a class="btn btn-ghost" href="{WA}" rel="noopener">WhatsApp</a></div>')
+    acts = (f'<div class="acts"><a class="btn" href="#request">{p.get("cta", t["request"])}</a>'
+            f'<a class="btn btn-ghost" href="{WA}{p.get("wa", "")}" rel="noopener">WhatsApp</a></div>')
     tags = "".join(f"<span>{x}</span>" for x in p.get("tags", []))
     tags = f'<div class="dirs">{tags}</div>' if tags else ""
     img = p["img"]
