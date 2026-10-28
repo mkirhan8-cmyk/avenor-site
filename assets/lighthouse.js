@@ -6,7 +6,7 @@
   var ctx = cv.getContext('2d');
   var still = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
   var W, H, D, HZ, LX, LY, TT, MX, MY, stars = [], clouds, gulls = [], run = true, t0 = performance.now(), last = t0;
-  var A = -1.2, aim = null, aimUntil = 0, flash = 0;
+  var A = -1.2, aim = null, aimUntil = 0, flash = 0, onShip = 0;
 
   function rnd(s) { var x = Math.sin(s * 127.1) * 43758.5453; return x - Math.floor(x); }
   function rgba(c, a) { return 'rgba(' + c + ',' + Math.max(0, Math.min(1, a)).toFixed(3) + ')'; }
@@ -48,10 +48,10 @@
 
   function sky(t) {
     var g = ctx.createLinearGradient(0, 0, 0, HZ);
-    g.addColorStop(0, '#070b13'); g.addColorStop(0.5, '#122033'); g.addColorStop(0.85, '#3a3c45'); g.addColorStop(1, '#6b5244');
+    g.addColorStop(0, '#080d18'); g.addColorStop(0.42, '#1a2640'); g.addColorStop(0.7, '#4a4258'); g.addColorStop(0.88, '#a8664c'); g.addColorStop(1, '#e09a62');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, HZ);
     var h = ctx.createRadialGradient(W * 0.62, HZ, 0, W * 0.62, HZ, W * 0.55);
-    h.addColorStop(0, 'rgba(226,150,80,.35)'); h.addColorStop(1, 'rgba(226,150,80,0)');
+    h.addColorStop(0, 'rgba(240,160,90,.45)'); h.addColorStop(1, 'rgba(226,150,80,0)');
     ctx.fillStyle = h; ctx.fillRect(0, 0, W, HZ);
     for (var i = 0; i < stars.length; i++) {
       var s = stars[i], a = (0.3 + 0.35 * Math.sin(t * 0.0012 + s[3])) * (1 - s[1] / HZ);
@@ -70,7 +70,7 @@
   /* море: ряди хвиль у перспективі, ближче — вищі й світліші */
   function sea(t) {
     var g = ctx.createLinearGradient(0, HZ, 0, H);
-    g.addColorStop(0, '#3a3434'); g.addColorStop(0.08, '#18202a'); g.addColorStop(0.5, '#0c1218'); g.addColorStop(1, '#04070a');
+    g.addColorStop(0, '#7a4e3c'); g.addColorStop(0.08, '#2a2630'); g.addColorStop(0.5, '#0c1218'); g.addColorStop(1, '#04070a');
     ctx.fillStyle = g; ctx.fillRect(0, HZ, W, H - HZ);
     var N = 34, step = Math.max(6, W / 90);
     ctx.lineCap = 'round';
@@ -144,6 +144,21 @@
     }
     ctx.strokeStyle = 'rgba(255,255,255,.25)';
     ctx.beginPath(); ctx.moveTo(LX - bw * 0.16, base - 2); ctx.lineTo(LX - tw * 0.16, top); ctx.stroke();
+    /* місячний контровий світ праворуч, тінь під галереєю, тепла підсвітка від ліхтаря */
+    ctx.strokeStyle = 'rgba(190,210,235,.45)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(LX + bw / 2 - 0.8, base - 2); ctx.lineTo(LX + tw / 2 - 0.8, top); ctx.stroke();
+    var ao = ctx.createLinearGradient(0, top, 0, top + H * 0.05);
+    ao.addColorStop(0, 'rgba(10,14,20,.45)'); ao.addColorStop(1, 'rgba(10,14,20,0)');
+    ctx.fillStyle = ao; ctx.fillRect(LX - bw / 2, top, bw, H * 0.05);
+    var wg = ctx.createLinearGradient(0, top - H * 0.02, 0, top + H * 0.12);
+    wg.addColorStop(0, rgba('255,214,150', 0.12 + 0.18 * glow)); wg.addColorStop(1, 'rgba(255,214,150,0)');
+    ctx.fillStyle = wg; ctx.fillRect(LX - bw / 2, top, bw, H * 0.12);
+    /* шви кладки цоколя */
+    ctx.strokeStyle = 'rgba(20,26,32,.35)'; ctx.lineWidth = 0.6;
+    for (i = 1; i < 4; i++) {
+      y = base + (MT - H * 0.014 - base) * i / 4;
+      ctx.beginPath(); ctx.moveTo(LX - bw * 0.78, y); ctx.lineTo(LX + bw * 0.78, y); ctx.stroke();
+    }
     /* вікна по спіралі сходів */
     for (i = 0; i < 6; i++) {
       y = base - (base - top) * (0.14 + i * 0.14); var ox = Math.sin(i * 1.9) * bw * 0.18;
@@ -154,7 +169,10 @@
     ctx.fillStyle = '#cfd5da';
     ctx.beginPath(); ctx.moveTo(LX - tw / 2, top + 3); ctx.lineTo(LX - tw * 0.92, top - 4); ctx.lineTo(LX + tw * 0.92, top - 4); ctx.lineTo(LX + tw / 2, top + 3); ctx.fill();
     ctx.fillStyle = 'rgba(40,48,56,.5)';
-    for (i = 0; i < 7; i++) { var bxp = LX - tw * 0.8 + tw * 1.6 * i / 6; ctx.fillRect(bxp - 0.5, top - 4, 1, 4 + (1 - Math.abs(i - 3) / 3) * 2); }
+    for (i = 0; i < 9; i++) {
+      var bxp = LX - tw * 0.85 + tw * 1.7 * i / 8, bl = 4 + (1 - Math.abs(i - 4) / 4) * 3;
+      ctx.beginPath(); ctx.moveTo(bxp - 0.8, top - 4); ctx.quadraticCurveTo(bxp - 0.8, top - 4 + bl, bxp + 0.6, top - 4 + bl * 1.1); ctx.lineTo(bxp + 0.8, top - 4); ctx.fill();
+    }
     ctx.fillStyle = '#11161b'; ctx.fillRect(LX - tw * 0.98, top - 6.5, tw * 1.96, 2.8);
     var rh = H * 0.02;
     ctx.fillRect(LX - tw * 0.98, top - 6.5 - rh, tw * 1.96, 1.3);
@@ -171,6 +189,11 @@
     ctx.fillStyle = lg; ctx.fillRect(LX - lw / 2, gl, lw, gh);
     ctx.fillStyle = 'rgba(160,120,60,.35)';
     for (i = 1; i < 6; i++) ctx.fillRect(LX - lw * 0.28, gl + gh * i / 6, lw * 0.56, 0.6);
+    /* панель лінзи, що обертається разом із променем */
+    var pc = Math.cos(A), px = LX + pc * lw * 0.32, pa = Math.max(0, -Math.sin(A));
+    var pgr = ctx.createLinearGradient(px - lw * 0.2, 0, px + lw * 0.2, 0);
+    pgr.addColorStop(0, 'rgba(255,255,255,0)'); pgr.addColorStop(0.5, rgba('255,255,250', 0.35 + 0.65 * pa)); pgr.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = pgr; ctx.fillRect(LX - lw / 2, gl, lw, gh);
     ctx.strokeStyle = '#11161b'; ctx.lineWidth = 1;
     ctx.save(); ctx.beginPath(); ctx.rect(LX - lw / 2, gl, lw, gh); ctx.clip();
     for (i = -3; i <= 3; i++) {
@@ -179,6 +202,8 @@
     }
     ctx.restore();
     ctx.strokeRect(LX - lw / 2, gl, lw, gh);
+    /* відблиски на склі */
+    ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(LX - lw * 0.42, gl + 1, 0.8, gh - 2);
     /* купол, флюгарка, громовідвід */
     ctx.fillStyle = '#11161b';
     ctx.fillRect(LX - lw * 0.62, ly - 2.5, lw * 1.24, 2.8);
@@ -228,7 +253,7 @@
     var L = Math.min(W * 0.38, 540), hh = L * 0.055, span = W + L * 1.4;
     var sx = W + L * 0.2 - ((span * 0.38 + (still ? 0 : t * W * 0.000016)) % span);
     var wl = HZ + H * 0.045 + Math.sin(t * 0.0011) * 1.2;
-    var lit = Math.exp(-Math.pow(wrap(beamA - az(sx + L * 0.5, wl - hh * 2)), 2) / 0.012);
+    var lit = Math.exp(-Math.pow(wrap(beamA - az(sx + L * 0.5, wl - hh * 2)), 2) / 0.02);
     var i, j, x;
     /* відображення корпусу у воді */
     ctx.fillStyle = 'rgba(4,6,9,.45)';
@@ -306,6 +331,16 @@
         for (var r = 1; r < 6; r++) ctx.fillRect(cx + (cw - 0.8) * r / 6, cy + 0.6, 0.45, ch - 2);
         ctx.fillStyle = 'rgba(255,255,255,.16)'; ctx.fillRect(cx, cy, cw - 0.8, 0.7);
         ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(cx, cy + ch - 1.4, cw - 0.8, 0.6);
+        if (lit > 0.05) {
+          /* під променем: кутові фітинги, замки дверей, логотипи ліній */
+          ctx.globalAlpha = lit;
+          ctx.fillStyle = 'rgba(0,0,0,.5)';
+          ctx.fillRect(cx, cy, 1.2, 1.2); ctx.fillRect(cx + cw - 2, cy, 1.2, 1.2);
+          ctx.fillRect(cx, cy + ch - 2, 1.2, 1.2); ctx.fillRect(cx + cw - 2, cy + ch - 2, 1.2, 1.2);
+          var rr = rnd(Math.round(cx * 3) + j * 17);
+          if (rr > 0.55) { ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.fillRect(cx + cw * 0.18, cy + ch * 0.38, cw * (0.3 + rr * 0.25), ch * 0.16); }
+          else if (rr < 0.2) { ctx.fillStyle = 'rgba(230,236,240,.45)'; ctx.fillRect(cx + cw * 0.72, cy + ch * 0.2, 0.6, ch * 0.6); ctx.fillRect(cx + cw * 0.82, cy + ch * 0.2, 0.6, ch * 0.6); }
+        }
         ctx.globalAlpha = 1;
       }
     }
@@ -366,6 +401,39 @@
     ctx.fillStyle = 'rgba(255,240,210,.6)'; ctx.fillRect(L * 0.995, -hh * 0.95, 2, 2);
     ctx.fillStyle = 'rgba(255,214,140,.5)';
     for (i = 0; i < 6; i++) ctx.fillRect(L * (0.15 + i * 0.12), -hh * 1.1, 1.6, 1.6);
+    if (lit > 0.05) {
+      ctx.save(); ctx.globalAlpha = lit;
+      /* назва на борту, порт приписки на кормі */
+      ctx.fillStyle = 'rgba(240,242,244,.92)'; ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + (hh * 0.46).toFixed(1) + 'px Montserrat,Arial,sans-serif';
+      ctx.textAlign = 'center'; ctx.fillText('A V E N O R   T R A D E', L * 0.46, -hh * 0.7);
+      ctx.font = '700 ' + (hh * 0.22).toFixed(1) + 'px Montserrat,Arial,sans-serif';
+      ctx.textAlign = 'left'; ctx.fillText('AVENOR', L * 0.06, -hh * 1.2);
+      ctx.textAlign = 'right'; ctx.fillText('ODESA', L * 0.965, -hh * 0.92);
+      /* іржаві патьоки з клюза і шпигатів */
+      ctx.fillStyle = 'rgba(130,70,45,.5)';
+      ctx.fillRect(L * 0.043, -hh * 1.0, 0.8, hh * 0.5);
+      for (i = 0; i < 9; i++) ctx.fillRect(L * (0.16 + i * 0.075), -hh * 1.0, 0.6, hh * (0.12 + rnd(i + 70) * 0.2));
+      /* леєри на палубах надбудови і люди на крилі містка */
+      ctx.strokeStyle = 'rgba(235,238,240,.55)'; ctx.lineWidth = 0.5;
+      for (j = 1; j < 6; j++) {
+        var dy = top + bh * (0.17 + j * 0.14) - 0.5;
+        ctx.beginPath(); ctx.moveTo(bx - 1.5, dy); ctx.lineTo(bx + bw + 1.5, dy); ctx.stroke();
+      }
+      ctx.fillStyle = '#0b0e12';
+      var py = top + bh * 0.05;
+      ctx.fillRect(bx - bw * 0.24, py - hh * 0.3, 1.4, hh * 0.3); ctx.beginPath(); ctx.arc(bx - bw * 0.24 + 0.7, py - hh * 0.36, 1, 0, 6.2832); ctx.fill();
+      ctx.fillRect(bx - bw * 0.12, py - hh * 0.28, 1.4, hh * 0.28); ctx.beginPath(); ctx.arc(bx - bw * 0.12 + 0.7, py - hh * 0.34, 1, 0, 6.2832); ctx.fill();
+      /* кнехти на баку */
+      for (i = 0; i < 3; i++) ctx.fillRect(L * (0.02 + i * 0.025), -hh * 1.45, 1.6, hh * 0.1);
+      ctx.restore();
+      /* теплий відблиск променя ковзає вздовж борту */
+      var hx = L * (0.5 - wrap(beamA - az(sx + L * 0.5, wl - hh * 2)) * 3);
+      var sg = ctx.createRadialGradient(hx, -hh * 2, 0, hx, -hh * 2, L * 0.4);
+      sg.addColorStop(0, rgba('255,228,180', 0.22 * lit)); sg.addColorStop(1, 'rgba(255,228,180,0)');
+      ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = sg; ctx.fillRect(hx - L * 0.4, -hh * 2 - L * 0.4, L * 0.8, L * 0.4 + hh * 2.2);
+      ctx.globalCompositeOperation = 'source-over';
+    }
     ctx.restore();
     return { x: sx + L * 0.5, w: L, y: wl, lit: lit, bridge: sx + bx + bw * 0.5 };
   }
@@ -384,7 +452,7 @@
     var t = still ? 4000 : now - t0, dt = Math.min(50, now - last); last = now;
     if (!still) {
       if (aim !== null && (aimUntil === 0 || now < aimUntil)) A += wrap(aim - A) * Math.min(1, dt * 0.006);
-      else { aim = null; A += dt * 0.0006; }
+      else { aim = null; A += dt * 0.00034 * (1 - 0.8 * onShip); }
       A = wrap(A);
       flash *= 0.94;
     } else A = 0.12;
@@ -395,7 +463,7 @@
     mole(t);
     tower(Math.max(0, -Math.sin(A)), t);
     trail(LX, H * 0.05, 0.3, t, '255,214,140', MB);
-    var sh = ship(t, A);
+    var sh = ship(t, A); onShip = sh.lit;
     trail(sh.bridge, sh.w * 0.05, 0.22, t, '255,214,140', sh.y);
     if (sh.lit > 0.05) trail(sh.x, sh.w * 0.6, sh.lit * 0.2, t, '255,226,170', sh.y);
     var b = beam(A);
