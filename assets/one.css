@@ -417,4 +417,4 @@ html.intro-on{overflow:hidden}
 .in-box{position:relative;z-index:1;text-shadow:0 2px 24px rgba(0,0,0,.6)}
 .in-r{margin-top:14px!important;min-height:1.5em;font-size:clamp(12px,1.6vw,14px);letter-spacing:.12em;color:var(--wheat)}
 @media (prefers-reduced-motion:reduce){.in-beam{animation:none}}
-@media (min-width:900px){.in-box{margin-left:22vw}}
+@media (min-width:900px){.intro{justify-content:flex-start}.in-box{margin-left:50vw;width:min(640px,48vw)}}
