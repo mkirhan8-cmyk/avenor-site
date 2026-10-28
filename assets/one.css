@@ -305,3 +305,52 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 @media (max-width:600px){.rm-t{font-size:20px}.rm-far{font-size:20px}}
 @media (prefers-reduced-motion:reduce){.rm-r.on .land,.rm-cargo .rm-halo{animation:none}}
 .grp .gdir{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink);font-size:14px;line-height:1.5}
+/* 28.10 trends: glass status, reveal, hover lift */
+.pill{display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;padding:8px 16px 8px 12px;font-size:13px;font-weight:600;letter-spacing:.06em;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%)}
+.pill i{position:relative;width:8px;height:8px;border-radius:50%;background:#4ade80}
+.pill i:after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #4ade80;opacity:0;animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.5);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.hstat{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);max-width:900px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:16px;-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);box-shadow:0 10px 40px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.14);overflow:hidden}
+.hstat li{padding:18px 22px;border-left:1px solid rgba(255,255,255,.12)}
+.hstat li:first-child{border-left:0}
+.hstat b{display:block;font-size:clamp(22px,2.4vw,32px);font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums;color:#fff}
+.hstat span{display:block;margin-top:6px;font-size:13px;line-height:1.35;color:rgba(230,234,238,.8)}
+@media (max-width:700px){.hstat{grid-template-columns:1fr 1fr}.hstat li{padding:14px 16px}.hstat li:nth-child(3){border-left:0}.hstat li:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}}
+.lh .glass{margin-left:auto;max-width:25em;padding:22px 26px;text-align:right;background:rgba(14,20,28,.32);border:1px solid rgba(255,255,255,.18);border-radius:18px;-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 10px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.lh .glass{display:flex;align-items:center;gap:22px;max-width:none;width:max-content;padding:16px 16px 16px 26px}.lh .glass p{max-width:15em;margin:0}.lh .glass .btn{flex:none}
+.lh .glass .btn{min-height:46px;padding:0 24px;font-size:12px;border-radius:999px}
+@media (max-width:600px){.lh{height:470px}.lh .glass{display:block;width:auto;padding:14px 16px;max-width:none;border-radius:14px}.lh .glass p{margin-bottom:10px;font-size:15px}.lh .glass .btn{min-height:40px;padding:0 18px;font-size:11px}}
+.card,.terms>div,.routes li{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+@media (hover:hover){.card:hover,.terms>div:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,13,16,.12)}}
+.js .rv{opacity:0;transform:translateY(22px) scale(.985);filter:blur(8px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s}
+.js .rv.in{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){.pill i:after{animation:none}.js .rv{opacity:1;transform:none;filter:none;transition:none}.card,.terms>div{transition:none}}
+/* 28.10 liquid glass */
+:root{--glass:rgba(255,255,255,.58);--glass-b:rgba(255,255,255,.75);--glass-d:rgba(255,255,255,.07);--glass-db:rgba(255,255,255,.16);--blur:blur(22px) saturate(180%)}
+.top{background:rgba(18,21,25,.62);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-bottom:1px solid rgba(255,255,255,.08)}
+.burger nav{background:rgba(18,21,25,.72);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-radius:18px}
+.btn{border-radius:999px;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(10,13,16,.18)}
+.btn-ghost{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.stk{border-radius:999px!important}
+.soft{position:relative;overflow:clip;background:radial-gradient(60% 50% at 8% 12%,rgba(217,164,65,.22),transparent 70%),radial-gradient(55% 55% at 92% 85%,rgba(61,111,138,.2),transparent 70%),radial-gradient(40% 40% at 70% 10%,rgba(59,102,80,.12),transparent 70%),#F2F3F5}
+.dark{background:radial-gradient(50% 45% at 85% 10%,rgba(217,164,65,.14),transparent 70%),radial-gradient(45% 50% at 5% 90%,rgba(61,111,138,.22),transparent 70%),var(--ink)}
+.terms{gap:16px;background:none;border:0}
+.terms>div,.soft .terms div{position:relative;background:var(--glass);border:1px solid var(--glass-b);border-radius:22px;-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:0 10px 36px rgba(20,24,28,.07),inset 0 1px 0 rgba(255,255,255,.9)}
+.dark .terms>div{background:var(--glass-d);border-color:var(--glass-db);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.card{position:relative;background:transparent;border:0;border-radius:24px;overflow:visible}
+.card img{border-radius:24px}
+.card div{position:relative;margin:-56px 10px 0;padding:20px 20px 24px;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.8);border-radius:18px;-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:0 12px 40px rgba(20,24,28,.1),inset 0 1px 0 #fff}
+.soft .card div{background:rgba(255,255,255,.62)}
+.dark .card div{background:rgba(30,36,42,.55);border-color:var(--glass-db);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.rmap{border-radius:24px}
+#rq{position:relative;padding:clamp(22px,3vw,36px);background:var(--glass);border:1px solid var(--glass-b);border-radius:28px;-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:0 20px 60px rgba(20,24,28,.1),inset 0 1px 0 #fff}
+.rq input:not([type=hidden]):not(.rq-hp),.rq select{background:rgba(255,255,255,.7);border-color:rgba(20,24,28,.16);border-radius:14px}
+#rq .more .rq{padding:0;background:none;border:0;box-shadow:none}
+/* блик, що йде за курсором (fx.js ставить --mx/--my) */
+.gl{position:relative}
+.gl:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.45),transparent 60%);mix-blend-mode:soft-light}
+.gl:hover:after{opacity:1}
+.hero>img{will-change:transform;transform-origin:50% 40%}
+@media (max-width:600px){.card div{margin:-44px 8px 0}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.card div,.terms>div,#rq{background:#fff}}
