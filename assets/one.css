@@ -1,3 +1,4 @@
+/* Montserrat © 2011 The Montserrat Project Authors, SIL Open Font License 1.1 */
 @font-face{font-family:Montserrat;src:url(m-var.woff2) format("woff2");font-weight:700 900;font-display:swap}
 @font-face{font-family:Montserrat;src:url(m.woff2) format("woff2");font-weight:400 600;font-display:swap}
 :root{--ink:#14181C;--ink2:#1F252A;--bg:#fff;--soft:#F4F5F6;--line:#E3E5E7;--mute:#5B6168;--mute-d:#BFC6CD;--wheat:#D9A441;--wheat-ink:#8A6520;--pad:clamp(20px,5vw,72px);--sec:clamp(72px,11vw,150px)}
@@ -253,3 +254,54 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .tbl.wide td:before{content:attr(data-l);display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--wheat-ink);margin-bottom:2px}
 }
 .top .wrap>a:first-child{flex:none}
+
+/* маяк (28.10) */
+.lh{position:relative;padding:0;height:clamp(300px,42vw,560px);background:#080c11;overflow:hidden}
+.lh canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.lh .wrap{position:relative;z-index:1;height:100%;display:flex;align-items:flex-end;padding-bottom:clamp(24px,4vw,48px)}
+.lh p{margin:0 0 0 auto;max-width:18em;text-align:right;color:#E6EAEE;font-size:clamp(16px,1.6vw,20px);font-weight:600;letter-spacing:-.01em}
+.lh+footer{border-top:0}
+@media (max-width:600px){.lh{height:300px}.lh p{max-width:14em;font-size:15px}}
+.tbl tbody th{white-space:normal}
+@media (max-width:700px){.tbl.narrow table{min-width:0}.tbl.narrow th,.tbl.narrow td{padding:12px 14px}}
+.news{list-style:none;margin:clamp(32px,5vw,56px) 0 0;padding:0;max-width:900px;border-top:1px solid var(--line)}
+.news li{display:grid;grid-template-columns:150px 1fr;gap:6px 24px;padding:20px 0;border-bottom:1px solid var(--line)}
+.news time{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--wheat-ink);padding-top:3px}
+.news p{margin:0;font-size:16px;color:var(--ink2)}
+.news a{color:var(--mute);font-size:14px;white-space:nowrap}
+@media (max-width:600px){.news li{grid-template-columns:1fr}.news a{white-space:normal}}
+
+/* інтерактивна схема маршрутів */
+.rm-wrap{margin-top:clamp(32px,5vw,56px)}
+.rm-wrap .rmap,.rm-wrap .routes{margin-top:0}
+.rm-wrap .routes{margin-top:24px}
+@media (min-width:900px){.rm-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:start}.rm-wrap .routes{margin-top:0}.rm-wrap .routes li{grid-template-columns:1fr;gap:6px;padding:20px 0}.rm-wrap .routes b{font-size:clamp(18px,1.7vw,24px)}.rm-wrap .rmap{position:sticky;top:96px}.rm-wrap .routes li.on{padding-left:16px}}
+.rmap{margin-top:clamp(32px,5vw,56px);border-radius:14px;background:#191e23;overflow:hidden}
+.rmap svg{display:block;width:100%;height:auto}
+.rm-sea{fill:#101820}
+.rm-land{fill:#232a31;stroke:rgba(190,210,230,.22);stroke-width:.8}
+.rm-ua{fill:rgba(217,164,65,.14);stroke:rgba(217,164,65,.45);stroke-width:1}
+.rm-r path{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s,stroke-width .3s}
+.rm-r .land{stroke-dasharray:2 7}
+.rm-r.on path{stroke:var(--wheat);stroke-width:4}
+.rm-r.on .land{stroke-dasharray:3 6;animation:rmflow 1.2s linear infinite}
+@keyframes rmflow{to{stroke-dashoffset:-18}}
+.rm-dot{fill:#E6EAEE}
+.rm-c{transition:opacity .3s}
+.rm-c.dim{opacity:0}
+.rm-n{fill:rgba(191,198,205,.6);font-style:italic}
+.rm-r .opt{stroke-dasharray:6 6}
+.rm-r.on .opt{stroke-dasharray:6 6;stroke-opacity:.6}
+.rm-t{fill:#BFC6CD;font:600 15px Montserrat,system-ui,sans-serif}
+.rm-far{fill:var(--wheat);font-size:16px}
+.rm-cargo circle{fill:var(--wheat)}
+.rm-cargo .rm-halo{fill:rgba(217,164,65,.25);animation:rmpulse 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes rmpulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+.routes.live li{cursor:pointer;transition:background .2s,padding .2s;border-radius:0}
+.routes.live li:hover b,.routes.live li.on b{color:var(--wheat)}
+.routes.live li.on{box-shadow:inset 3px 0 0 var(--wheat);padding-left:16px}
+.routes.live li:focus-visible{outline:2px solid var(--wheat);outline-offset:2px}
+@media (max-width:899px){.rm-wrap .rmap{position:sticky;top:72px;z-index:2;box-shadow:0 12px 24px rgba(10,13,16,.9)}.rm-wrap .rmap svg{max-height:44vh;margin:0 auto}}
+@media (max-width:600px){.rm-t{font-size:20px}.rm-far{font-size:20px}}
+@media (prefers-reduced-motion:reduce){.rm-r.on .land,.rm-cargo .rm-halo{animation:none}}
+.grp .gdir{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink);font-size:14px;line-height:1.5}
