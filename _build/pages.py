@@ -259,6 +259,7 @@ def page(lang, key, p):
 </main>
 {FOOTER[lang]}
 {STICKY[lang]}
+<script src="/assets/fx.js" defer></script>
 {'<script src="/assets/routemap.js" defer></script>' if 'class="rmap"' in "".join(secs) else ""}
 </body>
 </html>
