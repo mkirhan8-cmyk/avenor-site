@@ -229,7 +229,7 @@ def page(lang, key, p):
 <meta property="og:url" content="{url}">
 <meta property="og:title" content="{e(p["title"])}">
 <meta property="og:description" content="{e(p["desc"])}">
-<meta property="og:image" content="{SITE}/assets/{'og-general.jpg' if lang == 'uk' else 'og-general-en.jpg'}">
+<meta property="og:image" content="{SITE}/assets/og-{lang}.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
