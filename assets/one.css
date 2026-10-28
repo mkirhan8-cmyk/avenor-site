@@ -287,6 +287,11 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .rm-r.on .land{stroke-dasharray:3 6;animation:rmflow 1.2s linear infinite}
 @keyframes rmflow{to{stroke-dashoffset:-18}}
 .rm-dot{fill:#E6EAEE}
+.rm-c{transition:opacity .3s}
+.rm-c.dim{opacity:0}
+.rm-n{fill:rgba(191,198,205,.6);font-style:italic}
+.rm-r .opt{stroke-dasharray:6 6}
+.rm-r.on .opt{stroke-dasharray:6 6;stroke-opacity:.6}
 .rm-t{fill:#BFC6CD;font:600 15px Montserrat,system-ui,sans-serif}
 .rm-far{fill:var(--wheat);font-size:16px}
 .rm-cargo circle{fill:var(--wheat)}
@@ -299,3 +304,4 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 @media (max-width:899px){.rm-wrap .rmap{position:sticky;top:72px;z-index:2;box-shadow:0 12px 24px rgba(10,13,16,.9)}.rm-wrap .rmap svg{max-height:44vh;margin:0 auto}}
 @media (max-width:600px){.rm-t{font-size:20px}.rm-far{font-size:20px}}
 @media (prefers-reduced-motion:reduce){.rm-r.on .land,.rm-cargo .rm-halo{animation:none}}
+.grp .gdir{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink);font-size:14px;line-height:1.5}

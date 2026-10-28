@@ -20,8 +20,8 @@ FAQ_UK = {
     ],
     "delivery": [
         ("Який шлях швидший до Китаю?", "Через порти Румунії: орієнтовно 60–75 днів від складу до порту в Китаї (за графіками ліній). Для інших шляхів строк — у пропозиції."),
-        ("Чи можна з порту Одеси?", "Каботажем з дунайських портів і Одеси — возимо; контейнер з Одеси — за запитом. Основний контейнерний шлях зараз — через порти Румунії й Гданськ."),
-        ("Чи возите в ЄС і Туреччину?", "Туреччина: фурами й судами. ЄС: морем до Греції й портів ЄС, фурами — за запитом."),
+        ("Чи можна з порту Одеси?", "Зараз каботаж іде переважно з дунайських портів; з портів Одеси — за обстановкою на дату букінгу. Контейнери — через порти Румунії, Гданськ і Гдиню."),
+        ("Чи возите в ЄС і Туреччину?", "Туреччина: фурами й судами. ЄС: залізницею у вагонах (навалом або олія в цистернах), морем до портів ЄС, фурами — за запитом."),
         ("Чи можна в біг‑бегах?", "Так, фурами в Туреччину; в ЄС — за запитом."),
     ],
     "quality": [
@@ -43,8 +43,8 @@ FAQ_EN = {
     ],
     "delivery": [
         ("Which route to China is the fastest?", "Via Romanian ports: approx. 60–75 days from warehouse to a port in China (per carrier schedules). For other routes the time is given in the offer."),
-        ("Can you ship from the port of Odesa?", "We run coasters from the Danube ports and Odesa; a container from Odesa — on request. The main container route now is via Romanian ports and Gdańsk."),
-        ("Do you ship to the EU and Türkiye?", "Türkiye: by truck and by vessel. EU: by sea to Greece and EU ports; by truck — on request."),
+        ("Can you ship from the port of Odesa?", "Coasters now run mainly from the Danube ports; from Odesa ports, subject to the situation on the booking date. Containers go via Romanian ports, Gdańsk and Gdynia."),
+        ("Do you ship to the EU and Türkiye?", "Türkiye: by truck and by vessel. EU: by rail in wagons (bulk, or oil in tank cars), by sea to EU ports; by truck — on request."),
         ("Can you ship in big bags?", "Yes, by truck to Türkiye; to the EU on request."),
     ],
     "quality": [
@@ -60,16 +60,18 @@ FAQ_EN = {
 }
 
 ROUTES_UK = [
-    ("Дунайські порти, Одеса → Туреччина, Греція, Кіпр, Єгипет, порти ЄС", "Каботажне судно через Босфор · навалом, біг‑беги · за обстановкою на дату букінгу"),
-    ("Україна → порти Румунії → Азія і Близький Схід", "Фури до порту, далі контейнеровоз · 20' і 40' · до Китаю орієнтовно 60–75 днів"),
-    ("Західна Україна → Гданськ → Азія", "Залізницею до Гданська, далі контейнеровоз · 20' і 40'"),
-    ("Україна → Туреччина, Близький Схід, ЄС", "Фурами · біг‑беги · ЄС — за запитом"),
+    ("Дунайські порти → Туреччина, порти ЄС, Кіпр, Сирія, Єгипет", "Каботажне судно через Босфор · навалом, біг‑беги · порти Одеси — за обстановкою на дату букінгу"),
+    ("Україна → Констанца → Азія і Близький Схід", "Фури до порту, далі контейнеровоз · 20' і 40' · до Китаю орієнтовно 60–75 днів"),
+    ("Західна Україна → Гданськ, Гдиня → Азія", "Залізницею до портів Польщі, далі контейнеровоз · 20' і 40'"),
+    ("Західна Україна → залізницею по всьому ЄС", "Вагони: навалом у зерновозах, олія в цистернах"),
+    ("Україна → Туреччина, Сирія, Болгарія, Румунія", "Фурами · навалом, біг‑беги · із заходу України через Сірет, з півдня через Орлівку або Джурджулешти · Текірдаг, Бандирма, Мерсін, Браїла"),
 ]
 ROUTES_EN = [
-    ("Danube ports, Odesa → Türkiye, Greece, Cyprus, Egypt, EU ports", "Coaster via the Bosphorus · bulk, big bags · subject to the situation on the booking date"),
-    ("Ukraine → Romanian ports → Asia and Middle East", "Trucks to the port, then container ship · 20' and 40' · to China approx. 60–75 days"),
-    ("Western Ukraine → Gdańsk → Asia", "Rail to Gdańsk, then container ship · 20' and 40'"),
-    ("Ukraine → Türkiye, Middle East, EU", "Trucks · big bags · EU on request"),
+    ("Danube ports → Türkiye, EU ports, Cyprus, Syria, Egypt", "Coaster via the Bosphorus · bulk, big bags · Odesa ports subject to the situation on the booking date"),
+    ("Ukraine → Constanța → Asia and Middle East", "Trucks to the port, then container ship · 20' and 40' · to China approx. 60–75 days"),
+    ("Western Ukraine → Gdańsk, Gdynia → Asia", "Rail to Polish ports, then container ship · 20' and 40'"),
+    ("Western Ukraine → rail across the EU", "Wagons: bulk in hopper cars, oil in tank cars"),
+    ("Ukraine → Türkiye, Syria, Bulgaria, Romania", "Trucks · bulk, big bags · from western Ukraine via Siret, from the south via Orlivka or Giurgiulești · Tekirdağ, Bandırma, Mersin, Brăila"),
 ]
 
 NEWS_UK = [
@@ -100,18 +102,18 @@ UK = {
         "sections": [
             {"eyebrow": "Шість груп", "h2": "Товари, тара й базис", "blocks": [("groups", [
                 (1, "Шрот, макуха, корми", ["Соняшниковий шрот, розсипний і гранульований — [[meal|детальніше]]", "Соєвий шрот", "Ріпаковий шрот і макуха", "DDGS", "Кукурудзяний глютеновий корм", "Гранульований буряковий жом", "Гранульовані висівки", "Меляса"],
-                 "Навалом (судно, контейнер), біг‑беги, вагон · FCA, FOB, CFR, CPT, DAP"),
+                 "Навалом (судно, контейнер), біг‑беги, вагон · FCA, FOB, CFR, CPT, DAP", "Напрямки: Китай, країни ЄС, Туреччина, Єгипет, Сирія"),
                 (3, "Рослинні олії", ["Соняшникова: нерафінована, рафінована, високоолеїнова", "Соєва", "Ріпакова", "Соняшниковий лецитин"],
-                 "Наливом (танкер), флексітанк, автоцистерна · FCA, FOB, CFR, DAP"),
+                 "Наливом (танкер), флексітанк, автоцистерна, залізнична цистерна · FCA, FOB, CFR, DAP", "Напрямки: Іспанія, Італія, Нідерланди, Польща та інші країни ЄС, Індія, Ірак, Туреччина"),
                 (14, "Олійні та нішеві культури", ["Соняшник, зокрема високоолеїновий", "Соя", "Ріпак", "Льон", "Гірчиця", "Коріандр"],
-                 "Навалом (судно), біг‑беги, вагон, контейнер · FCA, FOB, CFR, CPT, DAP"),
+                 "Навалом (судно), біг‑беги, вагон, контейнер · FCA, FOB, CFR, CPT, DAP", "Напрямки: Туреччина, Німеччина, Нідерланди, Бельгія, Франція, Італія, Польща, Греція, Румунія, Чехія, Велика Британія, Швейцарія, Єгипет, Ліван"),
                 (9, "Зернові та продукти переробки", ["Пшениця продовольча і фуражна", "Кукурудза", "Ячмінь", "Овес", "Просо", "Сорго", "Солод", "Пшеничне борошно", "Кукурудзяна крупа"],
-                 "Навалом (судно), контейнер, вагон, біг‑беги · FCA, FOB, CFR, CPT, DAP"),
+                 "Навалом (судно), контейнер, вагон, біг‑беги · FCA, FOB, CFR, CPT, DAP", "Напрямки: Єгипет, Алжир, Індонезія, Лівія, Туреччина, Італія, Іспанія, Китай"),
                 (10, "Бобові", ["Жовтий і зелений горох", "Нут", "Сочевиця", "Квасоля", "Кінські боби"],
-                 "Контейнер, біг‑беги, навалом (судно) · FCA, FOB, CFR, CPT"),
+                 "Контейнер, біг‑беги, навалом (судно) · FCA, FOB, CFR, CPT", "Напрямки: Індія, Китай, Пакистан, Туреччина, країни ЄС"),
                 (12, "Цукор", ["Білий буряковий цукор"],
-                 "Мішки 50 кг або біг‑беги, контейнер, фура · FCA, FOB, CFR, DAP"),
-            ])]},
+                 "Мішки 50 кг або біг‑беги, контейнер, фура · FCA, FOB, CFR, DAP", "Напрямки: Ліван, Сирія, Туреччина, Лівія, ОАЕ, Болгарія, Північна Македонія, Боснія і Герцеговина"),
+            ]), ("note", "Напрямки — країни, куди Україна продавала ці товари в сезоні 2025/26 і в 2025 році. Це можливі ринки, а не перелік наших угод. Джерела: Agrodigest (Latifundist), УЗА (UkrAgroConsult), Укрцукор (AgroReview), Єврокомісія, APK‑Inform. Перевірено: 5 джерел, стан на 28.10.2026.")]},
             {"eyebrow": "Для всіх груп", "h2": "Умови", "blocks": [
                 ("terms", [("Базис", "**FCA · CPT · FOB · CFR · DAP** (Incoterms® 2020) — під кожен договір."),
                            ("Якість", "Показники, пакування й розмір партії — у договорі та специфікації. Як перевіряємо — [[quality|Якість]]."),
@@ -133,9 +135,9 @@ UK = {
                 ("p", "Для поставок у Китай перевіряємо реєстрацію заводу в GACC до підписання договору.")]},
             {"eyebrow": "Як возимо", "h2": "Три основні шляхи для шроту", "bg": "dark", "blocks": [
                 ("routes", [("Фури → порти Румунії → Азія, Близький Схід", "Контейнери 20' і 40'"),
-                            ("Західна Україна → залізниця → Гданськ → Азія", "Контейнери 20' і 40'"),
+                            ("Західна Україна → залізниця → Гданськ, Гдиня → Азія", "Контейнери 20' і 40'"),
                             ("Україна → Туреччина", "Біг‑беги в тентовій фурі, DAP")]),
-                ("note", "Також каботажем з дунайських портів і Одеси. Усі шляхи — [[routes|Маршрути]].")]},
+                ("note", "Також каботажем з дунайських портів; з Одеси — за обстановкою. Усі шляхи — [[routes|Маршрути]].")]},
             {"eyebrow": "Документи", "h2": "Що буде в пакеті", "blocks": [
                 ("p", "Незалежний сюрвеєр при завантаженні відбирає й пломбує проби, зразки зберігаються. Договори — на умовах GAFTA."),
                 ("ticks", DOCS_UK)]},
@@ -144,9 +146,9 @@ UK = {
     },
     "routes": {
         "title": "Маршрути й логістика: Гданськ, Румунія, Дунай, Туреччина | AVENOR TRADE",
-        "desc": "Чотири шляхи з України до вашого порту: залізниця через Гданськ, фури через порти Румунії, каботаж з Дунаю й Одеси, фури в Туреччину та ЄС. Ризики й як ми їх закриваємо.",
-        "img": 6, "h1": "Чотири шляхи з України до вашого порту",
-        "lead": "Залізниця через Гданськ, фури через порти Румунії, судна з дунайських портів і Одеси, фури в Туреччину. Ведемо вантаж від складу до порту розвантаження.",
+        "desc": "П’ять шляхів з України до вашого порту: залізниця до Гданська й Гдині та по всьому ЄС, фури до Констанци, каботаж з дунайських портів, фури в Туреччину, Болгарію й Сирію. Ризики й як ми їх закриваємо.",
+        "img": 6, "h1": "П’ять шляхів з України до вашого порту",
+        "lead": "Залізниця до портів Польщі й по всьому ЄС, фури до Констанци, судна з дунайських портів, фури в Туреччину, Болгарію й Сирію. Ведемо вантаж від складу до порту розвантаження.",
         "sections": [
             {"eyebrow": "Маршрути", "h2": "Закрився один маршрут — знаходимо інший.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_UK)]},
             {"eyebrow": "Що ми беремо на себе", "h2": "Один ланцюг від складу до порту", "blocks": [
@@ -159,7 +161,7 @@ UK = {
                 ("news", NEWS_UK, "Стан на 28.10.2026 · перевірено: 3 джерела. Оновлюємо щомісяця.")]},
             {"eyebrow": "Ризики", "h2": "Ризики і як ми їх закриваємо", "blocks": [
                 ("table", ["Ризик", "Що робимо"], [
-                    ("Удари по портах Великої Одеси й суднах у коридорі", "Контейнери зараз ведемо через порти Румунії й Гданськ, вони не залежать від портів Одеси. Каботаж з Одеси — лише за погодженням і з підтвердженим страхуванням на дату букінгу."),
+                    ("Удари по портах Великої Одеси й суднах у коридорі", "Контейнери зараз ведемо через порти Румунії, Гданськ і Гдиню, вони не залежать від портів Одеси. Каботаж з Одеси — лише за погодженням і з підтвердженим страхуванням на дату букінгу."),
                     ("Атаки на дунайські порти й мілководдя Дунаю", "Плануємо партії з запасом за строком; запасний шлях — фури або залізниця до Констанци, зокрема транзитом через Молдову."),
                     ("Воєнна страхова надбавка на все Чорне море, включно з Румунією", "Хто платить war risk, фіксуємо в договорі. Ставку підтверджуємо в пропозиції на дату букінгу, а не з минулих угод."),
                     ("Черги до Констанци й на кордонах", "Бронюємо вікна заздалегідь, стежимо за чергою щодня; при затримці пропонуємо інший пункт перетину."),
@@ -224,7 +226,7 @@ UK = {
                 ("p", "Купуємо напряму в господарств і на переробних заводах України та регіону. Самі будуємо логістику: фури, вагони, контейнери, каботажні судна. Коли через війну закривається порт чи кордон, переводимо вантаж на інший шлях, а не зупиняємо поставку."),
                 ("p", "Команда в Одесі має понад 10 років досвіду в агроекспорті. Ми працюємо українською, англійською й турецькою.")]},
             {"eyebrow": "Обсяги", "h2": "Що ми можемо відвантажити за місяць", "blocks": [
-                ("terms", [("400+ контейнерів", "20' і 40', через порти Румунії й Гданськ."),
+                ("terms", [("400+ контейнерів", "20' і 40', через порти Румунії, Гданськ і Гдиню."),
                            ("20 000+ тонн навалом", "Каботажними судами з дунайських портів."),
                            ("250+ фур у біг‑бегах", "До Туреччини, на Близький Схід і в ЄС."),
                            ("10+ років", "досвіду команди в агроекспорті.")], "t4"),
@@ -303,17 +305,17 @@ EN = {
         "sections": [
             {"eyebrow": "Six groups", "h2": "Products, packing and basis", "blocks": [("groups", [
                 (1, "Meals, cakes & feed", ["Sunflower meal and pellets — [[meal|details]]", "Soybean meal", "Rapeseed meal and cake", "DDGS", "Corn gluten feed", "Beet pulp pellets", "Wheat bran pellets", "Molasses"],
-                 "Bulk (vessel, container), big bags, rail wagon · FCA, FOB, CFR, CPT, DAP"),
+                 "Bulk (vessel, container), big bags, rail wagon · FCA, FOB, CFR, CPT, DAP", "Destinations: China, EU countries, Türkiye, Egypt, Syria"),
                 (3, "Vegetable oils", ["Sunflower: crude, refined, high-oleic", "Soybean", "Rapeseed", "Sunflower lecithin"],
-                 "Bulk (tanker), flexitank, road tanker · FCA, FOB, CFR, DAP"),
+                 "Bulk (tanker), flexitank, road tanker, rail tank car · FCA, FOB, CFR, DAP", "Destinations: Spain, Italy, the Netherlands, Poland and other EU countries, India, Iraq, Türkiye"),
                 (14, "Oilseeds & specialty seeds", ["Sunflower seeds, incl. high-oleic", "Soybeans", "Rapeseed", "Flaxseed", "Mustard seed", "Coriander"],
-                 "Bulk (vessel), big bags, rail wagon, container · FCA, FOB, CFR, CPT, DAP"),
+                 "Bulk (vessel), big bags, rail wagon, container · FCA, FOB, CFR, CPT, DAP", "Destinations: Türkiye, Germany, the Netherlands, Belgium, France, Italy, Poland, Greece, Romania, Czechia, the UK, Switzerland, Egypt, Lebanon"),
                 (9, "Grains & milling", ["Wheat, milling and feed", "Corn", "Barley", "Oats", "Millet", "Sorghum", "Malt", "Wheat flour", "Corn grits"],
-                 "Bulk (vessel), container, rail wagon, big bags · FCA, FOB, CFR, CPT, DAP"),
+                 "Bulk (vessel), container, rail wagon, big bags · FCA, FOB, CFR, CPT, DAP", "Destinations: Egypt, Algeria, Indonesia, Libya, Türkiye, Italy, Spain, China"),
                 (10, "Pulses", ["Yellow and green peas", "Chickpeas", "Lentils", "Kidney beans", "Faba beans"],
-                 "Container, big bags, bulk (vessel) · FCA, FOB, CFR, CPT"),
-                (12, "Sugar", ["White beet sugar"], "50 kg bags or big bags, container, truck · FCA, FOB, CFR, DAP"),
-            ])]},
+                 "Container, big bags, bulk (vessel) · FCA, FOB, CFR, CPT", "Destinations: India, China, Pakistan, Türkiye, EU countries"),
+                (12, "Sugar", ["White beet sugar"], "50 kg bags or big bags, container, truck · FCA, FOB, CFR, DAP", "Destinations: Lebanon, Syria, Türkiye, Libya, UAE, Bulgaria, North Macedonia, Bosnia and Herzegovina"),
+            ]), ("note", "Destinations are countries Ukraine sold these goods to in the 2025/26 season and in 2025. They are possible markets, not a list of our deals. Sources: Agrodigest (Latifundist), UGA (UkrAgroConsult), Ukrtsukor (AgroReview), European Commission, APK‑Inform. Checked: 5 sources, as of 28 Oct 2026.")]},
             {"eyebrow": "All groups", "h2": "Terms", "blocks": [
                 ("terms", [("Basis", "**FCA · CPT · FOB · CFR · DAP** (Incoterms® 2020), as agreed in each contract."),
                            ("Quality", "Parameters, packing and lot size are set in the contract and specification. How we check — [[quality|Quality]]."),
@@ -335,9 +337,9 @@ EN = {
                 ("p", "For shipments to China we check the plant's GACC registration before the contract is signed.")]},
             {"eyebrow": "How we ship", "h2": "Three main routes for meal", "bg": "dark", "blocks": [
                 ("routes", [("Trucks → Romanian ports → Asia, Middle East", "20' and 40' containers"),
-                            ("Western Ukraine → rail → Gdańsk → Asia", "20' and 40' containers"),
+                            ("Western Ukraine → rail → Gdańsk, Gdynia → Asia", "20' and 40' containers"),
                             ("Ukraine → Türkiye", "Big bags in a curtain-side truck, DAP")]),
-                ("note", "Also by coaster from the Danube ports and Odesa. All routes — [[routes|Routes]].")]},
+                ("note", "Also by coaster from the Danube ports; from Odesa, subject to the situation. All routes — [[routes|Routes]].")]},
             {"eyebrow": "Documents", "h2": "What the document set includes", "blocks": [
                 ("p", "An independent surveyor takes and seals samples at loading; samples are kept. Contracts on GAFTA terms."),
                 ("ticks", DOCS_EN)]},
@@ -346,9 +348,9 @@ EN = {
     },
     "routes": {
         "title": "Routes and logistics: Gdańsk, Romania, Danube, Türkiye | AVENOR TRADE",
-        "desc": "Four routes from Ukraine to your port: rail via Gdańsk, trucks via Romanian ports, coasters from the Danube and Odesa, trucks to Türkiye and the EU. Risks and how we cover them.",
-        "img": 6, "h1": "Four routes to your port",
-        "lead": "Rail via Gdańsk, trucks via Romanian ports, vessels from the Danube ports and Odesa, trucks to Türkiye. We handle the cargo from the warehouse to the discharge port.",
+        "desc": "Five routes from Ukraine to your port: rail to Gdańsk and Gdynia and across the EU, trucks to Constanța, coasters from the Danube ports, trucks to Türkiye, Bulgaria and Syria. Risks and how we cover them.",
+        "img": 6, "h1": "Five routes to your port",
+        "lead": "Rail to Polish ports and across the EU, trucks to Constanța, vessels from the Danube ports, trucks to Türkiye, Bulgaria and Syria. We handle the cargo from the warehouse to the discharge port.",
         "sections": [
             {"eyebrow": "Routes", "h2": "When one route closes, we find another.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_EN)]},
             {"eyebrow": "What we take on", "h2": "One chain from warehouse to port", "blocks": [
@@ -361,7 +363,7 @@ EN = {
                 ("news", NEWS_EN, "As of 28 Oct 2026 · checked: 3 sources. Updated monthly.")]},
             {"eyebrow": "Risks", "h2": "Risks and how we cover them", "blocks": [
                 ("table", ["Risk", "What we do"], [
-                    ("Strikes on Greater Odesa ports and ships in the corridor", "We now route containers via Romanian ports and Gdańsk, which do not depend on Odesa ports. Coasters from Odesa only by agreement and with insurance confirmed on the booking date."),
+                    ("Strikes on Greater Odesa ports and ships in the corridor", "We now route containers via Romanian ports, Gdańsk and Gdynia, which do not depend on Odesa ports. Coasters from Odesa only by agreement and with insurance confirmed on the booking date."),
                     ("Attacks on Danube ports and low Danube water", "We plan lots with a time buffer; the fallback is truck or rail to Constanța, including transit via Moldova."),
                     ("War-risk surcharge across the whole Black Sea, Romania included", "Who pays war risk is fixed in the contract. We confirm the rate in the offer on the booking date, not from past deals."),
                     ("Queues to Constanța and at borders", "We book slots in advance and watch queues daily; if delayed, we offer another crossing."),
@@ -426,7 +428,7 @@ EN = {
                 ("p", "We buy directly from farms and processing plants in Ukraine and the region, and build the logistics ourselves: trucks, rail wagons, containers, coasters. When the war closes a port or a border, we move the cargo to another route instead of stopping the delivery."),
                 ("p", "Our team in Odesa has over 10 years of experience in agri exports. We work in Ukrainian, English and Turkish.")]},
             {"eyebrow": "Volumes", "h2": "What we can ship in a month", "blocks": [
-                ("terms", [("400+ containers", "20' and 40', via Romanian ports and Gdańsk."),
+                ("terms", [("400+ containers", "20' and 40', via Romanian ports, Gdańsk and Gdynia."),
                            ("20,000+ tonnes in bulk", "By coaster from the Danube ports."),
                            ("250+ trucks in big bags", "To Türkiye, the Middle East and the EU."),
                            ("10+ years", "of team experience in agri exports.")], "t4"),
@@ -510,8 +512,8 @@ FAQ_TR = {
     ],
     "delivery": [
         ("Çin’e en hızlı rota hangisi?", "Romanya limanları üzerinden: depodan Çin’deki limana yaklaşık 60–75 gün (hat programlarına göre). Diğer rotalarda süre teklifte belirtilir."),
-        ("Odesa limanından yükleme yapıyor musunuz?", "Tuna limanlarından ve Odesa’dan koster çalıştırıyoruz; Odesa’dan konteyner — talep üzerine. Şu an ana konteyner rotası Romanya limanları ve Gdańsk üzerinden."),
-        ("AB’ye ve Türkiye’ye sevkiyat yapıyor musunuz?", "Türkiye: tır ve gemiyle. AB: deniz yoluyla Yunanistan ve AB limanlarına; tırla — talep üzerine."),
+        ("Odesa limanından yükleme yapıyor musunuz?", "Koster şu an ağırlıklı olarak Tuna limanlarından; Odesa limanlarından rezervasyon tarihindeki duruma göre. Konteynerler Romanya limanları, Gdańsk ve Gdynia üzerinden."),
+        ("AB’ye ve Türkiye’ye sevkiyat yapıyor musunuz?", "Türkiye: tır ve gemiyle. AB: demiryoluyla vagonda (dökme veya tank vagonunda yağ), deniz yoluyla AB limanlarına; tırla — talep üzerine."),
         ("Big bag ile sevkiyat mümkün mü?", "Evet, Türkiye’ye tırla; AB’ye talep üzerine."),
     ],
     "quality": [
@@ -527,10 +529,11 @@ FAQ_TR = {
 }
 
 ROUTES_TR = [
-    ("Tuna limanları, Odesa → Türkiye, Yunanistan, Kıbrıs, Mısır, AB limanları", "Boğaz üzerinden koster · dökme, big bag · rezervasyon tarihindeki duruma göre"),
-    ("Ukrayna → Romanya limanları → Asya ve Orta Doğu", "Limana tırla, ardından konteyner gemisi · 20' ve 40' · Çin’e yaklaşık 60–75 gün"),
-    ("Batı Ukrayna → Gdańsk → Asya", "Gdańsk’a demiryoluyla, ardından konteyner gemisi · 20' ve 40'"),
-    ("Ukrayna → Türkiye, Orta Doğu, AB", "Tırla · big bag · AB talep üzerine"),
+    ("Tuna limanları → Türkiye, AB limanları, Kıbrıs, Suriye, Mısır", "Boğaz üzerinden koster · dökme, big bag · Odesa limanları rezervasyon tarihindeki duruma göre"),
+    ("Ukrayna → Köstence → Asya ve Orta Doğu", "Limana tırla, ardından konteyner gemisi · 20' ve 40' · Çin’e yaklaşık 60–75 gün"),
+    ("Batı Ukrayna → Gdańsk, Gdynia → Asya", "Polonya limanlarına demiryoluyla, ardından konteyner gemisi · 20' ve 40'"),
+    ("Batı Ukrayna → demiryoluyla AB genelinde", "Vagon: dökme yük hopper vagonlarda, yağ tank vagonlarında"),
+    ("Ukrayna → Türkiye, Suriye, Bulgaristan, Romanya", "Tırla · dökme, big bag · Batı Ukrayna’dan Siret, güneyden Orlivka veya Giurgiulești üzerinden · Tekirdağ, Bandırma, Mersin, Brăila"),
 ]
 
 NEWS_TR = [
@@ -552,17 +555,17 @@ TR = {
         "sections": [
             {"eyebrow": "Altı grup", "h2": "Ürünler, ambalaj ve teslim şekli", "blocks": [("groups", [
                 (1, "Küspe, kek ve yem", ["Ayçiçeği küspesi ve peleti — [[meal|ayrıntılar]]", "Soya küspesi", "Kanola küspesi ve keki", "DDGS", "Mısır gluten yemi", "Pancar posası peleti", "Buğday kepeği peleti", "Melas"],
-                 "Dökme (gemi, konteyner), big bag, vagon · FCA, FOB, CFR, CPT, DAP"),
+                 "Dökme (gemi, konteyner), big bag, vagon · FCA, FOB, CFR, CPT, DAP", "Pazarlar: Çin, AB ülkeleri, Türkiye, Mısır, Suriye"),
                 (3, "Bitkisel yağlar", ["Ayçiçek: ham, rafine, yüksek oleik", "Soya", "Kanola", "Ayçiçek lesitini"],
-                 "Dökme (tanker), flexitank, karayolu tankeri · FCA, FOB, CFR, DAP"),
+                 "Dökme (tanker), flexitank, karayolu tankeri, demiryolu tank vagonu · FCA, FOB, CFR, DAP", "Pazarlar: İspanya, İtalya, Hollanda, Polonya ve diğer AB ülkeleri, Hindistan, Irak, Türkiye"),
                 (14, "Yağlı ve özel tohumlar", ["Ayçiçeği tohumu, yüksek oleik dahil", "Soya fasulyesi", "Kanola", "Keten tohumu", "Hardal tohumu", "Kişniş"],
-                 "Dökme (gemi), big bag, vagon, konteyner · FCA, FOB, CFR, CPT, DAP"),
+                 "Dökme (gemi), big bag, vagon, konteyner · FCA, FOB, CFR, CPT, DAP", "Pazarlar: Türkiye, Almanya, Hollanda, Belçika, Fransa, İtalya, Polonya, Yunanistan, Romanya, Çekya, Birleşik Krallık, İsviçre, Mısır, Lübnan"),
                 (9, "Tahıllar ve değirmen ürünleri", ["Buğday, ekmeklik ve yemlik", "Mısır", "Arpa", "Yulaf", "Darı", "Sorgum", "Malt", "Buğday unu", "Mısır irmiği"],
-                 "Dökme (gemi), konteyner, vagon, big bag · FCA, FOB, CFR, CPT, DAP"),
+                 "Dökme (gemi), konteyner, vagon, big bag · FCA, FOB, CFR, CPT, DAP", "Pazarlar: Mısır, Cezayir, Endonezya, Libya, Türkiye, İtalya, İspanya, Çin"),
                 (10, "Baklagiller", ["Sarı ve yeşil bezelye", "Nohut", "Mercimek", "Barbunya / kuru fasulye", "Bakla"],
-                 "Konteyner, big bag, dökme (gemi) · FCA, FOB, CFR, CPT"),
-                (12, "Şeker", ["Beyaz pancar şekeri"], "50 kg çuval veya big bag, konteyner, tır · FCA, FOB, CFR, DAP"),
-            ])]},
+                 "Konteyner, big bag, dökme (gemi) · FCA, FOB, CFR, CPT", "Pazarlar: Hindistan, Çin, Pakistan, Türkiye, AB ülkeleri"),
+                (12, "Şeker", ["Beyaz pancar şekeri"], "50 kg çuval veya big bag, konteyner, tır · FCA, FOB, CFR, DAP", "Pazarlar: Lübnan, Suriye, Türkiye, Libya, BAE, Bulgaristan, Kuzey Makedonya, Bosna-Hersek"),
+            ]), ("note", "Pazarlar, Ukrayna’nın bu ürünleri 2025/26 sezonunda ve 2025’te sattığı ülkelerdir. Olası pazarlardır, işlemlerimizin listesi değildir. Kaynaklar: Agrodigest (Latifundist), UGA (UkrAgroConsult), Ukrtsukor (AgroReview), Avrupa Komisyonu, APK‑Inform. Kontrol edildi: 5 kaynak, 28.10.2026 itibarıyla.")]},
             {"eyebrow": "Tüm gruplar", "h2": "Koşullar", "blocks": [
                 ("terms", [("Teslim şekli", "**FCA · CPT · FOB · CFR · DAP** (Incoterms® 2020), her sözleşmede ayrıca kararlaştırılır."),
                            ("Kalite", "Parametreler, ambalaj ve parti büyüklüğü sözleşme ve spesifikasyonda belirlenir. Nasıl kontrol ediyoruz — [[quality|Kalite]]."),
@@ -584,9 +587,9 @@ TR = {
                 ("p", "Çin’e sevkiyatlarda, sözleşme imzalanmadan önce tesisin GACC kaydını kontrol ederiz.")]},
             {"eyebrow": "Nasıl sevk ediyoruz", "h2": "Küspe için üç ana rota", "bg": "dark", "blocks": [
                 ("routes", [("Tır → Romanya limanları → Asya, Orta Doğu", "20' ve 40' konteyner"),
-                            ("Batı Ukrayna → demiryolu → Gdańsk → Asya", "20' ve 40' konteyner"),
+                            ("Batı Ukrayna → demiryolu → Gdańsk, Gdynia → Asya", "20' ve 40' konteyner"),
                             ("Ukrayna → Türkiye", "Tenteli tırda big bag, DAP")]),
-                ("note", "Ayrıca Tuna limanlarından ve Odesa’dan koster ile. Tüm rotalar — [[routes|Rotalar]].")]},
+                ("note", "Ayrıca Tuna limanlarından koster ile; Odesa’dan duruma göre. Tüm rotalar — [[routes|Rotalar]].")]},
             {"eyebrow": "Belgeler", "h2": "Evrak setinde neler var", "blocks": [
                 ("p", "Bağımsız sörveyör yüklemede numune alır ve mühürler; numuneler saklanır. Sözleşmeler GAFTA koşullarına dayanır."),
                 ("ticks", DOCS_TR)]},
@@ -595,9 +598,9 @@ TR = {
     },
     "routes": {
         "title": "Rotalar ve lojistik: Gdańsk, Romanya, Tuna, Türkiye | AVENOR TRADE",
-        "desc": "Ukrayna’dan limanınıza dört rota: Gdańsk üzerinden demiryolu, Romanya limanları üzerinden tır, Tuna ve Odesa’dan koster, Türkiye ve AB’ye tır. Riskler ve nasıl yönetiyoruz.",
-        "img": 6, "h1": "Limanınıza dört rota",
-        "lead": "Gdańsk üzerinden demiryolu, Romanya limanları üzerinden tır, Tuna limanları ve Odesa’dan gemi, Türkiye’ye tır. Yükü depodan tahliye limanına kadar biz yönetiriz.",
+        "desc": "Ukrayna’dan limanınıza beş rota: Gdańsk ve Gdynia’ya ve AB genelinde demiryolu, Köstence’ye tır, Tuna limanlarından koster, Türkiye, Bulgaristan ve Suriye’ye tır. Riskler ve nasıl yönetiyoruz.",
+        "img": 6, "h1": "Limanınıza beş rota",
+        "lead": "Polonya limanlarına ve AB genelinde demiryolu, Köstence’ye tır, Tuna limanlarından gemi, Türkiye, Bulgaristan ve Suriye’ye tır. Yükü depodan tahliye limanına kadar biz yönetiriz.",
         "sections": [
             {"eyebrow": "Rotalar", "h2": "Bir rota kapanırsa, başkasını buluruz.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_TR)]},
             {"eyebrow": "Neyi üstleniyoruz", "h2": "Depodan limana tek zincir", "blocks": [
@@ -610,7 +613,7 @@ TR = {
                 ("news", NEWS_TR, "28.10.2026 itibarıyla · kontrol edildi: 3 kaynak. Her ay güncellenir.")]},
             {"eyebrow": "Riskler", "h2": "Riskler ve nasıl yönetiyoruz", "blocks": [
                 ("table", ["Risk", "Ne yapıyoruz"], [
-                    ("Büyük Odesa limanlarına ve koridordaki gemilere saldırılar", "Konteynerleri şu an Odesa limanlarına bağlı olmayan Romanya limanları ve Gdańsk üzerinden gönderiyoruz. Odesa’dan koster yalnızca mutabakatla ve rezervasyon tarihinde teyit edilmiş sigortayla."),
+                    ("Büyük Odesa limanlarına ve koridordaki gemilere saldırılar", "Konteynerleri şu an Odesa limanlarına bağlı olmayan Romanya limanları, Gdańsk ve Gdynia üzerinden gönderiyoruz. Odesa’dan koster yalnızca mutabakatla ve rezervasyon tarihinde teyit edilmiş sigortayla."),
                     ("Tuna limanlarına saldırılar ve sığ Tuna", "Partileri zaman payıyla planlıyoruz; yedek seçenek Köstence’ye tır veya demiryolu, Moldova üzerinden transit dahil."),
                     ("Romanya dahil tüm Karadeniz’de savaş riski ek ücreti", "Savaş riskini kimin ödeyeceği sözleşmede yazılır. Oranı geçmiş işlerden değil, rezervasyon tarihinde teklifte teyit ederiz."),
                     ("Köstence’ye ve sınırlarda kuyruklar", "Slotları önceden ayırıyor, kuyrukları her gün izliyoruz; gecikmede başka bir geçiş noktası öneriyoruz."),
@@ -675,7 +678,7 @@ TR = {
                 ("p", "Doğrudan Ukrayna ve bölgedeki çiftliklerden ve işleme tesislerinden alır, lojistiği kendimiz kurarız: tır, vagon, konteyner, koster. Savaş bir limanı veya sınırı kapattığında teslimatı durdurmak yerine yükü başka bir rotaya aktarırız."),
                 ("p", "Odesa’daki ekibimizin tarım ihracatında 10 yılı aşkın deneyimi var. Ukraynaca, İngilizce ve Türkçe çalışıyoruz.")]},
             {"eyebrow": "Hacimler", "h2": "Bir ayda ne kadar sevk edebiliriz", "blocks": [
-                ("terms", [("400+ konteyner", "20' ve 40', Romanya limanları ve Gdańsk üzerinden."),
+                ("terms", [("400+ konteyner", "20' ve 40', Romanya limanları, Gdańsk ve Gdynia üzerinden."),
                            ("20 000+ ton dökme", "Tuna limanlarından koster ile."),
                            ("250+ tır big bag", "Türkiye, Orta Doğu ve AB’ye."),
                            ("10+ yıl", "ekibin tarım ihracatı deneyimi.")], "t4"),

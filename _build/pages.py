@@ -114,10 +114,11 @@ def b_faq(items, lang):
 
 def b_groups(items, lang):
     out = []
-    for img, title, lst, tail in items:
+    for img, title, lst, tail, *dirs in items:
+        dirs = "".join(f'<p class="gdir">{d}</p>' for d in dirs)
         out.append(f'<article class="card grp"><img src="/assets/img/{img}-800.webp" alt="" width="800" height="600" loading="lazy">'
                    f'<div><h3>{title}</h3><ul>' + "".join(f"<li>{inline(x, lang)}</li>" for x in lst) +
-                   f'</ul><p>{inline(tail, lang)}</p></div></article>')
+                   f'</ul><p>{inline(tail, lang)}</p>{dirs}</div></article>')
     return '<div class="grid3">' + "".join(out) + "</div>"
 
 
@@ -270,7 +271,7 @@ MORE_TXT = {"uk": {"products": "Уся продукція", "routes": "Усі м
             "tr": {"products": "Tüm ürünler", "routes": "Tüm rotalar ve riskler", "terms": "Nasıl sipariş verilir, kim ne yapar", "about": "Hakkımızda ve şirket bilgileri"}}
 
 
-def patch_home(lang):
+def patch_home(lang, routes):
     """Add the page menu and 'more' links to the accepted one-page card; idempotent."""
     f = ROOT / (HOMES[lang].lstrip("/") + "index.html")
     s = f.read_text("utf-8")
@@ -278,6 +279,8 @@ def patch_home(lang):
     s = re.sub(r'<p class="pmore">.*?</p>', "", s)
     s = s.replace('<div class="rmap"></div>', "").replace('<script src="/assets/routemap.js" defer></script>\n', "")
     i = s.index('id="routes"')
+    k = s.index('<ul class="routes">', i)
+    s = s[:k] + b_routes(routes, lang) + s[s.index('</ul>', k) + 5:]
     i = s.index('<ul class="routes">', i)
     s = s[:i] + '<div class="rmap"></div>' + s[i:]
     s = s.replace('</body>', '<script src="/assets/routemap.js" defer></script>\n</body>', 1)
@@ -314,9 +317,10 @@ def sitemap():
 
 
 def main():
-    from content import PAGES
+    from content import PAGES, ROUTES_UK, ROUTES_EN, ROUTES_TR
+    routes = {"uk": ROUTES_UK, "en": ROUTES_EN, "tr": ROUTES_TR}
     for lang in LANGS:
-        patch_home(lang)
+        patch_home(lang, routes[lang])
     for key in PATHS:
         for i, lang in enumerate(LANGS):
             out = ROOT / PATHS[key][i].lstrip("/")
