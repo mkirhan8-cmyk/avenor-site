@@ -187,7 +187,7 @@ UK = {
         "sections": [
             {"eyebrow": "При завантаженні", "h2": "Що перевіряємо", "blocks": [
                 ("terms", [("Вага", "Перевіряємо вагу партії."), ("Пломби", "Номери пломб фіксуємо в документах."),
-                           ("Якість", "За договором незалежний сюрвеєр, схвалений GAFTA і FOSFA, перевіряє якість і вагу. Проби пломбуються й зберігаються."),
+                           ("Якість", "За договором незалежний сюрвеєр, акредитований GAFTA та FOSFA, перевіряє якість і вагу. Проби пломбуються й зберігаються."),
                            ("Документи", "Звіряємо документи з вантажем до відправлення.")], "t4")]},
             {"eyebrow": "Документи", "h2": "Пакет на відвантаження", "blocks": [
                 ("p", "Точний перелік — у договорі. Для шроту й макухи зазвичай:"),
@@ -230,7 +230,7 @@ UK = {
             {"eyebrow": "Хто ми", "h2": "Експорт з України, коли звичні шляхи закриті", "blocks": [
                 ("p", "AVENOR TRADE експортує шрот і макуху, рослинні олії, олійні культури, зернові, бобові та цукор. Покупці — комбікормові заводи, олійні й харчові компанії та трейдери в Туреччині, на Близькому Сході, в ЄС, Китаї та Південній Азії."),
                 ("p", "Купуємо напряму в господарств і на переробних заводах України та регіону. Самі будуємо логістику: фури, вагони, контейнери, каботажні судна. Коли через війну закривається порт чи кордон, переводимо вантаж на інший шлях, а не зупиняємо поставку."),
-                ("p", "Команда в Одесі має понад 10 років досвіду в агроекспорті. Ми працюємо українською, англійською й турецькою.")]},
+                ("p", "Команда в Одесі має понад 10 років досвіду в агроекспорті.")]},
             {"eyebrow": "Обсяги", "h2": "Що ми можемо відвантажити за місяць", "blocks": [
                 ("terms", [("400+ контейнерів", "20' і 40', через порти Румунії, Гданськ і Гдиню."),
                            ("20 000+ тонн навалом", "Каботажними судами з дунайських портів."),
@@ -239,7 +239,7 @@ UK = {
                 ("note", "Це можливості на місяць, а не сталий щомісячний обсяг. Обсяг залежить від товару, маршруту й сезону; кожну поставку фіксує договір.")]},
             {"eyebrow": "Принципи", "h2": "Як ми працюємо", "blocks": [
                 ("work", [("Прямі закупівлі", "Знаємо, звідки товар: господарство чи завод, партія, документи."),
-                          ("Контроль при завантаженні", "Вага, пломби, документи; незалежний сюрвеєр, схвалений GAFTA і FOSFA, — за договором."),
+                          ("Контроль при завантаженні", "Вага, пломби, документи; незалежний сюрвеєр, акредитований GAFTA та FOSFA, — за договором."),
                           ("Договір на умовах GAFTA", "Якість, базис і строки фіксуємо в договорі й специфікації до відвантаження."),
                           ("Перевірка контрагентів", "Перевіряємо кожну сторону угоди, зокрема за санкційними списками."),
                           ("Захищені платежі", "Реквізити змінюються лише листом із підписом директора й підтверджуються дзвінком."),
@@ -438,7 +438,7 @@ EN = {
             {"eyebrow": "Who we are", "h2": "Exporting from Ukraine when the usual routes are closed", "blocks": [
                 ("p", "AVENOR TRADE exports oilseed meals and cakes, vegetable oils, oilseeds, grains, pulses and sugar. Our buyers are feed mills, oil and food companies and traders in Türkiye, the Middle East, the EU, China and South Asia."),
                 ("p", "We buy directly from farms and processing plants in Ukraine and the region, and build the logistics ourselves: trucks, rail wagons, containers, coasters. When the war closes a port or a border, we move the cargo to another route instead of stopping the delivery."),
-                ("p", "Our team in Odesa has over 10 years of experience in agri exports. We work in Ukrainian, English and Turkish.")]},
+                ("p", "Our team in Odesa has over 10 years of experience in agri exports.")]},
             {"eyebrow": "Volumes", "h2": "What we can ship in a month", "blocks": [
                 ("terms", [("400+ containers", "20' and 40', via Romanian ports, Gdańsk and Gdynia."),
                            ("20,000+ tonnes in bulk", "By coaster from the Danube ports."),
@@ -694,7 +694,7 @@ TR = {
             {"eyebrow": "Biz kimiz", "h2": "Alışılmış rotalar kapalıyken Ukrayna’dan ihracat", "blocks": [
                 ("p", "AVENOR TRADE yağlı tohum küspeleri ve kekleri, bitkisel yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker ihraç eder. Alıcılarımız Türkiye, Orta Doğu, AB, Çin ve Güney Asya’daki yem fabrikaları, yağ ve gıda şirketleri ve tüccarlardır."),
                 ("p", "Doğrudan Ukrayna ve bölgedeki çiftliklerden ve işleme tesislerinden alır, lojistiği kendimiz kurarız: tır, vagon, konteyner, koster. Savaş bir limanı veya sınırı kapattığında teslimatı durdurmak yerine yükü başka bir rotaya aktarırız."),
-                ("p", "Odesa’daki ekibimizin tarım ihracatında 10 yılı aşkın deneyimi var. Ukraynaca, İngilizce ve Türkçe çalışıyoruz.")]},
+                ("p", "Odesa’daki ekibimizin tarım ihracatında 10 yılı aşkın deneyimi var.")]},
             {"eyebrow": "Hacimler", "h2": "Bir ayda ne kadar sevk edebiliriz", "blocks": [
                 ("terms", [("400+ konteyner", "20' ve 40', Romanya limanları, Gdańsk ve Gdynia üzerinden."),
                            ("20 000+ ton dökme", "Tuna limanlarından koster ile."),
