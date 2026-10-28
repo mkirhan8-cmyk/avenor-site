@@ -31,7 +31,7 @@ FAQ_UK = {
         ("Які документи ви надаєте?", "Сертифікати якості, ваги, походження й фітосанітарний, коносамент або CMR. Повний перелік — на сторінці [[quality|Якість]]."),
     ],
     "risk": [
-        ("Що з воєнним ризиком?", "Якщо лінія вводить воєнну надбавку, хто її сплачує, узгоджуємо в договорі; ціну й строк підтверджуємо в пропозиції. Якщо основний шлях закрився — пропонуємо інший."),
+        ("Що з воєнним ризиком?", "Можемо застрахувати вантаж — і в контейнерах, і судові партії. Ціну й строк підтверджуємо в пропозиції. Якщо основний шлях закрився — пропонуємо інший."),
         ("Хто відповідає за вантаж у дорозі?", "Ми ведемо вантаж і документи; ризик переходить за базисом Incoterms з договору."),
     ],
 }
@@ -54,7 +54,7 @@ FAQ_EN = {
         ("What documents do you provide?", "Quality, weight, origin and phytosanitary certificates, B/L or CMR. Full list — see [[quality|Quality]]."),
     ],
     "risk": [
-        ("What about war risk?", "If the line adds a war-risk surcharge, who pays it is agreed in the contract; we confirm price and timing in the offer. If the main route is closed, we offer another."),
+        ("What about war risk?", "We can insure the cargo, both in containers and as vessel lots. We confirm price and timing in the offer. If the main route is closed, we offer another."),
         ("Who is responsible for the cargo in transit?", "We manage the cargo and documents; risk passes under the Incoterms rule in the contract."),
     ],
 }
@@ -155,7 +155,7 @@ UK = {
                 ("terms", [("Підбір маршруту", "Під товар, тару й строк."), ("Букінг і графік", "Лінія, судно, подача транспорту."),
                            ("Документи", "CMR, коносамент, СМГС/CIM, фітосанітарний сертифікат, фумігація."),
                            ("Контроль завантаження", "Сюрвеєр, пломби, акт."), ("Трекінг", "Від складу до порту розвантаження."),
-                           ("Простій і демередж", "Строки й безкоштовні дні — у договорі.")]),
+                           ("Простій і демередж", "Строки й безкоштовні дні — у договорі."), ("Страхування вантажу", "Страхуємо вантаж у контейнерах і судові партії.")]),
                 ("p", "Ви говорите з нами, а не з п’ятьма підрядниками.")]},
             {"eyebrow": "Обстановка", "h2": "Що відбувається на морі зараз", "lead": "Головне за останні місяці, що впливає на маршрут і ціну доставки.", "blocks": [
                 ("news", NEWS_UK, "Стан на 28.10.2026 · перевірено: 3 джерела. Оновлюємо щомісяця.")]},
@@ -163,7 +163,7 @@ UK = {
                 ("table", ["Ризик", "Що робимо"], [
                     ("Удари по портах Великої Одеси й суднах у коридорі", "Контейнери зараз ведемо через порти Румунії, Гданськ і Гдиню, вони не залежать від портів Одеси. Каботаж з Одеси — лише за погодженням і з підтвердженим страхуванням на дату букінгу."),
                     ("Атаки на дунайські порти й мілководдя Дунаю", "Плануємо партії з запасом за строком; запасний шлях — фури або залізниця до Констанци, зокрема транзитом через Молдову."),
-                    ("Воєнна страхова надбавка на все Чорне море, включно з Румунією", "Хто платить war risk, фіксуємо в договорі. Ставку підтверджуємо в пропозиції на дату букінгу, а не з минулих угод."),
+                    ("Воєнна страхова надбавка на все Чорне море, включно з Румунією", "Можемо застрахувати вантаж — і в контейнерах, і судові партії. Актуальну ставку підтверджуємо в пропозиції на дату букінгу."),
                     ("Черги до Констанци й на кордонах", "Бронюємо вікна заздалегідь, стежимо за чергою щодня; при затримці пропонуємо інший пункт перетину."),
                     ("Простій і демередж", "Строки завантаження й безкоштовні дні — у договорі; скан коносамента зазвичай за 1 робочий день."),
                     ("Затримка документів, відмова митниці", "Перевіряємо комплект до відправлення; запасний брокер; рішення шукаємо в день відмови."),
@@ -357,7 +357,7 @@ EN = {
                 ("terms", [("Route selection", "Matched to product, packing and deadline."), ("Booking and schedule", "Line, vessel, transport supply."),
                            ("Documents", "CMR, B/L, SMGS/CIM, phytosanitary certificate, fumigation."),
                            ("Loading control", "Survey, seals, report."), ("Tracking", "From warehouse to discharge port."),
-                           ("Demurrage and delays", "Terms and free days are set in the contract.")]),
+                           ("Demurrage and delays", "Terms and free days are set in the contract."), ("Cargo insurance", "We insure cargo in containers and vessel lots.")]),
                 ("p", "You talk to us, not to five contractors.")]},
             {"eyebrow": "Situation", "h2": "What is happening at sea now", "lead": "The main developments of recent months that affect the route and the delivery price.", "blocks": [
                 ("news", NEWS_EN, "As of 28 Oct 2026 · checked: 3 sources. Updated monthly.")]},
@@ -365,7 +365,7 @@ EN = {
                 ("table", ["Risk", "What we do"], [
                     ("Strikes on Greater Odesa ports and ships in the corridor", "We now route containers via Romanian ports, Gdańsk and Gdynia, which do not depend on Odesa ports. Coasters from Odesa only by agreement and with insurance confirmed on the booking date."),
                     ("Attacks on Danube ports and low Danube water", "We plan lots with a time buffer; the fallback is truck or rail to Constanța, including transit via Moldova."),
-                    ("War-risk surcharge across the whole Black Sea, Romania included", "Who pays war risk is fixed in the contract. We confirm the rate in the offer on the booking date, not from past deals."),
+                    ("War-risk surcharge across the whole Black Sea, Romania included", "We can insure the cargo, both in containers and as vessel lots. We confirm the current rate in the offer on the booking date."),
                     ("Queues to Constanța and at borders", "We book slots in advance and watch queues daily; if delayed, we offer another crossing."),
                     ("Demurrage and delays", "Loading terms and free days are in the contract; B/L scan usually within 1 business day."),
                     ("Document delay, customs refusal", "We check the set before dispatch; backup broker; we look for a solution on the day of refusal."),
@@ -523,7 +523,7 @@ FAQ_TR = {
         ("Hangi belgeleri veriyorsunuz?", "Kalite, ağırlık, menşe ve bitki sağlık sertifikaları, B/L veya CMR. Tam liste — [[quality|Kalite]]."),
     ],
     "risk": [
-        ("Savaş riski ne olacak?", "Hat savaş riski ek ücreti uygularsa, bunu kimin ödeyeceği sözleşmede belirlenir; fiyatı ve süreyi teklifte teyit ederiz. Ana rota kapanırsa başka bir rota öneririz."),
+        ("Savaş riski ne olacak?", "Yükü sigortalayabiliriz — hem konteynerde hem gemi partisi olarak. Fiyatı ve süreyi teklifte teyit ederiz. Ana rota kapanırsa başka bir rota öneririz."),
         ("Yol boyunca yükten kim sorumlu?", "Yükü ve belgeleri biz yönetiriz; risk, sözleşmedeki Incoterms kuralına göre geçer."),
     ],
 }
@@ -607,7 +607,7 @@ TR = {
                 ("terms", [("Rota seçimi", "Ürüne, ambalaja ve süreye göre."), ("Rezervasyon ve program", "Hat, gemi, araç tedariki."),
                            ("Belgeler", "CMR, B/L, SMGS/CIM, bitki sağlık sertifikası, fümigasyon."),
                            ("Yükleme kontrolü", "Sörvey, mühürler, rapor."), ("Takip", "Depodan tahliye limanına kadar."),
-                           ("Demuraj ve gecikmeler", "Koşullar ve serbest günler sözleşmede belirlenir.")]),
+                           ("Demuraj ve gecikmeler", "Koşullar ve serbest günler sözleşmede belirlenir."), ("Yük sigortası", "Konteynerdeki yükü ve gemi partilerini sigortalarız.")]),
                 ("p", "Beş ayrı yükleniciyle değil, yalnızca bizimle konuşursunuz.")]},
             {"eyebrow": "Durum", "h2": "Denizde şu an neler oluyor", "lead": "Son aylarda rotayı ve teslim fiyatını etkileyen başlıca gelişmeler.", "blocks": [
                 ("news", NEWS_TR, "28.10.2026 itibarıyla · kontrol edildi: 3 kaynak. Her ay güncellenir.")]},
@@ -615,7 +615,7 @@ TR = {
                 ("table", ["Risk", "Ne yapıyoruz"], [
                     ("Büyük Odesa limanlarına ve koridordaki gemilere saldırılar", "Konteynerleri şu an Odesa limanlarına bağlı olmayan Romanya limanları, Gdańsk ve Gdynia üzerinden gönderiyoruz. Odesa’dan koster yalnızca mutabakatla ve rezervasyon tarihinde teyit edilmiş sigortayla."),
                     ("Tuna limanlarına saldırılar ve sığ Tuna", "Partileri zaman payıyla planlıyoruz; yedek seçenek Köstence’ye tır veya demiryolu, Moldova üzerinden transit dahil."),
-                    ("Romanya dahil tüm Karadeniz’de savaş riski ek ücreti", "Savaş riskini kimin ödeyeceği sözleşmede yazılır. Oranı geçmiş işlerden değil, rezervasyon tarihinde teklifte teyit ederiz."),
+                    ("Romanya dahil tüm Karadeniz’de savaş riski ek ücreti", "Yükü sigortalayabiliriz — hem konteynerde hem gemi partisi olarak. Güncel oranı rezervasyon tarihinde teklifte teyit ederiz."),
                     ("Köstence’ye ve sınırlarda kuyruklar", "Slotları önceden ayırıyor, kuyrukları her gün izliyoruz; gecikmede başka bir geçiş noktası öneriyoruz."),
                     ("Demuraj ve gecikmeler", "Yükleme koşulları ve serbest günler sözleşmede; B/L taraması genellikle 1 iş günü içinde."),
                     ("Belge gecikmesi, gümrük reddi", "Seti sevkiyattan önce kontrol ediyoruz; yedek gümrük müşaviri; ret günü çözüm arıyoruz."),
