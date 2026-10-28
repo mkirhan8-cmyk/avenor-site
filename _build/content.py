@@ -155,8 +155,14 @@ UK = {
                 ("terms", [("Підбір маршруту", "Під товар, тару й строк."), ("Букінг і графік", "Лінія, судно, подача транспорту."),
                            ("Документи", "CMR, коносамент, СМГС/CIM, фітосанітарний сертифікат, фумігація."),
                            ("Контроль завантаження", "Сюрвеєр, пломби, акт."), ("Трекінг", "Від складу до порту розвантаження."),
-                           ("Простій і демередж", "Строки й безкоштовні дні — у договорі."), ("Страхування вантажу", "Страхуємо вантаж у контейнерах і судові партії.")]),
+                           ("Простій і демередж", "Строки й безкоштовні дні — у договорі."), ("Страхування вантажу", "Фури, контейнери, вагони й судові партії — див. нижче.")]),
                 ("p", "Ви говорите з нами, а не з п’ятьма підрядниками.")]},
+            {"eyebrow": "Страхування", "h2": "Страхуємо вантаж на всьому маршруті", "blocks": [
+                ("terms", [("Що страхуємо", "Вантаж у фурах, контейнерах і вагонах, а також судові партії."),
+                           ("Покриття", "ICC (A), тобто «від усіх ризиків», на всьому маршруті. Воєнний ризик — додатково до основного покриття."),
+                           ("Оформлення", "Страховий сертифікат на кожну партію. Сума страхування — зазвичай 110 % вартості вантажу."),
+                           ("Умови", "Ставку, франшизу й ліміт підтверджуємо в пропозиції під ваш маршрут і вантаж.")], "t4"),
+                ("note", "Воєнний ризик не покриває зони активних бойових дій та окуповані території; для портів і моря діють окремі умови страховика.")]},
             {"eyebrow": "Обстановка", "h2": "Що відбувається на морі зараз", "lead": "Головне за останні місяці, що впливає на маршрут і ціну доставки.", "blocks": [
                 ("news", NEWS_UK, "Стан на 28.10.2026 · перевірено: 3 джерела. Оновлюємо щомісяця.")]},
             {"eyebrow": "Ризики", "h2": "Ризики і як ми їх закриваємо", "blocks": [
@@ -357,8 +363,14 @@ EN = {
                 ("terms", [("Route selection", "Matched to product, packing and deadline."), ("Booking and schedule", "Line, vessel, transport supply."),
                            ("Documents", "CMR, B/L, SMGS/CIM, phytosanitary certificate, fumigation."),
                            ("Loading control", "Survey, seals, report."), ("Tracking", "From warehouse to discharge port."),
-                           ("Demurrage and delays", "Terms and free days are set in the contract."), ("Cargo insurance", "We insure cargo in containers and vessel lots.")]),
+                           ("Demurrage and delays", "Terms and free days are set in the contract."), ("Cargo insurance", "Trucks, containers, wagons and vessel lots — see below.")]),
                 ("p", "You talk to us, not to five contractors.")]},
+            {"eyebrow": "Insurance", "h2": "We insure the cargo along the whole route", "blocks": [
+                ("terms", [("What we insure", "Cargo in trucks, containers and rail wagons, and vessel lots."),
+                           ("Cover", "ICC (A), i.e. all risks, along the whole route. War risk on top of the main cover."),
+                           ("Paperwork", "An insurance certificate for each lot. Sum insured is usually 110% of the cargo value."),
+                           ("Terms", "We confirm the rate, deductible and limit in the offer for your route and cargo.")], "t4"),
+                ("note", "War risk does not cover zones of active hostilities or occupied territories; ports and sea are subject to the insurer's separate conditions.")]},
             {"eyebrow": "Situation", "h2": "What is happening at sea now", "lead": "The main developments of recent months that affect the route and the delivery price.", "blocks": [
                 ("news", NEWS_EN, "As of 28 Oct 2026 · checked: 3 sources. Updated monthly.")]},
             {"eyebrow": "Risks", "h2": "Risks and how we cover them", "blocks": [
@@ -607,8 +619,14 @@ TR = {
                 ("terms", [("Rota seçimi", "Ürüne, ambalaja ve süreye göre."), ("Rezervasyon ve program", "Hat, gemi, araç tedariki."),
                            ("Belgeler", "CMR, B/L, SMGS/CIM, bitki sağlık sertifikası, fümigasyon."),
                            ("Yükleme kontrolü", "Sörvey, mühürler, rapor."), ("Takip", "Depodan tahliye limanına kadar."),
-                           ("Demuraj ve gecikmeler", "Koşullar ve serbest günler sözleşmede belirlenir."), ("Yük sigortası", "Konteynerdeki yükü ve gemi partilerini sigortalarız.")]),
+                           ("Demuraj ve gecikmeler", "Koşullar ve serbest günler sözleşmede belirlenir."), ("Yük sigortası", "Tır, konteyner, vagon ve gemi partileri — aşağıya bakın.")]),
                 ("p", "Beş ayrı yükleniciyle değil, yalnızca bizimle konuşursunuz.")]},
+            {"eyebrow": "Sigorta", "h2": "Yükü tüm rota boyunca sigortalıyoruz", "blocks": [
+                ("terms", [("Neyi sigortalıyoruz", "Tır, konteyner ve vagondaki yük ile gemi partileri."),
+                           ("Teminat", "ICC (A), yani tüm riskler, tüm rota boyunca. Savaş riski ana teminata ek olarak."),
+                           ("Belgeler", "Her parti için sigorta sertifikası. Sigorta bedeli genellikle yük değerinin %110’u."),
+                           ("Koşullar", "Oranı, muafiyeti ve limiti rotanıza ve yükünüze göre teklifte teyit ederiz.")], "t4"),
+                ("note", "Savaş riski aktif çatışma bölgelerini ve işgal altındaki toprakları kapsamaz; limanlar ve deniz için sigortacının ayrı koşulları geçerlidir.")]},
             {"eyebrow": "Durum", "h2": "Denizde şu an neler oluyor", "lead": "Son aylarda rotayı ve teslim fiyatını etkileyen başlıca gelişmeler.", "blocks": [
                 ("news", NEWS_TR, "28.10.2026 itibarıyla · kontrol edildi: 3 kaynak. Her ay güncellenir.")]},
             {"eyebrow": "Riskler", "h2": "Riskler ve nasıl yönetiyoruz", "blocks": [
