@@ -40,4 +40,6 @@
     });
   }, { rootMargin: '0px 0px -8% 0px' });
   [].forEach.call(els, function (el) { el.classList.add('rv'); io.observe(el); });
+  /* запобіжник: якщо спостерігач не спрацював (друк, старий браузер), показати все через 3 с */
+  setTimeout(function () { [].forEach.call(document.querySelectorAll('.rv'), function (el) { el.classList.remove('rv', 'in'); io.unobserve(el); }); }, 3000);
 })();
