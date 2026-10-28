@@ -19,7 +19,7 @@
     ctx.setTransform(D, 0, 0, D, 0, 0);
     HZ = H * 0.6;
     LX = W < 600 ? W * 0.2 : W * 0.15;
-    TT = HZ - H * 0.4;
+    TT = HZ - Math.min(H * 0.4, W * 0.38);
     MX = W * 0.82; MY = H * 0.15;
     stars = [];
     for (var i = 0; i < 110; i++) stars.push([rnd(i) * W, rnd(i + 9) * HZ * 0.75, rnd(i + 3) * 1.1 + 0.3, rnd(i + 5) * 6]);
@@ -132,17 +132,17 @@
     return g;
   }
   function tower(glow, t) {
-    var bw = Math.max(13, H * 0.05), tw = bw * 0.8, foot = MT - H * 0.004, base = MT - H * 0.036, top = TT, i, y, w, k;
+    var bw = Math.max(13, Math.min(H * 0.05, (HZ - TT) * 0.13)), tw = bw * 0.82, foot = MT - H * 0.004, pm = MT - bw * 0.42, base = MT - bw * 0.95, top = TT, i, y, w, k;
     /* цоколь: два кола один на одному */
-    var p1 = bw * 2.3, p2 = bw * 1.6;
-    cyl(LX, MT - H * 0.016, foot, p1, shade(LX, p1, '#14191e', '#2e363e', '#4a535c'));
-    ctx.fillStyle = '#3a434c'; ctx.beginPath(); ctx.ellipse(LX, MT - H * 0.016, p1 / 2, p1 * 0.12, 0, 0, 6.2832); ctx.fill();
-    cyl(LX, base, MT - H * 0.016, p2, shade(LX, p2, '#3a4148', '#a9b1b8', '#d3d8dc'));
+    var p1 = bw * 1.85, p2 = bw * 1.35;
+    cyl(LX, pm, foot, p1, shade(LX, p1, '#14191e', '#2e363e', '#4a535c'));
+    ctx.fillStyle = '#3a434c'; ctx.beginPath(); ctx.ellipse(LX, pm, p1 / 2, p1 * 0.12, 0, 0, 6.2832); ctx.fill();
+    cyl(LX, base, pm, p2, shade(LX, p2, '#3a4148', '#a9b1b8', '#d3d8dc'));
     ctx.strokeStyle = 'rgba(30,36,42,.35)'; ctx.lineWidth = 0.6;
-    for (i = 1; i < 3; i++) { y = base + (MT - H * 0.016 - base) * i / 3; ctx.beginPath(); ctx.ellipse(LX, y, p2 / 2, p2 * 0.12, 0, 0, Math.PI); ctx.stroke(); }
+    for (i = 1; i < 3; i++) { y = base + (pm - base) * i / 3; ctx.beginPath(); ctx.ellipse(LX, y, p2 / 2, p2 * 0.12, 0, 0, Math.PI); ctx.stroke(); }
     ctx.fillStyle = '#c9cfd4'; ctx.beginPath(); ctx.ellipse(LX, base, p2 / 2, p2 * 0.12, 0, 0, 6.2832); ctx.fill();
     /* двері з аркою */
-    var dw = bw * 0.24, dh = (MT - H * 0.016 - base) * 0.75, dy = MT - H * 0.016;
+    var dw = bw * 0.24, dh = (pm - base) * 0.75, dy = pm;
     ctx.fillStyle = '#1b2228';
     ctx.beginPath(); ctx.moveTo(LX - dw / 2, dy + p2 * 0.1); ctx.lineTo(LX - dw / 2, dy - dh + dw / 2); ctx.arc(LX, dy - dh + dw / 2, dw / 2, Math.PI, 0); ctx.lineTo(LX + dw / 2, dy + p2 * 0.1); ctx.fill();
     ctx.fillStyle = 'rgba(255,214,140,.85)'; ctx.fillRect(LX - 0.8, dy - dh * 0.55, 1.6, 1.6);
@@ -171,18 +171,18 @@
     ctx.fillStyle = wg; ctx.fillRect(LX - bw / 2, top, bw, H * 0.14);
     /* вузькі вікна сходової клітки з арочним верхом, по спіралі */
     for (i = 0; i < 6; i++) {
-      y = base - (base - top) * (0.12 + i * 0.14); w = wAt(y); var ang = i * 1.1 - 2.2, ox = Math.sin(ang) * w * 0.32, ww = 2.4 * Math.max(0.35, Math.cos(ang)), wh = H * 0.016;
+      y = base - (base - top) * (0.12 + i * 0.14); w = wAt(y); var ang = i * 1.1 - 2.2, ox = Math.sin(ang) * w * 0.32, ww = 2.4 * Math.max(0.35, Math.cos(ang)), wh = bw * 0.5;
       ctx.fillStyle = '#20272e'; ctx.beginPath(); ctx.moveTo(LX + ox - ww / 2 - 0.6, y + wh); ctx.lineTo(LX + ox - ww / 2 - 0.6, y + ww / 2); ctx.arc(LX + ox, y + ww / 2, ww / 2 + 0.6, Math.PI, 0); ctx.lineTo(LX + ox + ww / 2 + 0.6, y + wh); ctx.fill();
       ctx.fillStyle = rgba('255,214,140', 0.55 + 0.3 * (i % 2)); ctx.beginPath(); ctx.moveTo(LX + ox - ww / 2, y + wh - 0.6); ctx.lineTo(LX + ox - ww / 2, y + ww / 2 + 0.4); ctx.arc(LX + ox, y + ww / 2 + 0.4, ww / 2, Math.PI, 0); ctx.lineTo(LX + ox + ww / 2, y + wh - 0.6); ctx.fill();
     }
     /* консоль: плавне розширення до галереї */
-    var gw = tw * 1.9, gy = top - 5;
+    var gw = tw * 1.75, gy = top - bw * 0.2;
     ctx.fillStyle = shade(LX, gw, '#59616a', '#cfd5da', '#eef1f3');
     ctx.beginPath(); ctx.moveTo(LX - tw / 2, top + 4); ctx.quadraticCurveTo(LX - tw / 2, gy + 1, LX - gw / 2, gy); ctx.lineTo(LX + gw / 2, gy); ctx.quadraticCurveTo(LX + tw / 2, gy + 1, LX + tw / 2, top + 4); ctx.fill();
     /* кругла галерея: плита, обідок, перила з перспективою */
     ctx.fillStyle = '#20272e'; ctx.beginPath(); ctx.ellipse(LX, gy, gw / 2, gw * 0.13, 0, 0, 6.2832); ctx.fill();
     ctx.fillStyle = '#0f1419'; ctx.beginPath(); ctx.ellipse(LX, gy, gw / 2, gw * 0.13, 0, 0, Math.PI); ctx.lineTo(LX - gw / 2, gy - 2.2); ctx.ellipse(LX, gy - 2.2, gw / 2, gw * 0.13, 0, Math.PI, 0, true); ctx.fill();
-    var rh = H * 0.022, ry = gy - 2.2;
+    var rh = bw * 0.55, ry = gy - 2.2;
     ctx.strokeStyle = '#11161b'; ctx.lineWidth = 1.1;
     ctx.beginPath(); ctx.ellipse(LX, ry - rh, gw / 2 - 0.5, gw * 0.13, 0, 0, Math.PI); ctx.stroke();
     ctx.lineWidth = 0.6; ctx.beginPath(); ctx.ellipse(LX, ry - rh * 0.5, gw / 2 - 0.5, gw * 0.13, 0, 0, Math.PI); ctx.stroke();
@@ -193,7 +193,7 @@
       ctx.beginPath(); ctx.moveTo(cx, ry + cy); ctx.lineTo(cx, ry - rh + cy); ctx.stroke();
     }
     /* ліхтар: циліндр зі склом і вертикальним переплетом */
-    var lw = tw * 0.92, lh = H * 0.056, lb = ry - 1, gl = lb - lh;
+    var lw = tw * 1.08, lh = bw * 1.35, lb = ry - 1, gl = lb - lh;
     cyl(LX, lb - lh * 0.16, lb + 1, lw * 1.08, shade(LX, lw * 1.08, '#0c1014', '#2a323a', '#3b444d'));
     var gh = lh * 0.84;
     ctx.save(); ctx.beginPath(); ctx.rect(LX - lw / 2, gl, lw, gh); ctx.clip();
@@ -231,8 +231,8 @@
     vg.addColorStop(0, '#6a747e'); vg.addColorStop(1, '#0b0f13');
     ctx.fillStyle = vg; ctx.beginPath(); ctx.arc(LX, vb - 2.4, 2.8, 0, 6.2832); ctx.fill();
     ctx.fillStyle = '#0b0f13';
-    ctx.fillRect(LX - 0.5, vb - 2.4 - H * 0.03, 1, H * 0.03);
-    ctx.fillRect(LX - 3, vb - 2.4 - H * 0.022, 6, 0.8);
+    ctx.fillRect(LX - 0.5, vb - 2.4 - bw * 0.9, 1, bw * 0.9);
+    ctx.fillRect(LX - 3, vb - 2.4 - bw * 0.65, 6, 0.8);
     LY = gl + gh / 2;
   }
 
