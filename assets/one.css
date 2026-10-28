@@ -384,7 +384,7 @@ html.intro-on{overflow:hidden}
 .lh.on .fog{opacity:0}
 .lh canvas{display:none}
 @media (prefers-reduced-motion:reduce){.lh .eg{filter:none;opacity:1}.lh .fog{opacity:0}.lh .eg .beam{display:none}}
-.lh{height:auto;aspect-ratio:2560/1400;max-height:88vh;min-height:420px}
+.lh{width:100%;height:auto;aspect-ratio:2560/1400;max-height:88vh;min-height:420px}
 .lh .wrap{align-items:flex-start;padding-top:clamp(28px,5vw,64px)}
 .lh .eg .beam{background:conic-gradient(from 90deg at var(--lx) var(--ly),rgba(233,228,216,.2) 0deg,rgba(233,228,216,.09) 3deg,rgba(233,228,216,0) 7deg,rgba(233,228,216,0) 353deg,rgba(233,228,216,.09) 357deg,rgba(233,228,216,.2) 360deg)}
 @media (max-width:600px){.lh{height:auto;aspect-ratio:1170/1400;max-height:none;min-height:0}.lh .wrap{align-items:flex-end;padding-bottom:16px}.lh .glass{margin-left:0;margin-right:auto;width:min(100%,19em);text-align:left}}
