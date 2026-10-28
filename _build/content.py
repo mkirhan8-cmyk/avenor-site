@@ -277,7 +277,7 @@ UK = {
                 ("dl", [("E-mail", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Телефон / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Офіс", ADDR_UK), ("Відповідь на запит", "протягом робочого дня"),
-                        ("Мови", "українська, англійська, турецька")])]},
+                        ("Мови", "українська, англійська")])]},
             {"eyebrow": "Для банку", "h2": "Перевірка контрагента", "blocks": [
                 ("dl", [("Назва", "ТОВ «АВЕНОР ТРЕЙД»"), ("Код ЄДРПОУ", "46637137"), ("Адреса", ADDR_UK)]),
                 ("p", "Потрібні документи компанії — напишіть на info@avenor.com.ua і вкажіть мету запиту."),
@@ -513,7 +513,7 @@ EN = {
                 ("dl", [("Email", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Phone / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Office", ADDR_EN), ("Reply to a request", "within one business day"),
-                        ("Languages", "Ukrainian, English, Turkish")])]},
+                        ("Languages", "Ukrainian, English")])]},
             {"eyebrow": "For banks", "h2": "Counterparty checks", "blocks": [
                 ("dl", [("Company", "AVENOR TRADE LLC"), ("EDRPOU code", "46637137"), ("Address", ADDR_EN)]),
                 ("p", "To request company documents, write to info@avenor.com.ua and state the purpose."),
@@ -619,12 +619,12 @@ TR = {
         "title": "Ürünler — küspe, yağ, tahıl, baklagil, şeker | AVENOR TRADE",
         "desc": "AVENOR TRADE’in Ukrayna’dan sevk ettiği ürünler: yağlı tohum küspeleri, bitkisel yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker. Her grup için ambalaj ve teslim şekli.",
         "img": 14, "h1": "Ne sevk ediyoruz",
-        "lead": "Küspe ve kekler, yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker. Aradığınız ürünü bulamadınız mı? Bize yazın.",
+        "lead": "Küspe ve pres küspeleri, yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker. Aradığınız ürünü bulamadınız mı? Bize yazın.",
         "sections": [
             {"eyebrow": "Altı grup", "h2": "Ürünler, ambalaj ve teslim şekli", "blocks": [("groups", [
-                (1, "Küspe, kek ve yem", ["Ayçiçeği küspesi ve peleti — [[meal|ayrıntılar]]", "Soya küspesi", "Kanola küspesi ve keki", "DDGS", "Mısır gluten yemi", "Pancar posası peleti", "Buğday kepeği peleti", "Melas"],
+                (1, "Küspe, pres küspesi ve yem", ["Ayçiçeği küspesi ve peleti — [[meal|ayrıntılar]]", "Soya küspesi", "Kanola küspesi ve pres küspesi", "DDGS", "Mısır gluten yemi", "Pancar posası peleti", "Buğday kepeği peleti", "Melas"],
                  "Dökme (gemi, konteyner), big bag, vagon · FCA, FOB, CFR, CPT, DAP", "Pazarlar: Çin, AB ülkeleri, Türkiye, Mısır, Suriye"),
-                (3, "Bitkisel yağlar", ["Ayçiçek: ham, rafine, yüksek oleik", "Soya", "Kanola", "Ayçiçek lesitini"],
+                (3, "Bitkisel yağlar", ["Ayçiçeği: ham, rafine, yüksek oleik", "Soya", "Kanola", "Ayçiçeği lesitini"],
                  "Dökme (tanker), flexitank, karayolu tankeri, demiryolu tank vagonu · FCA, FOB, CFR, DAP", "Pazarlar: İspanya, İtalya, Hollanda, Polonya ve diğer AB ülkeleri, Hindistan, Irak, Türkiye"),
                 (14, "Yağlı ve özel tohumlar", ["Ayçiçeği tohumu, yüksek oleik dahil", "Soya fasulyesi", "Kanola", "Keten tohumu", "Hardal tohumu", "Kişniş"],
                  "Dökme (gemi), big bag, vagon, konteyner · FCA, FOB, CFR, CPT, DAP", "Pazarlar: Türkiye, Almanya, Hollanda, Belçika, Fransa, İtalya, Polonya, Yunanistan, Romanya, Çekya, Birleşik Krallık, İsviçre, Mısır, Lübnan"),
@@ -710,7 +710,7 @@ TR = {
                            ("Kalite", "Sözleşmeye göre GAFTA ve FOSFA onaylı bağımsız bir sörveyör kaliteyi ve ağırlığı kontrol eder. Numuneler mühürlenir ve saklanır."),
                            ("Belgeler", "Sevkiyattan önce belgeleri yükle karşılaştırırız.")], "t4")]},
             {"eyebrow": "Belgeler", "h2": "Sevkiyat evrak seti", "blocks": [
-                ("p", "Kesin liste sözleşmededir. Küspe ve kekler için genellikle şunları içerir:"),
+                ("p", "Kesin liste sözleşmededir. Küspe ve pres küspeleri için genellikle şunları içerir:"),
                 ("ticks", DOCS_TR + ["GDO’suzluk ve radyasyon sertifikaları — talep üzerine"]),
                 ("note", "Diğer ürünler için set varış ülkesine göre hazırlanır.")]},
             {"eyebrow": "Sözleşme", "h2": "GAFTA koşulları ve spesifikasyon", "blocks": [
@@ -748,7 +748,7 @@ TR = {
         "lead": "Ukraynalı bir tarım ürünleri ihracatçısı. Odesa’daki ekibimiz sevkiyatınızı üreticiden limanınıza kadar yönetir.",
         "sections": [
             {"eyebrow": "Biz kimiz", "h2": "Alışılmış rotalar kapalıyken Ukrayna’dan ihracat", "blocks": [
-                ("p", "AVENOR TRADE yağlı tohum küspeleri ve kekleri, bitkisel yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker ihraç eder. Alıcılarımız Türkiye, Orta Doğu, AB, Çin ve Güney Asya’daki yem fabrikaları, yağ ve gıda şirketleri ve tüccarlardır."),
+                ("p", "AVENOR TRADE yağlı tohum küspeleri ve pres küspeleri, bitkisel yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker ihraç eder. Alıcılarımız Türkiye, Orta Doğu, AB, Çin ve Güney Asya’daki yem fabrikaları, yağ ve gıda şirketleri ve tüccarlardır."),
                 ("p", "Doğrudan Ukrayna ve bölgedeki çiftliklerden ve işleme tesislerinden alır, lojistiği kendimiz kurarız: tır, vagon, konteyner, koster. Savaş bir limanı veya sınırı kapattığında teslimatı durdurmak yerine yükü başka bir rotaya aktarırız."),
                 ("p", "Odesa’daki ekibimizin tarım ihracatında 10 yılı aşkın deneyimi var.")]},
             {"eyebrow": "Hacimler", "h2": "Bir ayda ne kadar sevk edebiliriz", "blocks": [
@@ -797,7 +797,7 @@ TR = {
                 ("dl", [("E-posta", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Telefon / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Ofis", ADDR_TR), ("Talebe yanıt", "bir iş günü içinde"),
-                        ("Diller", "Ukraynaca, İngilizce, Türkçe")])]},
+                        ("Diller", "Ukraynaca, İngilizce")])]},
             {"eyebrow": "Bankalar için", "h2": "Karşı taraf kontrolü", "blocks": [
                 ("dl", [("Şirket", "AVENOR TRADE LLC"), ("EDRPOU kodu", "46637137"), ("Adres", ADDR_TR)]),
                 ("p", "Şirket belgelerini talep etmek için info@avenor.com.ua adresine amacınızı belirterek yazın."),
@@ -806,18 +806,18 @@ TR = {
     },
     "sell": {
         "title": "Bize satın: Ukrayna çiftlik ve tesislerinden küspe, yağ, tahıl ve baklagil alıyoruz | AVENOR TRADE",
-        "desc": "AVENOR TRADE, Ukrayna’daki çiftlik ve işleme tesislerinden doğrudan alım yapar: küspe ve kek, yağlar, tahıllar, baklagiller. Numune, sörveyör, sözleşme, kendi nakliyemizle teslim alma.",
+        "desc": "AVENOR TRADE, Ukrayna’daki çiftlik ve işleme tesislerinden doğrudan alım yapar: küspe ve pres küspesi, yağlar, tahıllar, baklagiller. Numune, sörveyör, sözleşme, kendi nakliyemizle teslim alma.",
         "img": 13, "h1": "Çiftlik ve tesislerden doğrudan alıyoruz",
-        "lead": "Ukrayna’dan ihracat için küspe ve kek, yağ, tahıl ve baklagiller. Deponuzdan veya tesisinizden teslim alır, belgeleri ve lojistiği üstleniriz.",
+        "lead": "Ukrayna’dan ihracat için küspe ve pres küspesi, yağ, tahıl ve baklagiller. Deponuzdan veya tesisinizden teslim alır, belgeleri ve lojistiği üstleniriz.",
         "cta": "Ürün teklif edin",
         "wa": "?text=Merhaba%21%20%C3%9Cr%C3%BCn%20teklif%20ediyoruz.%0A%C3%9Cr%C3%BCn%3A%20%0AMiktar%2C%20t%3A%20%0AB%C3%B6lge%3A%20",
         "sections": [
             {"eyebrow": "Ne alıyoruz", "h2": "Dört ürün grubu", "blocks": [
-                ("terms", [("Küspe ve kek", "Ayçiçeği küspesi ve keki, soya küspesi, kolza keki, DDGS, pancar posası peleti."),
-                           ("Yağlar", "Ayçiçeği, soya, kolza — dökme."),
+                ("terms", [("Küspe ve pres küspesi", "Ayçiçeği küspesi ve pres küspesi, soya küspesi, kanola pres küspesi, DDGS, pancar posası peleti."),
+                           ("Yağlar", "Ayçiçeği, soya, kanola — dökme."),
                            ("Tahıllar", "Buğday, mısır, arpa, yulaf, darı, sorgum."),
                            ("Baklagiller", "Bezelye, nohut, mercimek, fasulye.")]),
-                ("note", "Talep üzerine: ayçiçeği tohumu, soya, kolza, şeker. Ukrayna’nın tüm bölgeleri.")]},
+                ("note", "Talep üzerine: ayçiçeği tohumu, soya, kanola, şeker. Ukrayna’nın tüm bölgeleri.")]},
             {"eyebrow": "Süreç", "h2": "Nasıl işliyor", "blocks": [("steps", [
                 ("Siz yazarsınız", "Ürün, miktar, bölge, kalite (protein, nem, yabancı madde) — form veya WhatsApp ile."),
                 ("Biz yanıtlarız", "Bir iş günü içinde: EXW, FCA veya CPT liman bazında fiyat ve teslim alma tarihi."),
