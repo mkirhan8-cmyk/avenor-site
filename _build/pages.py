@@ -98,6 +98,10 @@ def b_routes(items, lang):
     return f'<ul class="routes">{li}</ul>'
 
 
+def b_rmap(lang):
+    return '<div class="rmap"></div>'
+
+
 def b_steps(items, lang):
     li = "".join(f"<li><b>{t}</b><p>{inline(p, lang)}</p></li>" for t, p in items)
     return f'<ol class="steps">{li}</ol>'
@@ -138,7 +142,7 @@ def b_links(items, lang):
     return '<p class="pg-links">' + " · ".join(f'<a href="{L(lang, k)}">{t} →</a>' for k, t in items) + "</p>"
 
 
-BLOCKS = {"terms": b_terms, "work": b_work, "ticks": b_ticks, "table": b_table, "routes": b_routes, "steps": b_steps,
+BLOCKS = {"terms": b_terms, "work": b_work, "ticks": b_ticks, "table": b_table, "routes": b_routes, "rmap": b_rmap, "steps": b_steps,
           "faq": b_faq, "groups": b_groups, "p": b_p, "news": b_news, "note": b_note, "dl": b_dl, "links": b_links}
 
 
@@ -254,6 +258,7 @@ def page(lang, key, p):
 </main>
 {FOOTER[lang]}
 {STICKY[lang]}
+{'<script src="/assets/routemap.js" defer></script>' if 'class="rmap"' in "".join(secs) else ""}
 </body>
 </html>
 """
@@ -271,6 +276,11 @@ def patch_home(lang):
     s = f.read_text("utf-8")
     s = re.sub(r'<header class="top">.*?</header>', lambda m: header(lang, None), s, count=1, flags=re.S)
     s = re.sub(r'<p class="pmore">.*?</p>', "", s)
+    s = s.replace('<div class="rmap"></div>', "").replace('<script src="/assets/routemap.js" defer></script>\n', "")
+    i = s.index('id="routes"')
+    i = s.index('<ul class="routes">', i)
+    s = s[:i] + '<div class="rmap"></div>' + s[i:]
+    s = s.replace('</body>', '<script src="/assets/routemap.js" defer></script>\n</body>', 1)
     alts = "".join(f'<link rel="alternate" hreflang="{k}" href="{SITE}{HOMES[k]}">' for k in LANGS)
     alts += f'<link rel="alternate" hreflang="x-default" href="{SITE}/">'
     s = re.sub(r'(?:<link rel="alternate" hreflang="[^"]+" href="[^"]+">\s*)+', lambda m: alts, s, count=1)

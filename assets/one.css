@@ -270,3 +270,32 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .news p{margin:0;font-size:16px;color:var(--ink2)}
 .news a{color:var(--mute);font-size:14px;white-space:nowrap}
 @media (max-width:600px){.news li{grid-template-columns:1fr}.news a{white-space:normal}}
+
+/* інтерактивна схема маршрутів */
+.rm-wrap{margin-top:clamp(32px,5vw,56px)}
+.rm-wrap .rmap,.rm-wrap .routes{margin-top:0}
+.rm-wrap .routes{margin-top:24px}
+@media (min-width:900px){.rm-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:start}.rm-wrap .routes{margin-top:0}.rm-wrap .routes li{grid-template-columns:1fr;gap:6px;padding:20px 0}.rm-wrap .routes b{font-size:clamp(18px,1.7vw,24px)}.rm-wrap .rmap{position:sticky;top:96px}.rm-wrap .routes li.on{padding-left:16px}}
+.rmap{margin-top:clamp(32px,5vw,56px);border-radius:14px;background:#191e23;overflow:hidden}
+.rmap svg{display:block;width:100%;height:auto}
+.rm-sea{fill:#101820}
+.rm-land{fill:#232a31;stroke:rgba(190,210,230,.22);stroke-width:.8}
+.rm-ua{fill:rgba(217,164,65,.14);stroke:rgba(217,164,65,.45);stroke-width:1}
+.rm-r path{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s,stroke-width .3s}
+.rm-r .land{stroke-dasharray:2 7}
+.rm-r.on path{stroke:var(--wheat);stroke-width:4}
+.rm-r.on .land{stroke-dasharray:3 6;animation:rmflow 1.2s linear infinite}
+@keyframes rmflow{to{stroke-dashoffset:-18}}
+.rm-dot{fill:#E6EAEE}
+.rm-t{fill:#BFC6CD;font:600 15px Montserrat,system-ui,sans-serif}
+.rm-far{fill:var(--wheat);font-size:16px}
+.rm-cargo circle{fill:var(--wheat)}
+.rm-cargo .rm-halo{fill:rgba(217,164,65,.25);animation:rmpulse 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes rmpulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+.routes.live li{cursor:pointer;transition:background .2s,padding .2s;border-radius:0}
+.routes.live li:hover b,.routes.live li.on b{color:var(--wheat)}
+.routes.live li.on{box-shadow:inset 3px 0 0 var(--wheat);padding-left:16px}
+.routes.live li:focus-visible{outline:2px solid var(--wheat);outline-offset:2px}
+@media (max-width:899px){.rm-wrap .rmap{position:sticky;top:72px;z-index:2;box-shadow:0 12px 24px rgba(10,13,16,.9)}.rm-wrap .rmap svg{max-height:44vh;margin:0 auto}}
+@media (max-width:600px){.rm-t{font-size:20px}.rm-far{font-size:20px}}
+@media (prefers-reduced-motion:reduce){.rm-r.on .land,.rm-cargo .rm-halo{animation:none}}

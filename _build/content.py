@@ -148,7 +148,7 @@ UK = {
         "img": 6, "h1": "Чотири шляхи з України до вашого порту",
         "lead": "Залізниця через Гданськ, фури через порти Румунії, судна з дунайських портів і Одеси, фури в Туреччину. Ведемо вантаж від складу до порту розвантаження.",
         "sections": [
-            {"eyebrow": "Маршрути", "h2": "Закрився один маршрут — знаходимо інший.", "bg": "dark", "blocks": [("routes", ROUTES_UK)]},
+            {"eyebrow": "Маршрути", "h2": "Закрився один маршрут — знаходимо інший.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_UK)]},
             {"eyebrow": "Що ми беремо на себе", "h2": "Один ланцюг від складу до порту", "blocks": [
                 ("terms", [("Підбір маршруту", "Під товар, тару й строк."), ("Букінг і графік", "Лінія, судно, подача транспорту."),
                            ("Документи", "CMR, коносамент, СМГС/CIM, фітосанітарний сертифікат, фумігація."),
@@ -350,7 +350,7 @@ EN = {
         "img": 6, "h1": "Four routes to your port",
         "lead": "Rail via Gdańsk, trucks via Romanian ports, vessels from the Danube ports and Odesa, trucks to Türkiye. We handle the cargo from the warehouse to the discharge port.",
         "sections": [
-            {"eyebrow": "Routes", "h2": "When one route closes, we find another.", "bg": "dark", "blocks": [("routes", ROUTES_EN)]},
+            {"eyebrow": "Routes", "h2": "When one route closes, we find another.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_EN)]},
             {"eyebrow": "What we take on", "h2": "One chain from warehouse to port", "blocks": [
                 ("terms", [("Route selection", "Matched to product, packing and deadline."), ("Booking and schedule", "Line, vessel, transport supply."),
                            ("Documents", "CMR, B/L, SMGS/CIM, phytosanitary certificate, fumigation."),
@@ -599,7 +599,7 @@ TR = {
         "img": 6, "h1": "Limanınıza dört rota",
         "lead": "Gdańsk üzerinden demiryolu, Romanya limanları üzerinden tır, Tuna limanları ve Odesa’dan gemi, Türkiye’ye tır. Yükü depodan tahliye limanına kadar biz yönetiriz.",
         "sections": [
-            {"eyebrow": "Rotalar", "h2": "Bir rota kapanırsa, başkasını buluruz.", "bg": "dark", "blocks": [("routes", ROUTES_TR)]},
+            {"eyebrow": "Rotalar", "h2": "Bir rota kapanırsa, başkasını buluruz.", "bg": "dark", "blocks": [("rmap",), ("routes", ROUTES_TR)]},
             {"eyebrow": "Neyi üstleniyoruz", "h2": "Depodan limana tek zincir", "blocks": [
                 ("terms", [("Rota seçimi", "Ürüne, ambalaja ve süreye göre."), ("Rezervasyon ve program", "Hat, gemi, araç tedariki."),
                            ("Belgeler", "CMR, B/L, SMGS/CIM, bitki sağlık sertifikası, fümigasyon."),
