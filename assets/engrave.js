@@ -11,7 +11,7 @@
     var p = phone(); W = p ? 1170 : 2560; X0 = p ? 755 : 0;
     var sw = sec.clientWidth, sh = sec.clientHeight, k = Math.max(sw / W, sh / H);
     eg.style.width = W * k + 'px'; eg.style.height = H * k + 'px';
-    eg.style.left = (sw - W * k) / 2 + 'px'; eg.style.top = (sh - H * k) / 2 + 'px';
+    eg.style.left = (sw - W * k) / 2 + 'px'; eg.style.top = '0px'; /* при обрізанні по висоті лишаємо верх: ліхтар і промені видно, знизу йде лише вода */
     eg.style.setProperty('--lx', (LAMP[0] - X0) / W * 100 + '%'); eg.style.setProperty('--ly', LAMP[1] / H * 100 + '%');
     tower.style.left = (748 - X0) / W * 100 + '%'; tower.style.top = 140 / H * 100 + '%'; tower.style.width = 1006 / W * 100 + '%';
     ships.forEach(function (s) { s.style.width = SW / W * 100 + '%'; s.style.top = SY / H * 100 + '%'; });
