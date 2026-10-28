@@ -118,49 +118,78 @@
     ctx.beginPath(); ctx.moveTo(0, MB + 1); ctx.lineTo(end + H * 0.03, MB + 1); ctx.stroke();
   }
 
-  /* білий циліндр з галереєю, засклений ліхтар із куполом */
-  function tower(glow) {
-    var bw = Math.max(13, H * 0.05), tw = bw * 0.84, base = MT - H * 0.02, top = TT;
-    ctx.fillStyle = '#1b2228';
-    ctx.fillRect(LX - bw * 1.1, MT - H * 0.02, bw * 2.2, H * 0.02);
-    ctx.fillStyle = '#2b333b'; ctx.fillRect(LX - bw * 1.1, MT - H * 0.02, bw * 2.2, 1.5);
+  /* Воронцовський маяк: білий циліндр на двоярусному цоколі, консолі під галереєю,
+     засклений ліхтар із ромбічними рамами й лінзою Френеля, купол із флюгаркою */
+  function tower(glow, t) {
+    var bw = Math.max(13, H * 0.05), tw = bw * 0.86, base = MT - H * 0.034, top = TT, i, y, w;
+    /* цоколь */
+    ctx.fillStyle = '#161c22'; ctx.fillRect(LX - bw * 1.25, MT - H * 0.014, bw * 2.5, H * 0.014);
+    ctx.fillStyle = '#26303a'; ctx.fillRect(LX - bw * 1.25, MT - H * 0.014, bw * 2.5, 1.2);
+    var pg = ctx.createLinearGradient(LX - bw * 0.8, 0, LX + bw * 0.8, 0);
+    pg.addColorStop(0, '#3f464d'); pg.addColorStop(0.4, '#b9c0c6'); pg.addColorStop(1, '#2c3238');
+    ctx.fillStyle = pg; ctx.fillRect(LX - bw * 0.78, base, bw * 1.56, MT - H * 0.014 - base);
+    ctx.fillStyle = '#1b2228'; ctx.fillRect(LX - bw * 0.82, base - 2, bw * 1.64, 2.5);
+    ctx.beginPath(); ctx.moveTo(LX - bw * 0.13, MT - H * 0.014); ctx.lineTo(LX - bw * 0.13, base + H * 0.007);
+    ctx.arc(LX, base + H * 0.007, bw * 0.13, Math.PI, 0); ctx.lineTo(LX + bw * 0.13, MT - H * 0.014); ctx.fill();
+    ctx.fillStyle = 'rgba(255,214,140,.8)'; ctx.fillRect(LX - 1, base + H * 0.004, 2, 2);
+    /* ствол */
     var g = ctx.createLinearGradient(LX - bw / 2, 0, LX + bw / 2, 0);
-    g.addColorStop(0, '#5a6168'); g.addColorStop(0.35, '#e9ecee'); g.addColorStop(0.6, '#c6ccd1'); g.addColorStop(1, '#3c434a');
+    g.addColorStop(0, '#4f565d'); g.addColorStop(0.28, '#dfe3e6'); g.addColorStop(0.42, '#f4f6f7'); g.addColorStop(0.65, '#c3c9ce'); g.addColorStop(1, '#353c43');
     ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.moveTo(LX - bw / 2, base); ctx.lineTo(LX - tw / 2, top); ctx.lineTo(LX + tw / 2, top); ctx.lineTo(LX + bw / 2, base);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(40,48,56,.35)'; ctx.lineWidth = 1;
-    for (var i = 1; i < 6; i++) {
-      var y = base - (base - top) * i / 6, w = bw - (bw - tw) * i / 6;
+    ctx.beginPath(); ctx.moveTo(LX - bw / 2, base - 2); ctx.lineTo(LX - tw / 2, top); ctx.lineTo(LX + tw / 2, top); ctx.lineTo(LX + bw / 2, base - 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(60,70,80,.18)'; ctx.lineWidth = 0.8;
+    for (i = 1; i < 12; i++) {
+      y = base - (base - top) * i / 12; w = bw - (bw - tw) * i / 12;
       ctx.beginPath(); ctx.moveTo(LX - w / 2, y); ctx.lineTo(LX + w / 2, y); ctx.stroke();
     }
-    ctx.fillStyle = '#1b2228';
-    ctx.fillRect(LX - bw * 0.14, base - H * 0.028, bw * 0.28, H * 0.028);
-    ctx.fillStyle = 'rgba(255,214,140,.75)';
-    for (i = 0; i < 3; i++) ctx.fillRect(LX - 1 + (i % 2 ? bw * 0.12 : -bw * 0.12), base - (base - top) * (0.3 + i * 0.22), 2, H * 0.012);
-    /* консоль і галерея */
-    ctx.fillStyle = '#d6dbdf';
-    ctx.beginPath(); ctx.moveTo(LX - tw / 2, top); ctx.lineTo(LX - tw * 0.85, top - 4); ctx.lineTo(LX + tw * 0.85, top - 4); ctx.lineTo(LX + tw / 2, top); ctx.fill();
-    ctx.fillStyle = '#11161b'; ctx.fillRect(LX - tw * 0.9, top - 6, tw * 1.8, 2.5);
-    var rh = H * 0.018;
-    ctx.fillRect(LX - tw * 0.9, top - 6 - rh, tw * 1.8, 1.2);
-    for (i = 0; i <= 6; i++) ctx.fillRect(LX - tw * 0.9 + tw * 1.8 * i / 6 - 0.5, top - 6 - rh, 1, rh);
+    ctx.strokeStyle = 'rgba(255,255,255,.25)';
+    ctx.beginPath(); ctx.moveTo(LX - bw * 0.16, base - 2); ctx.lineTo(LX - tw * 0.16, top); ctx.stroke();
+    /* вікна по спіралі сходів */
+    for (i = 0; i < 6; i++) {
+      y = base - (base - top) * (0.14 + i * 0.14); var ox = Math.sin(i * 1.9) * bw * 0.18;
+      ctx.fillStyle = '#20272e'; ctx.fillRect(LX + ox - 1.6, y, 3.2, H * 0.014);
+      ctx.fillStyle = rgba('255,214,140', 0.5 + 0.3 * (i % 2)); ctx.fillRect(LX + ox - 1, y + 1, 2, H * 0.014 - 2);
+    }
+    /* консолі й галерея */
+    ctx.fillStyle = '#cfd5da';
+    ctx.beginPath(); ctx.moveTo(LX - tw / 2, top + 3); ctx.lineTo(LX - tw * 0.92, top - 4); ctx.lineTo(LX + tw * 0.92, top - 4); ctx.lineTo(LX + tw / 2, top + 3); ctx.fill();
+    ctx.fillStyle = 'rgba(40,48,56,.5)';
+    for (i = 0; i < 7; i++) { var bxp = LX - tw * 0.8 + tw * 1.6 * i / 6; ctx.fillRect(bxp - 0.5, top - 4, 1, 4 + (1 - Math.abs(i - 3) / 3) * 2); }
+    ctx.fillStyle = '#11161b'; ctx.fillRect(LX - tw * 0.98, top - 6.5, tw * 1.96, 2.8);
+    var rh = H * 0.02;
+    ctx.fillRect(LX - tw * 0.98, top - 6.5 - rh, tw * 1.96, 1.3);
+    ctx.fillRect(LX - tw * 0.98, top - 6.5 - rh * 0.5, tw * 1.96, 0.7);
+    for (i = 0; i <= 8; i++) ctx.fillRect(LX - tw * 0.98 + tw * 1.96 * i / 8 - 0.5, top - 6.5 - rh, 1, rh);
     /* ліхтарне приміщення */
-    var lh = H * 0.048, lw = tw * 0.78, ly = top - 6 - lh;
-    ctx.fillStyle = rgba('255,222,150', 0.65 + 0.35 * glow);
-    ctx.fillRect(LX - lw / 2, ly, lw, lh);
-    var lg = ctx.createRadialGradient(LX, ly + lh / 2, 0, LX, ly + lh / 2, lw * 0.6);
-    lg.addColorStop(0, 'rgba(255,255,240,.9)'); lg.addColorStop(1, 'rgba(255,255,240,0)');
-    ctx.fillStyle = lg; ctx.fillRect(LX - lw / 2, ly, lw, lh);
+    var lh = H * 0.052, lw = tw * 0.8, ly = top - 6.5 - lh;
+    ctx.fillStyle = '#11161b'; ctx.fillRect(LX - lw * 0.56, ly + lh * 0.82, lw * 1.12, lh * 0.18);
+    var gl = ly, gh = lh * 0.82;
+    ctx.fillStyle = rgba('255,222,150', 0.55 + 0.4 * glow); ctx.fillRect(LX - lw / 2, gl, lw, gh);
+    /* лінза Френеля: світле ядро з кільцями */
+    var lg = ctx.createRadialGradient(LX, gl + gh / 2, 0, LX, gl + gh / 2, lw * 0.55);
+    lg.addColorStop(0, 'rgba(255,255,245,1)'); lg.addColorStop(0.5, rgba('255,240,200', 0.7 + 0.3 * glow)); lg.addColorStop(1, 'rgba(255,220,150,0)');
+    ctx.fillStyle = lg; ctx.fillRect(LX - lw / 2, gl, lw, gh);
+    ctx.fillStyle = 'rgba(160,120,60,.35)';
+    for (i = 1; i < 6; i++) ctx.fillRect(LX - lw * 0.28, gl + gh * i / 6, lw * 0.56, 0.6);
+    ctx.strokeStyle = '#11161b'; ctx.lineWidth = 1;
+    ctx.save(); ctx.beginPath(); ctx.rect(LX - lw / 2, gl, lw, gh); ctx.clip();
+    for (i = -3; i <= 3; i++) {
+      ctx.beginPath(); ctx.moveTo(LX + i * lw * 0.3 - lw * 0.3, gl + gh); ctx.lineTo(LX + i * lw * 0.3 + lw * 0.3, gl); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(LX + i * lw * 0.3 + lw * 0.3, gl + gh); ctx.lineTo(LX + i * lw * 0.3 - lw * 0.3, gl); ctx.stroke();
+    }
+    ctx.restore();
+    ctx.strokeRect(LX - lw / 2, gl, lw, gh);
+    /* купол, флюгарка, громовідвід */
     ctx.fillStyle = '#11161b';
-    for (i = 0; i <= 3; i++) ctx.fillRect(LX - lw / 2 + lw * i / 3 - 0.6, ly, 1.2, lh);
-    ctx.fillRect(LX - lw / 2, ly + lh * 0.5, lw, 0.8);
-    ctx.fillRect(LX - lw * 0.6, ly - 2, lw * 1.2, 2.5);
-    ctx.beginPath(); ctx.ellipse(LX, ly - 2, lw * 0.6, lh * 0.55, 0, Math.PI, 0); ctx.fill();
-    ctx.beginPath(); ctx.arc(LX, ly - 2 - lh * 0.6, 2.2, 0, 6.2832); ctx.fill();
-    ctx.fillRect(LX - 0.5, ly - 2 - lh * 0.6 - H * 0.025, 1, H * 0.025);
-    LY = ly + lh / 2;
+    ctx.fillRect(LX - lw * 0.62, ly - 2.5, lw * 1.24, 2.8);
+    ctx.beginPath(); ctx.ellipse(LX, ly - 2.5, lw * 0.6, lh * 0.5, 0, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.18)';
+    ctx.beginPath(); ctx.ellipse(LX - lw * 0.18, ly - 2.5 - lh * 0.28, lw * 0.16, lh * 0.08, -0.4, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = '#11161b';
+    ctx.beginPath(); ctx.arc(LX, ly - 2.5 - lh * 0.55, 2.6, 0, 6.2832); ctx.fill();
+    ctx.fillRect(LX - 0.5, ly - 2.5 - lh * 0.55 - H * 0.03, 1, H * 0.03);
+    ctx.fillRect(LX - 3, ly - 2.5 - lh * 0.55 - H * 0.022, 6, 0.8);
+    LY = gl + gh / 2;
   }
 
   /* азимут променя a: cos — вліво/вправо, sin > 0 — від нас до обрію, sin < 0 — на глядача.
@@ -192,93 +221,151 @@
     return { ex: ex, ey: ey, c: c, s: s, alpha: alpha };
   }
 
-  var BOXES = ['#9a5530', '#2f5576', '#9a7024', '#5f666e', '#7a332c', '#3b6650', '#b07430', '#2b4260', '#c9c3b5'];
+  var BOXES = ['#9a5530', '#2f5576', '#9a7024', '#5f666e', '#7a332c', '#3b6650', '#b07430', '#2b4260', '#c9c3b5', '#8e2f2a', '#3d6f8a'];
 
   /* контейнеровоз іде справа наліво; ніс ліворуч (x=0), корма праворуч (x=L) */
   function ship(t, beamA) {
-    var L = Math.min(W * 0.34, 470), hh = L * 0.055, span = W + L * 1.4;
+    var L = Math.min(W * 0.38, 540), hh = L * 0.055, span = W + L * 1.4;
     var sx = W + L * 0.2 - ((span * 0.38 + (still ? 0 : t * W * 0.000016)) % span);
     var wl = HZ + H * 0.045 + Math.sin(t * 0.0011) * 1.2;
     var lit = Math.exp(-Math.pow(wrap(beamA - az(sx + L * 0.5, wl - hh * 2)), 2) / 0.012);
-    var i, j;
-    /* носова хвиля й кільватер */
-    ctx.strokeStyle = 'rgba(210,222,232,.2)'; ctx.lineWidth = 1;
-    for (i = 0; i < 5; i++) {
+    var i, j, x;
+    /* відображення корпусу у воді */
+    ctx.fillStyle = 'rgba(4,6,9,.45)';
+    for (i = 0; i < 10; i++) {
+      var ry = wl + 2 + i * 2.2, rw = L * (0.94 - i * 0.03), ro = Math.sin(t * 0.003 + i) * 3;
+      ctx.fillRect(sx + L * 0.03 + ro + (L * 0.94 - rw) / 2, ry, rw, 1.4);
+    }
+    /* носовий бурун і кільватер */
+    ctx.strokeStyle = 'rgba(210,222,232,.22)'; ctx.lineWidth = 1;
+    for (i = 0; i < 6; i++) {
       var wy = wl + 1 + i * 1.6, wx = sx + L * 1.02 + i * L * 0.12;
-      ctx.globalAlpha = 0.9 - i * 0.16;
+      ctx.globalAlpha = 0.9 - i * 0.14;
       ctx.beginPath(); ctx.moveTo(sx + L * 0.95, wl + 1); ctx.quadraticCurveTo(wx, wy, wx + L * 0.25, wy + i * 0.4); ctx.stroke();
     }
     ctx.globalAlpha = 1;
-    ctx.fillStyle = 'rgba(225,232,240,.4)';
-    ctx.beginPath(); ctx.ellipse(sx + L * 0.03, wl, L * 0.035, 1.6, 0, 0, 6.2832); ctx.fill();
+    var fo = 0.35 + 0.15 * Math.sin(t * 0.006);
+    ctx.fillStyle = rgba('230,236,242', fo);
+    ctx.beginPath(); ctx.ellipse(sx + L * 0.03, wl, L * 0.04, 1.8, 0, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = rgba('230,236,242', fo * 0.6);
+    ctx.beginPath(); ctx.ellipse(sx + L * 0.09, wl + 1.5, L * 0.05, 1.2, 0, 0, 6.2832); ctx.fill();
     ctx.save();
     ctx.translate(sx, wl); ctx.rotate(Math.sin(t * 0.0009) * 0.004);
-    /* корпус */
+    /* корпус: бак із ширстреком, прямий борт, транцева корма */
     ctx.fillStyle = '#0b0e12';
     ctx.beginPath();
     ctx.moveTo(L * 0.035, 0);
-    ctx.quadraticCurveTo(-L * 0.005, -hh * 0.2, L * 0.012, -hh * 0.55);
-    ctx.lineTo(-L * 0.012, -hh * 1.3);
-    ctx.lineTo(L * 0.08, -hh * 1.3); ctx.lineTo(L * 0.1, -hh * 1.05);
-    ctx.lineTo(L * 0.84, -hh * 1.05); ctx.lineTo(L * 0.86, -hh * 1.12);
-    ctx.lineTo(L, -hh * 1.12); ctx.lineTo(L, -hh * 0.35); ctx.lineTo(L * 0.965, 0);
+    ctx.quadraticCurveTo(-L * 0.006, -hh * 0.18, L * 0.012, -hh * 0.55);
+    ctx.lineTo(-L * 0.014, -hh * 1.35);
+    ctx.lineTo(L * 0.09, -hh * 1.35); ctx.lineTo(L * 0.11, -hh * 1.06);
+    ctx.lineTo(L * 0.84, -hh * 1.06); ctx.lineTo(L * 0.86, -hh * 1.14);
+    ctx.lineTo(L, -hh * 1.14); ctx.lineTo(L * 0.998, -hh * 0.4); ctx.lineTo(L * 0.965, 0);
     ctx.fill();
-    ctx.fillStyle = lit > 0.01 ? 'rgba(107,38,32,' + (0.25 + lit * 0.6).toFixed(2) + ')' : 'rgba(60,24,22,.35)';
-    ctx.beginPath(); ctx.moveTo(L * 0.03, -hh * 0.05); ctx.lineTo(L * 0.97, -hh * 0.05); ctx.lineTo(L * 0.985, -hh * 0.28); ctx.lineTo(L * 0.016, -hh * 0.28); ctx.fill();
-    if (lit > 0.01) {
-      ctx.globalAlpha = lit * 0.85; ctx.fillStyle = '#25384d';
-      ctx.fillRect(L * 0.03, -hh * 1.04, L * 0.95, hh * 0.76); ctx.globalAlpha = 1;
-      ctx.strokeStyle = rgba('180,190,200', lit * 0.25); ctx.lineWidth = 0.6;
-      for (i = 1; i < 14; i++) { ctx.beginPath(); ctx.moveTo(L * i / 14, -hh * 1.04); ctx.lineTo(L * i / 14, -hh * 0.3); ctx.stroke(); }
-    }
-    ctx.fillStyle = rgba('230,232,236', 0.25 + lit * 0.5);
-    ctx.fillRect(L * 0.03, -hh * 0.4, 1, 3); ctx.fillRect(L * 0.03, -hh * 0.62, 1, 1);
-    /* штабелі контейнерів по секціях, нижчі до носа */
-    var cw = L * 0.032, ch = hh * 0.5, x0 = L * 0.11, x1 = L * 0.76, bay = 0;
+    var hullA = 0.18 + lit * 0.8;
+    ctx.globalAlpha = hullA; ctx.fillStyle = '#22364b';
+    ctx.beginPath(); ctx.moveTo(L * 0.02, -hh * 0.3); ctx.lineTo(-L * 0.01, -hh * 1.33); ctx.lineTo(L * 0.09, -hh * 1.33); ctx.lineTo(L * 0.11, -hh * 1.04);
+    ctx.lineTo(L * 0.84, -hh * 1.04); ctx.lineTo(L * 0.86, -hh * 1.12); ctx.lineTo(L * 0.997, -hh * 1.12); ctx.lineTo(L * 0.995, -hh * 0.3); ctx.fill();
+    ctx.fillStyle = '#7a2a22';
+    ctx.beginPath(); ctx.moveTo(L * 0.03, -hh * 0.04); ctx.lineTo(L * 0.968, -hh * 0.04); ctx.lineTo(L * 0.99, -hh * 0.3); ctx.lineTo(L * 0.018, -hh * 0.3); ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = rgba('200,210,220', 0.08 + lit * 0.25); ctx.lineWidth = 0.6;
+    for (i = 1; i < 22; i++) { x = L * (0.04 + i * 0.043); ctx.beginPath(); ctx.moveTo(x, -hh * 1.04); ctx.lineTo(x, -hh * 0.32); ctx.stroke(); }
+    ctx.beginPath(); ctx.moveTo(L * 0.11, -hh * 0.72); ctx.lineTo(L * 0.99, -hh * 0.72); ctx.stroke();
+    /* марки осадки, якір, клюз */
+    ctx.fillStyle = rgba('235,238,240', 0.3 + lit * 0.6);
+    for (i = 0; i < 4; i++) ctx.fillRect(L * 0.028 + i * 0.4, -hh * (0.36 + i * 0.13), 2.2, 0.8);
+    for (i = 0; i < 4; i++) ctx.fillRect(L * 0.975, -hh * (0.36 + i * 0.13), 2.2, 0.8);
+    ctx.fillStyle = '#05070a';
+    ctx.beginPath(); ctx.arc(L * 0.045, -hh * 1.12, hh * 0.09, 0, 6.2832); ctx.fill();
+    ctx.fillRect(L * 0.043, -hh * 1.05, 1.4, hh * 0.38);
+    ctx.fillRect(L * 0.035, -hh * 0.7, L * 0.018, 1.4);
+    /* леєр на баку, щоглa, кран-балка */
+    ctx.strokeStyle = rgba('170,180,190', 0.35 + lit * 0.4); ctx.lineWidth = 0.6;
+    ctx.beginPath(); ctx.moveTo(-L * 0.01, -hh * 1.6); ctx.lineTo(L * 0.09, -hh * 1.6); ctx.stroke();
+    for (i = 0; i < 5; i++) { x = -L * 0.008 + i * L * 0.024; ctx.beginPath(); ctx.moveTo(x, -hh * 1.35); ctx.lineTo(x, -hh * 1.6); ctx.stroke(); }
+    ctx.fillStyle = '#0b0e12';
+    ctx.fillRect(L * 0.05, -hh * 2.9, 1.6, hh * 1.55);
+    ctx.fillRect(L * 0.035, -hh * 2.4, L * 0.032, 1.2);
+    /* люкові кришки і штабелі по бухтах; між бухтами — найтовні містки */
+    var cw = L * 0.03, ch = hh * 0.5, x0 = L * 0.12, x1 = L * 0.765, col = 0;
+    ctx.fillStyle = rgba('60,70,80', 0.5 + lit * 0.4); ctx.fillRect(x0 - 2, -hh * 1.06 - 2, x1 - x0 + 4, 2);
     for (var cx = x0; cx + cw < x1; cx += cw) {
-      if (bay++ % 3 === 2) { cx += cw * 0.25; }
-      var k = (cx - x0) / (x1 - x0), rows = Math.round(2 + Math.min(1, k * 2.5) * 2 + rnd(cx) * 1.2);
+      if (col % 2 === 0 && col > 0) {
+        ctx.fillStyle = rgba('110,120,130', 0.35 + lit * 0.4);
+        ctx.fillRect(cx - 0.2, -hh * 1.06 - ch * 2.2, 1, ch * 2.2);
+        cx += cw * 0.22;
+      }
+      col++;
+      var k = (cx - x0) / (x1 - x0), rows = Math.round(2 + Math.min(1, k * 2.5) * 2.2 + rnd(Math.round(cx)) * 1.3);
       for (j = 0; j < rows; j++) {
-        var cy = -hh * 1.05 - (j + 1) * ch;
+        var cy = -hh * 1.06 - 2 - (j + 1) * ch, c = BOXES[Math.floor(rnd(Math.round(cx * 7) + j * 31) * BOXES.length)];
         ctx.fillStyle = '#12161b'; ctx.fillRect(cx, cy, cw - 0.8, ch - 0.8);
-        {
-          ctx.globalAlpha = Math.min(1, 0.22 + lit * (0.7 + 0.3 * k));
-          ctx.fillStyle = BOXES[Math.floor(rnd(Math.round(cx * 7) + j * 31) * BOXES.length)]; ctx.fillRect(cx, cy, cw - 0.8, ch - 0.8);
-          ctx.fillStyle = 'rgba(0,0,0,.28)';
-          for (var r = 1; r < 4; r++) ctx.fillRect(cx + (cw - 0.8) * r / 4, cy, 0.5, ch - 0.8);
-          ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(cx, cy, cw - 0.8, 0.7);
-          ctx.globalAlpha = 1;
-        }
+        ctx.globalAlpha = Math.min(1, 0.24 + lit * (0.7 + 0.3 * k));
+        ctx.fillStyle = c; ctx.fillRect(cx, cy, cw - 0.8, ch - 0.8);
+        ctx.fillStyle = 'rgba(0,0,0,.3)';
+        for (var r = 1; r < 6; r++) ctx.fillRect(cx + (cw - 0.8) * r / 6, cy + 0.6, 0.45, ch - 2);
+        ctx.fillStyle = 'rgba(255,255,255,.16)'; ctx.fillRect(cx, cy, cw - 0.8, 0.7);
+        ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(cx, cy + ch - 1.4, cw - 0.8, 0.6);
+        ctx.globalAlpha = 1;
       }
     }
+    /* надбудова на 6 палуб, ходовий місток із крилами, радарна щогла */
+    var bx = L * 0.775, bw = L * 0.078, bh = hh * 3.9, top = -hh * 1.14 - bh;
     ctx.fillStyle = '#0b0e12';
-    ctx.fillRect(L * 0.03, -hh * 2.6, 1.2, hh * 1.3);
-    ctx.fillRect(L * 0.005, -hh * 1.6, L * 0.06, 1.5);
-    /* надбудова, крила містка, труба */
-    var bx = L * 0.775, bw = L * 0.075, bh = hh * 3.6, top = -hh * 1.12 - bh;
     ctx.fillRect(bx, top, bw, bh);
-    ctx.fillRect(bx - bw * 0.25, top + bh * 0.06, bw * 1.5, hh * 0.18);
-    ctx.fillRect(bx + bw * 0.3, top - hh * 1.2, 1.4, hh * 1.2);
-    ctx.fillRect(bx + bw * 0.1, top - hh * 0.75, bw * 0.55, 1.2);
-    var fx = bx + bw * 1.25, fw = L * 0.035;
-    ctx.beginPath(); ctx.moveTo(fx, -hh * 1.12); ctx.lineTo(fx + fw * 0.15, top + bh * 0.25); ctx.lineTo(fx + fw * 1.05, top + bh * 0.2); ctx.lineTo(fx + fw, -hh * 1.12); ctx.fill();
-    if (lit > 0.01) {
-      ctx.globalAlpha = lit * 0.85;
-      ctx.fillStyle = '#e1e5e8'; ctx.fillRect(bx, top, bw, bh); ctx.fillRect(bx - bw * 0.25, top + bh * 0.06, bw * 1.5, hh * 0.18);
-      ctx.fillStyle = '#ad3a2e'; ctx.fillRect(fx + fw * 0.12, top + bh * 0.3, fw * 0.9, hh * 0.3);
-      ctx.fillStyle = '#e1e5e8'; ctx.fillRect(fx + fw * 0.12, top + bh * 0.3 + hh * 0.3, fw * 0.9, hh * 0.9);
-      ctx.globalAlpha = 1;
+    ctx.fillRect(bx - bw * 0.32, top + bh * 0.05, bw * 1.64, hh * 0.2);
+    ctx.globalAlpha = 0.16 + lit * 0.8; ctx.fillStyle = '#e4e8eb';
+    ctx.fillRect(bx, top, bw, bh); ctx.fillRect(bx - bw * 0.32, top + bh * 0.05, bw * 1.64, hh * 0.2);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(0,0,0,.35)';
+    for (i = 1; i < 6; i++) ctx.fillRect(bx, top + bh * (0.17 + i * 0.14), bw, 0.7);
+    ctx.fillStyle = '#0d1418'; ctx.fillRect(bx + bw * 0.04, top + bh * 0.1, bw * 0.92, hh * 0.24);
+    ctx.fillStyle = 'rgba(255,214,140,.95)';
+    for (i = 0; i < 7; i++) ctx.fillRect(bx + bw * (0.06 + i * 0.13), top + bh * 0.105, bw * 0.1, hh * 0.2);
+    for (j = 0; j < 5; j++) for (i = 0; i < 4; i++) {
+      ctx.fillStyle = rnd(i * 5 + j * 11) > 0.4 ? 'rgba(255,214,140,.7)' : 'rgba(30,38,46,.9)';
+      ctx.fillRect(bx + bw * (0.1 + i * 0.22), top + bh * (0.3 + j * 0.14), bw * 0.09, hh * 0.14);
     }
-    ctx.fillStyle = 'rgba(255,214,140,.92)';
-    for (i = 0; i < 5; i++) ctx.fillRect(bx + bw * (0.06 + i * 0.19), top + bh * 0.13, bw * 0.12, hh * 0.18);
-    ctx.fillStyle = 'rgba(255,214,140,.6)';
-    for (j = 0; j < 4; j++) for (i = 0; i < 3; i++) if (rnd(i * 5 + j) > 0.35) ctx.fillRect(bx + bw * (0.15 + i * 0.3), top + bh * (0.32 + j * 0.15), bw * 0.08, hh * 0.13);
+    ctx.fillStyle = '#0b0e12';
+    ctx.fillRect(bx + bw * 0.42, top - hh * 1.4, 1.6, hh * 1.4);
+    ctx.fillRect(bx + bw * 0.15, top - hh * 0.8, bw * 0.6, 1.2);
+    var rad = Math.cos(t * 0.004);
+    ctx.fillRect(bx + bw * 0.45 - bw * 0.32 * Math.abs(rad), top - hh * 1.05, bw * 0.64 * Math.abs(rad) + 1, 1.6);
+    /* шлюпка вільного падіння на кормі */
+    ctx.save(); ctx.translate(L * 0.962, -hh * 1.45); ctx.rotate(0.42);
+    ctx.fillStyle = '#0b0e12'; ctx.fillRect(-hh * 0.62, hh * 0.17, hh * 1.24, 1.6);
+    ctx.fillStyle = rgba('230,110,40', 0.35 + lit * 0.65);
+    ctx.beginPath(); ctx.moveTo(-hh * 0.55, hh * 0.16); ctx.lineTo(hh * 0.42, hh * 0.16); ctx.quadraticCurveTo(hh * 0.62, 0, hh * 0.5, -hh * 0.1);
+    ctx.lineTo(-hh * 0.3, -hh * 0.14); ctx.quadraticCurveTo(-hh * 0.6, -hh * 0.1, -hh * 0.55, hh * 0.16); ctx.fill();
+    ctx.fillRect(-hh * 0.18, -hh * 0.3, hh * 0.3, hh * 0.18);
+    ctx.fillStyle = rgba('20,24,30', 0.6); ctx.fillRect(-hh * 0.14, -hh * 0.26, hh * 0.22, hh * 0.06);
+    ctx.restore();
+    ctx.fillStyle = '#0b0e12'; ctx.fillRect(L * 0.935, -hh * 1.75, 1.2, hh * 0.63); ctx.fillRect(L * 0.99, -hh * 1.35, 1.2, hh * 0.23);
+    /* труба з кольоровою смугою й кіптявою */
+    var fx = bx + bw * 1.25, fw = L * 0.038, ft = top + bh * 0.18;
+    ctx.fillStyle = '#0b0e12';
+    ctx.beginPath(); ctx.moveTo(fx, -hh * 1.14); ctx.lineTo(fx + fw * 0.12, ft); ctx.lineTo(fx + fw * 1.08, ft - 2); ctx.lineTo(fx + fw, -hh * 1.14); ctx.fill();
+    ctx.globalAlpha = 0.2 + lit * 0.75;
+    ctx.fillStyle = '#2b4260'; ctx.fillRect(fx + fw * 0.14, ft + hh * 0.35, fw * 0.88, hh * 1.5);
+    ctx.fillStyle = '#d9dde0'; ctx.fillRect(fx + fw * 0.14, ft + hh * 0.72, fw * 0.88, hh * 0.5);
+    ctx.fillStyle = '#e0b43a'; ctx.beginPath(); ctx.arc(fx + fw * 0.58, ft + hh * 0.97, hh * 0.15, 0, 6.2832); ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#05070a'; ctx.fillRect(fx + fw * 0.12, ft - 1, fw * 0.96, hh * 0.35);
+    /* дим із труби, зноситься назад */
+    if (!still) for (i = 0; i < 9; i++) {
+      var age = (t * 0.00035 + i / 9) % 1, px = fx + fw * 0.6 + age * L * 0.22, py = ft - 2 - age * hh * 3.2 - Math.sin(age * 6 + i) * 2;
+      ctx.fillStyle = rgba('120,126,134', 0.22 * (1 - age));
+      ctx.beginPath(); ctx.arc(px, py, 2 + age * hh * 0.9, 0, 6.2832); ctx.fill();
+    }
+    /* ходові вогні */
     var bl = 0.55 + 0.45 * Math.sin(t * 0.004);
     ctx.fillStyle = rgba('255,255,240', bl);
-    ctx.fillRect(bx + bw * 0.3 - 0.6, top - hh * 1.25, 2.6, 2.6);
-    ctx.fillRect(L * 0.03 - 0.7, -hh * 2.7, 2.6, 2.6);
-    ctx.fillStyle = '#e04a3a'; ctx.fillRect(bx - bw * 0.25, top + bh * 0.02, 2.6, 2.6);
-    ctx.fillStyle = 'rgba(255,240,210,.55)'; ctx.fillRect(L * 0.995, -hh * 0.9, 2, 2);
+    ctx.fillRect(bx + bw * 0.42 - 0.6, top - hh * 1.48, 2.6, 2.6);
+    ctx.fillRect(L * 0.05 - 0.5, -hh * 3.0, 2.6, 2.6);
+    ctx.fillStyle = '#e04a3a'; ctx.fillRect(bx - bw * 0.32, top + bh * 0.03, 2.6, 2.6);
+    ctx.fillStyle = 'rgba(255,240,210,.6)'; ctx.fillRect(L * 0.995, -hh * 0.95, 2, 2);
+    ctx.fillStyle = 'rgba(255,214,140,.5)';
+    for (i = 0; i < 6; i++) ctx.fillRect(L * (0.15 + i * 0.12), -hh * 1.1, 1.6, 1.6);
     ctx.restore();
     return { x: sx + L * 0.5, w: L, y: wl, lit: lit, bridge: sx + bx + bw * 0.5 };
   }
@@ -306,7 +393,7 @@
     trail(MX, H * 0.05, 0.16, t, '236,232,214');
     birds(t, still ? 0 : dt);
     mole(t);
-    tower(Math.max(0, -Math.sin(A)));
+    tower(Math.max(0, -Math.sin(A)), t);
     trail(LX, H * 0.05, 0.3, t, '255,214,140', MB);
     var sh = ship(t, A);
     trail(sh.bridge, sh.w * 0.05, 0.22, t, '255,214,140', sh.y);
