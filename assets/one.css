@@ -317,9 +317,9 @@ footer{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 .hstat span{display:block;margin-top:6px;font-size:13px;line-height:1.35;color:rgba(230,234,238,.8)}
 @media (max-width:700px){.hstat{grid-template-columns:1fr 1fr}.hstat li{padding:14px 16px}.hstat li:nth-child(3){border-left:0}.hstat li:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}}
 .lh .glass{margin-left:auto;max-width:25em;padding:22px 26px;text-align:right;background:rgba(14,20,28,.32);border:1px solid rgba(255,255,255,.18);border-radius:18px;-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 10px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12)}
-.lh .glass{display:flex;align-items:center;gap:22px;max-width:none;width:max-content;padding:16px 16px 16px 26px}.lh .glass p{max-width:15em;margin:0}.lh .glass .btn{flex:none}
+.lh .glass{display:flex;align-items:center;gap:22px;max-width:none;width:max-content;padding:16px 16px 16px 26px}.lh .glass p{max-width:20em;margin:0}.lh .glass .btn{flex:none}
 .lh .glass .btn{min-height:46px;padding:0 24px;font-size:12px;border-radius:999px}
-@media (max-width:600px){.lh{height:470px}.lh .glass{display:block;width:auto;padding:14px 16px;max-width:none;border-radius:14px}.lh .glass p{margin-bottom:10px;font-size:15px}.lh .glass .btn{min-height:40px;padding:0 18px;font-size:11px}}
+@media (max-width:600px){.lh{height:530px}.lh .glass{display:block;width:auto;padding:14px 16px;max-width:none;border-radius:14px}.lh .glass p{margin-bottom:10px;font-size:15px}.lh .glass .btn{min-height:40px;padding:0 18px;font-size:11px}}
 .card,.terms>div,.routes li{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
 @media (hover:hover){.card:hover,.terms>div:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,13,16,.12)}}
 .js .rv{opacity:0;transform:translateY(22px) scale(.985);filter:blur(8px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s}
