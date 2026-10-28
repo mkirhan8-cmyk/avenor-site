@@ -284,6 +284,34 @@ UK = {
                 ("note", LEGAL_UK)]},
         ],
     },
+    "sell": {
+        "title": "Продати нам: купуємо шрот, олію, зернові й бобові у господарств і заводів | AVENOR TRADE",
+        "desc": "AVENOR TRADE купує напряму в господарств і заводів України: шрот і макуха, олії, зернові, бобові. Проба, сюрвеєр, договір, вивезення нашим транспортом.",
+        "img": 13, "h1": "Купуємо напряму в господарств і заводів",
+        "lead": "Шрот і макуха, олії, зернові, бобові — з України на експорт. Забираємо з вашого складу або заводу, документи й логістику беремо на себе.",
+        "cta": "Запропонувати товар",
+        "wa": "?text=%D0%94%D0%BE%D0%B1%D1%80%D0%B8%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%9F%D1%80%D0%BE%D0%BF%D0%BE%D0%BD%D1%83%D1%94%D0%BC%D0%BE%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80.%0A%D0%A2%D0%BE%D0%B2%D0%B0%D1%80%3A%20%0A%D0%9E%D0%B1%D1%81%D1%8F%D0%B3%2C%20%D1%82%3A%20%0A%D0%9E%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%3A%20",
+        "sections": [
+            {"eyebrow": "Що купуємо", "h2": "Чотири групи товарів", "blocks": [
+                ("terms", [("Шрот і макуха", "Соняшниковий шрот і макуха, соєвий шрот, ріпакова макуха, DDGS, гранульований жом."),
+                           ("Олії", "Соняшникова, соєва, ріпакова — наливом."),
+                           ("Зернові", "Пшениця, кукурудза, ячмінь, овес, просо, сорго."),
+                           ("Бобові", "Горох, нут, сочевиця, квасоля.")]),
+                ("note", "За запитом: соняшник, соя, ріпак, цукор. Усі області України.")]},
+            {"eyebrow": "Процес", "h2": "Як це працює", "blocks": [("steps", [
+                ("Ви пишете", "Товар, обсяг, область, якість (протеїн, вологість, сміттєва домішка) — у форму або WhatsApp."),
+                ("Ми відповідаємо", "Протягом одного робочого дня: ціна на базисі EXW, FCA або CPT порт і строк вивезення."),
+                ("Проба і сюрвеєр", "Відбираємо пробу. При завантаженні якість і вагу фіксує незалежний сюрвеєр — за договором."),
+                ("Договір і оплата", "Ціна, якість, базис і строк оплати — в договорі. Строк оплати залежить від умов поставки."),
+                ("Вивезення", "Фури, вагони або контейнери — наша логістика і наші документи.")])]},
+            {"eyebrow": "Документи", "h2": "Що потрібно від вас", "blocks": [
+                ("ticks", ["Код ЄДРПОУ, статус платника ПДВ", "Форма 4-сг або 37-сг — підтвердження походження", "Паспорт якості або результат лабораторії, якщо є", "Адреса складу й умови завантаження: ваги, навантажувач"]),
+                ("terms", [("Один контакт", "Від запиту до оплати з вами працює одна людина."),
+                           ("Сюрвеєр і пломби", "Вага і якість зафіксовані незалежно — для вас і для нас."),
+                           ("Реквізити", "Змінюються лише листом за підписом директора. Сумніваєтесь — зателефонуйте.")]),
+                ("links", [("quality", "Як перевіряємо якість"), ("contacts", "Контакти")])]},
+        ],
+    },
     "privacy": {
         "title": "Конфіденційність | AVENOR TRADE",
         "desc": "Які дані з форми запиту отримує ТОВ «АВЕНОР ТРЕЙД», навіщо, скільки зберігає і як їх видалити.",
@@ -490,6 +518,34 @@ EN = {
                 ("dl", [("Company", "AVENOR TRADE LLC"), ("EDRPOU code", "46637137"), ("Address", ADDR_EN)]),
                 ("p", "To request company documents, write to info@avenor.com.ua and state the purpose."),
                 ("note", LEGAL_EN)]},
+        ],
+    },
+    "sell": {
+        "title": "Sell to us: meals, oils, grains and pulses from Ukrainian farms and plants | AVENOR TRADE",
+        "desc": "AVENOR TRADE buys directly from farms and processing plants in Ukraine: meals and cakes, oils, grains, pulses. Sampling, surveyor, contract, pick-up by our transport.",
+        "img": 13, "h1": "We buy directly from farms and plants",
+        "lead": "Meals and cakes, oils, grains and pulses from Ukraine for export. We collect from your warehouse or plant and handle documents and logistics.",
+        "cta": "Offer a product",
+        "wa": "?text=Hello%21%20We%20offer%20a%20product.%0AProduct%3A%20%0AVolume%2C%20t%3A%20%0ARegion%3A%20",
+        "sections": [
+            {"eyebrow": "What we buy", "h2": "Four product groups", "blocks": [
+                ("terms", [("Meals and cakes", "Sunflower meal and cake, soybean meal, rapeseed cake, DDGS, beet pulp pellets."),
+                           ("Oils", "Sunflower, soybean, rapeseed, in bulk."),
+                           ("Grains", "Wheat, corn, barley, oats, millet, sorghum."),
+                           ("Pulses", "Peas, chickpeas, lentils, beans.")]),
+                ("note", "On request: sunflower seed, soybeans, rapeseed, sugar. All regions of Ukraine.")]},
+            {"eyebrow": "Process", "h2": "How it works", "blocks": [("steps", [
+                ("You write", "Product, volume, region, quality (protein, moisture, admixture), by form or WhatsApp."),
+                ("We reply", "Within one working day: price on EXW, FCA or CPT port basis and the pick-up date."),
+                ("Sample and surveyor", "We take a sample. At loading an independent surveyor records quality and weight, as agreed in the contract."),
+                ("Contract and payment", "Price, quality, basis and payment term are set in the contract. The payment term depends on the delivery terms."),
+                ("Pick-up", "Trucks, rail wagons or containers: our logistics and our documents.")])]},
+            {"eyebrow": "Documents", "h2": "What we need from you", "blocks": [
+                ("ticks", ["Company registration code, VAT status", "Form 4-sg or 37-sg as proof of origin", "Quality passport or lab result, if available", "Warehouse address and loading conditions: scales, loader"]),
+                ("terms", [("One contact", "One person works with you from request to payment."),
+                           ("Surveyor and seals", "Weight and quality are recorded independently, for you and for us."),
+                           ("Bank details", "Change only by a letter signed by the director. In doubt, call us.")]),
+                ("links", [("quality", "How we check quality"), ("contacts", "Contacts")])]},
         ],
     },
     "privacy": {
@@ -746,6 +802,34 @@ TR = {
                 ("dl", [("Şirket", "AVENOR TRADE LLC"), ("EDRPOU kodu", "46637137"), ("Adres", ADDR_TR)]),
                 ("p", "Şirket belgelerini talep etmek için info@avenor.com.ua adresine amacınızı belirterek yazın."),
                 ("note", LEGAL_TR)]},
+        ],
+    },
+    "sell": {
+        "title": "Bize satın: Ukrayna çiftlik ve tesislerinden küspe, yağ, tahıl ve baklagil alıyoruz | AVENOR TRADE",
+        "desc": "AVENOR TRADE, Ukrayna’daki çiftlik ve işleme tesislerinden doğrudan alım yapar: küspe ve kek, yağlar, tahıllar, baklagiller. Numune, sörveyör, sözleşme, kendi nakliyemizle teslim alma.",
+        "img": 13, "h1": "Çiftlik ve tesislerden doğrudan alıyoruz",
+        "lead": "Ukrayna’dan ihracat için küspe ve kek, yağ, tahıl ve baklagiller. Deponuzdan veya tesisinizden teslim alır, belgeleri ve lojistiği üstleniriz.",
+        "cta": "Ürün teklif edin",
+        "wa": "?text=Merhaba%21%20%C3%9Cr%C3%BCn%20teklif%20ediyoruz.%0A%C3%9Cr%C3%BCn%3A%20%0AMiktar%2C%20t%3A%20%0AB%C3%B6lge%3A%20",
+        "sections": [
+            {"eyebrow": "Ne alıyoruz", "h2": "Dört ürün grubu", "blocks": [
+                ("terms", [("Küspe ve kek", "Ayçiçeği küspesi ve keki, soya küspesi, kolza keki, DDGS, pancar posası peleti."),
+                           ("Yağlar", "Ayçiçeği, soya, kolza — dökme."),
+                           ("Tahıllar", "Buğday, mısır, arpa, yulaf, darı, sorgum."),
+                           ("Baklagiller", "Bezelye, nohut, mercimek, fasulye.")]),
+                ("note", "Talep üzerine: ayçiçeği tohumu, soya, kolza, şeker. Ukrayna’nın tüm bölgeleri.")]},
+            {"eyebrow": "Süreç", "h2": "Nasıl işliyor", "blocks": [("steps", [
+                ("Siz yazarsınız", "Ürün, miktar, bölge, kalite (protein, nem, yabancı madde) — form veya WhatsApp ile."),
+                ("Biz yanıtlarız", "Bir iş günü içinde: EXW, FCA veya CPT liman bazında fiyat ve teslim alma tarihi."),
+                ("Numune ve sörveyör", "Numune alırız. Yüklemede bağımsız sörveyör kaliteyi ve ağırlığı kayda geçirir — sözleşmeye göre."),
+                ("Sözleşme ve ödeme", "Fiyat, kalite, teslim şekli ve ödeme vadesi sözleşmede belirlenir. Ödeme vadesi teslim koşullarına bağlıdır."),
+                ("Teslim alma", "Tır, vagon veya konteyner — lojistik ve belgeler bizden.")])]},
+            {"eyebrow": "Belgeler", "h2": "Sizden ne gerekiyor", "blocks": [
+                ("ticks", ["Şirket sicil kodu, KDV mükellefiyeti", "Menşe kanıtı olarak 4-sg veya 37-sg formu", "Varsa kalite belgesi veya laboratuvar sonucu", "Depo adresi ve yükleme koşulları: kantar, yükleyici"]),
+                ("terms", [("Tek muhatap", "Talepten ödemeye kadar sizinle tek kişi çalışır."),
+                           ("Sörveyör ve mühürler", "Ağırlık ve kalite bağımsız olarak kaydedilir — sizin ve bizim için."),
+                           ("Banka bilgileri", "Yalnızca müdür imzalı bir yazıyla değişir. Emin değilseniz arayın.")]),
+                ("links", [("quality", "Kaliteyi nasıl kontrol ediyoruz"), ("contacts", "İletişim")])]},
         ],
     },
     "privacy": {
