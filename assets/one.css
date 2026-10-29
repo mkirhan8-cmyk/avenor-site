@@ -418,3 +418,14 @@ html.intro-on{overflow:hidden}
 .in-r{margin-top:14px!important;min-height:1.5em;font-size:clamp(12px,1.6vw,14px);letter-spacing:.12em;color:var(--wheat)}
 @media (prefers-reduced-motion:reduce){.in-beam{animation:none}}
 @media (min-width:900px){.intro{justify-content:flex-start}.in-box{margin-left:50vw;width:min(640px,48vw)}}
+/* 29.10: рух води — два шари бліків зі штрихів сцени повільно пливуть у протифазі (screen) */
+.lh .eg .wa,.lh .eg .wb{inset:auto;left:0;top:67.22%;width:100%;height:32.78%;object-fit:fill;mix-blend-mode:screen;opacity:0;will-change:transform,opacity}
+.lh.on .eg .wa{animation:wa 11s ease-in-out infinite}.lh.on .eg .wb{animation:wb 17s ease-in-out infinite}
+@keyframes wa{0%,100%{transform:translate(-.4%,0);opacity:.06}50%{transform:translate(.4%,.25%);opacity:.42}}
+@keyframes wb{0%,100%{transform:translate(.35%,.2%);opacity:.34}50%{transform:translate(-.35%,-.15%);opacity:.04}}
+@media (prefers-reduced-motion:reduce){.lh.on .eg .wa,.lh.on .eg .wb{animation:none;opacity:.2}}
+/* 29.10: вступ — відео маяка фоном (офісна петля), затемнення для тексту */
+.in-v{opacity:1}
+.in-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(.95)}
+.in-v::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,16,.55),rgba(10,13,16,.3) 50%,rgba(10,13,16,.1)),linear-gradient(0deg,rgba(10,13,16,.5),transparent 40%)}
+@media (max-width:600px){.in-v::after{background:linear-gradient(0deg,rgba(10,13,16,.85) 0,rgba(10,13,16,.5) 55%,rgba(10,13,16,.25))}}
