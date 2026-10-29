@@ -456,3 +456,7 @@ main:has(.lh)+footer .legal{border-top-color:rgba(255,255,255,.1)}
 .lh .eg.gl .glint,.lh .eg.gl .wa,.lh .eg.gl .wb,.lh .eg .rays{visibility:hidden;animation:none}
 .lh .eg .flare{position:absolute;left:0;top:0;inset:auto;width:0;height:0;border-radius:50%;background:radial-gradient(circle,rgba(255,242,210,.95),rgba(255,236,190,.4) 28%,rgba(255,236,190,0) 68%);mix-blend-mode:screen;opacity:0;z-index:3;pointer-events:none;will-change:transform,opacity}
 @media (prefers-reduced-motion:reduce){.lh .eg .flare{display:none}}
+
+/* соцмережі у підвалі та в контактах */
+footer .soc{display:flex;gap:14px;margin-top:12px}footer .soc a{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.22);border-radius:50%;color:#fff;transition:border-color .2s,background .2s}
+footer .soc a:hover{border-color:#fff;background:rgba(255,255,255,.08)}footer .soc svg{width:17px;height:17px;fill:currentColor}

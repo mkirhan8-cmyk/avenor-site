@@ -277,7 +277,8 @@ UK = {
                 ("dl", [("E-mail", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Телефон / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Офіс", ADDR_UK), ("Відповідь на запит", "протягом робочого дня"),
-                        ("Мови", "українська, англійська, турецька")])]},
+                        ("Мови", "українська, англійська, турецька"),
+                        ("Соцмережі", '<a href="https://www.linkedin.com/company/avenor-trade/" rel="noopener" target="_blank">LinkedIn</a> · <a href="https://www.instagram.com/avenor.trade/" rel="noopener" target="_blank">Instagram</a>')])]},
             {"eyebrow": "Для банку", "h2": "Перевірка контрагента", "blocks": [
                 ("dl", [("Назва", "ТОВ «АВЕНОР ТРЕЙД»"), ("Код ЄДРПОУ", "46637137"), ("Адреса", ADDR_UK)]),
                 ("p", "Потрібні документи компанії — напишіть на info@avenor.com.ua і вкажіть мету запиту."),
@@ -513,7 +514,8 @@ EN = {
                 ("dl", [("Email", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Phone / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Office", ADDR_EN), ("Reply to a request", "within one business day"),
-                        ("Languages", "Ukrainian, English, Turkish")])]},
+                        ("Languages", "Ukrainian, English, Turkish"),
+                        ("Social", '<a href="https://www.linkedin.com/company/avenor-trade/" rel="noopener" target="_blank">LinkedIn</a> · <a href="https://www.instagram.com/avenor.trade/" rel="noopener" target="_blank">Instagram</a>')])]},
             {"eyebrow": "For banks", "h2": "Counterparty checks", "blocks": [
                 ("dl", [("Company", "AVENOR TRADE LLC"), ("EDRPOU code", "46637137"), ("Address", ADDR_EN)]),
                 ("p", "To request company documents, write to info@avenor.com.ua and state the purpose."),
@@ -797,7 +799,8 @@ TR = {
                 ("dl", [("E-posta", '<a href="mailto:info@avenor.com.ua">info@avenor.com.ua</a>'),
                         ("Telefon / WhatsApp", '<a href="tel:+380739556243">+380 73 955 62 43</a>'),
                         ("Ofis", ADDR_TR), ("Talebe yanıt", "bir iş günü içinde"),
-                        ("Diller", "Ukraynaca, İngilizce, Türkçe")])]},
+                        ("Diller", "Ukraynaca, İngilizce, Türkçe"),
+                        ("Sosyal medya", '<a href="https://www.linkedin.com/company/avenor-trade/" rel="noopener" target="_blank">LinkedIn</a> · <a href="https://www.instagram.com/avenor.trade/" rel="noopener" target="_blank">Instagram</a>')])]},
             {"eyebrow": "Bankalar için", "h2": "Karşı taraf kontrolü", "blocks": [
                 ("dl", [("Şirket", "AVENOR TRADE LLC"), ("EDRPOU kodu", "46637137"), ("Adres", ADDR_TR)]),
                 ("p", "Şirket belgelerini talep etmek için info@avenor.com.ua adresine amacınızı belirterek yazın."),
