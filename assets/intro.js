@@ -44,47 +44,62 @@
   }, 900);
 
   var L = document.documentElement.lang, pill = document.querySelector('.hero .pill'), h1 = document.querySelector('.hero h1');
-  function heroIn() {
-    if (h1) { h1.style.visibility = ''; scramble(h1, h1.dataset.t, 55); }
-    if (pill) { var b = pill.lastChild; if (b && b.nodeType === 3) { var sp = document.createElement('span'); pill.replaceChild(sp, b); scramble(sp, b.textContent.trim()); } }
-  }
-  if (h1) { h1.dataset.t = h1.textContent; h1.setAttribute('aria-label', h1.dataset.t); h1.style.visibility = 'hidden'; }
+  /* 29.10 (Мурат): на головній без «розшифровки» — ефект лише на екрані вибору мови */
+  function heroIn() {}
 
-  /* вступ: раз за сесію, на головній */
-  var seen = false;
-  try { seen = sessionStorage.getItem('av-intro'); sessionStorage.setItem('av-intro', 1); } catch (e) { seen = true; }
-  if (seen || !h1 || scrollY > 40) { heroIn(); return; }
+  /* вибір мови запам'ятовуємо (localStorage av-lang): наступного разу одразу відкриваємо потрібну мову без вступу;
+     перемикач UA/EN/TR у шапці та посилання вступу перезаписують вибір */
+  var cur = { uk: '/', en: '/en/', tr: '/tr/' }, saved = null;
+  try { saved = localStorage.getItem('av-lang'); } catch (e) {}
+  function remember(l) { try { localStorage.setItem('av-lang', l); } catch (e) {} }
+  [].forEach.call(document.querySelectorAll('nav.lang a[hreflang]'), function (a) { a.addEventListener('click', function () { remember(a.getAttribute('hreflang')); }); });
+  var home = location.pathname === cur[L];
+  if (saved && cur[saved] && home && saved !== L && !/[?#]/.test(location.href)) {
+    location.replace(cur[saved]); return;
+  }
+  if (saved || !h1 || !home || scrollY > 40) return;
   var T = {
-    uk: ['Українське походження. Відкриті маршрути. Ваш порт.', 'Оберіть мову'],
-    en: ['Ukrainian origin. Open routes. Your port.', 'Choose language'],
-    tr: ['Ukrayna menşei. Açık rotalar. Limanınız.', 'Dil seçin']
-  }[L] || ['Ukrainian origin. Open routes. Your port.', 'Choose language'];
-  var cur = { uk: '/', en: '/en/', tr: '/tr/' };
+    uk: ['Українське походження. Відкриті маршрути. Ваш порт.', 'Оберіть мову', 'Одеса → дунайські порти → Туреччина · ЄС · MENA'],
+    en: ['Ukrainian origin. Open routes. Your port.', 'Choose language', 'Odesa → Danube ports → Türkiye · EU · MENA'],
+    tr: ['Ukrayna menşei. Açık rotalar. Limanınız.', 'Dil seçin', 'Odesa → Tuna limanları → Türkiye · AB · MENA']
+  }[L] || ['Ukrainian origin. Open routes. Your port.', 'Choose language', 'Odesa → Danube ports → Türkiye · EU · MENA'];
   var ov = document.createElement('div');
   ov.className = 'intro'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'AVENOR TRADE');
-  ov.innerHTML = '<div class="in-box"><p class="in-k"></p><p class="in-b"></p><p class="in-s"></p><p class="in-q"></p>' +
+  ov.innerHTML = '<div class="in-bg" aria-hidden="true"><img src="/assets/eg/scene' + (matchMedia('(max-width:600px)').matches ? '-p' : '') + '.webp" alt="" decoding="async"><div class="in-beam"></div></div>' +
+    '<div class="in-box"><p class="in-k"></p><p class="in-b"></p><p class="in-s"></p><p class="in-r"></p><p class="in-q"></p>' +
     '<nav class="in-l"><a href="/" data-l="uk">Українська</a><a href="/en/" data-l="en">English</a><a href="/tr/" data-l="tr">Türkçe</a></nav>' +
     '<button class="in-x" type="button">' + (L === 'uk' ? 'Пропустити' : L === 'tr' ? 'Geç' : 'Skip') + ' →</button></div>';
   document.body.appendChild(ov);
   document.documentElement.classList.add('intro-on');
-  var done = false, auto;
+  /* промінь фонової гравюри виходить з ліхтаря: та сама геометрія, що в engrave.js */
+  (function () {
+    var bg = ov.querySelector('.in-bg'), bm = ov.querySelector('.in-beam');
+    function fit() {
+      var p = matchMedia('(max-width:600px)').matches, W = p ? 1500 : 3304, X0 = p ? 839 : 0, H = 1800;
+      var k = Math.max(innerWidth / W, innerHeight / H);
+      bm.style.setProperty('--lx', ((992 + 372 - X0) * k + (innerWidth - W * k) / 2) + 'px'); bm.style.setProperty('--ly', ((236 + 400) * k) + 'px'); /* картинка вирівняна по верху */
+    }
+    fit(); addEventListener('resize', fit);
+  })();
+  var done = false;
   function close() {
-    if (done) return; done = true; clearTimeout(auto);
+    if (done) return; done = true;
     ov.classList.add('out'); document.documentElement.classList.remove('intro-on');
     setTimeout(function () { ov.remove(); }, 900);
     setTimeout(heroIn, 350);
   }
   [].forEach.call(ov.querySelectorAll('.in-l a'), function (a) {
     if (a.dataset.l === L) a.setAttribute('aria-current', 'true');
-    a.addEventListener('click', function (e) { if (a.dataset.l === L || cur[L] === a.getAttribute('href')) { e.preventDefault(); close(); } });
+    a.addEventListener('click', function (e) { remember(a.dataset.l); if (a.dataset.l === L || cur[L] === a.getAttribute('href')) { e.preventDefault(); close(); } });
   });
-  ov.querySelector('.in-x').addEventListener('click', close);
-  addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') close(); });
-  addEventListener('wheel', close, { once: true, passive: true });
+  /* пропуск = вибір поточної мови; сам екран не зникає, чекає вибору (Мурат 29.10) */
+  function skip() { remember(L); close(); }
+  ov.querySelector('.in-x').addEventListener('click', skip);
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') skip(); });
   var q = function (s) { return ov.querySelector(s); };
   scramble(q('.in-k'), 'AVENOR', 60)
     .then(function () { return scramble(q('.in-b'), 'TRADE · ODESA', 45); })
     .then(function () { return scramble(q('.in-s'), T[0], 32); })
-    .then(function () { ov.classList.add('ask'); return scramble(q('.in-q'), T[1], 40); })
-    .then(function () { auto = setTimeout(close, 3200); });
+    .then(function () { return scramble(q('.in-r'), T[2], 28); })
+    .then(function () { ov.classList.add('ask'); return scramble(q('.in-q'), T[1], 40); });
 })();
