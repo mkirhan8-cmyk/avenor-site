@@ -65,22 +65,14 @@
   }[L] || ['Ukrainian origin. Open routes. Your port.', 'Choose language', 'Odesa → Danube ports → Türkiye · EU · MENA'];
   var ov = document.createElement('div');
   ov.className = 'intro'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'AVENOR TRADE');
-  ov.innerHTML = '<div class="in-bg" aria-hidden="true"><img src="/assets/eg/scene' + (matchMedia('(max-width:600px)').matches ? '-p' : '') + '.webp" alt="" decoding="async"><div class="in-beam"></div></div>' +
+  /* 29.10 (Мурат): фон вступу — відео маяка з офісу (_src/video, Gemini, петля 6 с), постер — перший кадр; без анімації лишається постер */
+  var tall = innerHeight > innerWidth, vf = '/assets/video/mayak-' + (tall ? '9x16' : '16x9');
+  ov.innerHTML = '<div class="in-bg in-v" aria-hidden="true"><video muted loop playsinline autoplay preload="auto" poster="' + vf + '.webp"><source src="' + vf + '.mp4" type="video/mp4"></video></div>' +
     '<div class="in-box"><p class="in-k"></p><p class="in-b"></p><p class="in-s"></p><p class="in-r"></p><p class="in-q"></p>' +
     '<nav class="in-l"><a href="/" data-l="uk">Українська</a><a href="/en/" data-l="en">English</a><a href="/tr/" data-l="tr">Türkçe</a></nav>' +
     '<button class="in-x" type="button">' + (L === 'uk' ? 'Пропустити' : L === 'tr' ? 'Geç' : 'Skip') + ' →</button></div>';
   document.body.appendChild(ov);
   document.documentElement.classList.add('intro-on');
-  /* промінь фонової гравюри виходить з ліхтаря: та сама геометрія, що в engrave.js */
-  (function () {
-    var bg = ov.querySelector('.in-bg'), bm = ov.querySelector('.in-beam');
-    function fit() {
-      var p = matchMedia('(max-width:600px)').matches, W = p ? 1500 : 3304, X0 = p ? 839 : 0, H = 1800;
-      var k = Math.max(innerWidth / W, innerHeight / H);
-      bm.style.setProperty('--lx', ((992 + 372 - X0) * k + (innerWidth - W * k) / 2) + 'px'); bm.style.setProperty('--ly', ((236 + 400) * k) + 'px'); /* картинка вирівняна по верху */
-    }
-    fit(); addEventListener('resize', fit);
-  })();
   var done = false;
   function close() {
     if (done) return; done = true;
