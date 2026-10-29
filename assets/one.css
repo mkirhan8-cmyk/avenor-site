@@ -429,3 +429,20 @@ html.intro-on{overflow:hidden}
 .in-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(.95)}
 .in-v::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,13,16,.55),rgba(10,13,16,.3) 50%,rgba(10,13,16,.1)),linear-gradient(0deg,rgba(10,13,16,.5),transparent 40%)}
 @media (max-width:600px){.in-v::after{background:linear-gradient(0deg,rgba(10,13,16,.85) 0,rgba(10,13,16,.5) 55%,rgba(10,13,16,.25))}}
+/* 29.10: «маршрут із судном» — шлях замовлення у блоці «Як ми працюємо» */
+.voy{position:relative;margin-top:clamp(28px,4vw,44px);padding:38px 0 0}
+.voy-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.voy-base{fill:none;stroke:var(--ink);stroke-opacity:.18;stroke-width:1.5;stroke-dasharray:3 6;stroke-linecap:round}
+.voy-prog{fill:none;stroke:var(--wheat);stroke-width:2;stroke-linecap:round}
+.voy-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.voy-steps li{position:relative;text-align:center;padding-top:26px;transition:color .5s}
+.voy-dot{position:absolute;left:50%;top:0;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--soft);border:2px solid rgba(20,24,28,.35);transition:border-color .5s,background .5s,transform .5s}
+.voy-steps li.on .voy-dot{border-color:var(--wheat);background:var(--wheat);transform:scale(1.15)}
+.voy-steps b{display:block;font-size:16px;letter-spacing:-.01em;color:var(--mute)}
+.voy-steps li.on b{color:var(--ink)}
+.voy-steps small{display:block;margin-top:4px;font-size:12.5px;line-height:1.35;color:var(--mute);opacity:.75}
+.voy-ship{position:absolute;left:0;top:0;width:56px;height:25px;margin:-34px 0 0 -28px;color:var(--ink);transform-origin:50% 100%;will-change:transform;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(20,24,28,.18))}
+.voy-ship svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.voy-ship svg path:first-child{fill:var(--soft)}
+@media (max-width:700px){.voy{padding:0 0 0 34px}.voy-steps{grid-template-columns:1fr;gap:22px}.voy-steps li{text-align:left;padding:0 0 0 0}.voy-dot{left:-34px;top:6px;margin:0}.voy-ship{margin:-11px 0 0 -14px;width:40px;height:18px}}
+@media (prefers-reduced-motion:reduce){.voy-dot,.voy-steps li,.voy-steps b{transition:none}}
