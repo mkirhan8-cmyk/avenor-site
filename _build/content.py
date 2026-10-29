@@ -93,7 +93,21 @@ LEGAL_EN = "Information on this website is not an offer. Price, quantity, qualit
 ADDR_UK = "65062, Україна, м. Одеса, бульвар Французький, 66/1, офіс 403В"
 ADDR_EN = "Office 403V, 66/1 Frantsuzkyi Blvd, Odesa 65062, Ukraine"
 
+POSTS_UK = [
+    ("2026-10-29", "29.10.2026", "З Днем Республіки, Туреччино!", "29 жовтня Туреччина відзначає 103-тю річницю Республіки. Щиро вітаємо наших партнерів, клієнтів і друзів по всій Туреччині, від Бандирми до Мерсина й від Ізміра до Джилвегьозю. Дякуємо всім, з ким разом відкриваємо шляхи з України до Туреччини.", "2026-10-29-cumhuriyet.webp", "Маяк і судно під турецьким прапором, напис «Cumhuriyet’in 103. yılı kutlu olsun!». Ілюстрація створена ШІ."),
+]
+
 UK = {
+    "news": {
+        "title": "Новини AVENOR TRADE | AVENOR TRADE",
+        "desc": "Новини AVENOR TRADE: події компанії та вітання партнерам у Туреччині, ЄС, на Близькому Сході та в Азії.",
+        "img": 3, "h1": "Новини",
+        "lead": "Події компанії та вітання нашим партнерам.",
+        "sections": [
+            {"eyebrow": "Новини компанії", "h2": "Останні події", "blocks": [("posts", POSTS_UK),
+                ("links", [("routes", "Обстановка на морі й ризики маршрутів")])]},
+        ],
+    },
     "products": {
         "title": "Продукція — шрот, олії, зернові, бобові, цукор | AVENOR TRADE",
         "desc": "Що відвантажує AVENOR TRADE: шрот і макуха, рослинні олії, олійні культури, зернові, бобові та цукор з України. Тара й базиси поставки для кожної групи.",
@@ -330,7 +344,21 @@ UK = {
     },
 }
 
+POSTS_EN = [
+    ("2026-10-29", "29 Oct 2026", "Happy Republic Day, Türkiye!", "On 29 October Türkiye marks the 103rd anniversary of the Republic. Our warmest wishes to our partners, customers and friends across Türkiye, from Bandırma to Mersin and from İzmir to Cilvegözü. Thank you to everyone who keeps the routes from Ukraine to Türkiye open with us.", "2026-10-29-cumhuriyet.webp", "A lighthouse and a ship under the Turkish flag with the words “Cumhuriyet’in 103. yılı kutlu olsun!”. AI-generated illustration."),
+]
+
 EN = {
+    "news": {
+        "title": "News | AVENOR TRADE",
+        "desc": "AVENOR TRADE news: company updates and greetings to our partners in Türkiye, the EU, the Middle East and Asia.",
+        "img": 3, "h1": "News",
+        "lead": "Company updates and greetings to our partners.",
+        "sections": [
+            {"eyebrow": "Company news", "h2": "Latest", "blocks": [("posts", POSTS_EN),
+                ("links", [("routes", "Sea situation and route risks")])]},
+        ],
+    },
     "products": {
         "title": "Products — meals, oils, grains, pulses, sugar | AVENOR TRADE",
         "desc": "What AVENOR TRADE ships from Ukraine: oilseed meals and cakes, vegetable oils, oilseeds, grains, pulses and sugar. Packing and delivery terms for each group.",
@@ -614,7 +642,21 @@ NEWS_TR = [
 LEGAL_TR = "Sitedeki bilgiler bir teklif niteliği taşımaz. Fiyat, miktar, kalite, teslim şekli ve diğer koşullar yalnızca imzalı sözleşme ve spesifikasyonla belirlenir."
 ADDR_TR = "Ofis 403V, 66/1 Frantsuzkyi Bulvarı, Odesa 65062, Ukrayna"
 
+POSTS_TR = [
+    ("2026-10-29", "29.10.2026", "Cumhuriyet Bayramınız kutlu olsun!", "Cumhuriyet’in 103. yılında Bandırma’dan Mersin’e, İzmir’den Cilvegözü’ne, Türkiye’nin dört bir yanındaki iş ortaklarımızın, müşterilerimizin ve dostlarımızın Cumhuriyet Bayramı’nı en içten dileklerimizle kutlarız. Ukrayna’dan Türkiye’ye uzanan yolları birlikte açtığımız herkese teşekkür ederiz. Nice yıllara!", "2026-10-29-cumhuriyet.webp", "Deniz feneri ve Türk bayraklı gemi, “Cumhuriyet’in 103. yılı kutlu olsun!” yazısı. Yapay zekâ ile oluşturulmuş görsel."),
+]
+
 TR = {
+    "news": {
+        "title": "Haberler | AVENOR TRADE",
+        "desc": "AVENOR TRADE haberleri: şirket gelişmeleri ve Türkiye, AB, Orta Doğu ve Asya’daki ortaklarımıza kutlamalar.",
+        "img": 3, "h1": "Haberler",
+        "lead": "Şirket gelişmeleri ve ortaklarımıza kutlama mesajları.",
+        "sections": [
+            {"eyebrow": "Şirket haberleri", "h2": "Son gelişmeler", "blocks": [("posts", POSTS_TR),
+                ("links", [("routes", "Denizdeki durum ve rota riskleri")])]},
+        ],
+    },
     "products": {
         "title": "Ürünler — küspe, yağ, tahıl, baklagil, şeker | AVENOR TRADE",
         "desc": "AVENOR TRADE’in Ukrayna’dan sevk ettiği ürünler: yağlı tohum küspeleri, bitkisel yağlar, yağlı tohumlar, tahıllar, baklagiller ve şeker. Her grup için ambalaj ve teslim şekli.",
