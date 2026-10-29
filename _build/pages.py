@@ -27,6 +27,7 @@ PATHS = {
     "contacts": ("/kontakty.html", "/en/contacts.html", "/tr/iletisim.html"),
     "privacy": ("/privacy.html", "/en/privacy.html", "/tr/gizlilik.html"),
     "sell": ("/prodaty.html", "/en/sell.html", "/tr/satis.html"),
+    "news": ("/novyny.html", "/en/news.html", "/tr/haberler.html"),
 }
 # old EN addresses with Ukrainian slugs -> English page
 EN_ALIASES = {
@@ -34,25 +35,25 @@ EN_ALIASES = {
     "/en/yakist.html": "quality", "/en/yak-zamovyty.html": "order", "/en/pro-kompaniyu.html": "about",
     "/en/kontakty.html": "contacts",
 }
-NAV = ["products", "routes", "quality", "order", "about", "contacts"]
+NAV = ["products", "routes", "quality", "order", "about", "news", "contacts"]
 
 T = {
     "uk": {
         "home": "Головна", "request": "Запросити ціну", "menu": "Меню", "skip": "До змісту",
         "nav": {"products": "Продукція", "meal": "Соняшниковий шрот", "routes": "Маршрути", "quality": "Якість",
-                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти", "privacy": "Конфіденційність", "sell": "Продати нам"},
+                "order": "Як замовити", "about": "Про компанію", "faq": "FAQ", "contacts": "Контакти", "privacy": "Конфіденційність", "sell": "Продати нам", "news": "Новини"},
         "more": "Детальніше",
     },
     "en": {
         "home": "Home", "request": "Request a quote", "menu": "Menu", "skip": "Skip to content",
         "nav": {"products": "Products", "meal": "Sunflower meal", "routes": "Routes", "quality": "Quality",
-                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy", "sell": "Sell to us"},
+                "order": "How to order", "about": "About", "faq": "FAQ", "contacts": "Contacts", "privacy": "Privacy", "sell": "Sell to us", "news": "News"},
         "more": "Learn more",
     },
     "tr": {
         "home": "Ana sayfa", "request": "Fiyat isteyin", "menu": "Menü", "skip": "İçeriğe geç",
         "nav": {"products": "Ürünler", "meal": "Ayçiçeği küspesi", "routes": "Rotalar", "quality": "Kalite",
-                "order": "Nasıl sipariş verilir", "about": "Hakkımızda", "faq": "SSS", "contacts": "İletişim", "privacy": "Gizlilik", "sell": "Bize satın"},
+                "order": "Nasıl sipariş verilir", "about": "Hakkımızda", "faq": "SSS", "contacts": "İletişim", "privacy": "Gizlilik", "sell": "Bize satın", "news": "Haberler"},
         "more": "Daha fazla",
     },
 }
@@ -128,6 +129,14 @@ def b_news(items, foot, lang):
     return f'<ul class="news">{li}</ul><p class="note">{foot}</p>'
 
 
+def b_posts(items, lang):
+    """Company news: (ISO date, shown date, title, text, image under /assets/news/, alt)."""
+    out = "".join(f'<article class="card post" id="n{d}"><img src="/assets/news/{img}" alt="{e(alt)}" width="1200" height="627" loading="lazy">'
+                  f'<div><time datetime="{d}">{shown}</time><h3>{t}</h3><p>{inline(x, lang)}</p></div></article>'
+                  for d, shown, t, x, img, alt in items)
+    return f'<div class="posts">{out}</div>'
+
+
 def b_p(text, lang):
     return f'<p class="pg-p">{inline(text, lang)}</p>'
 
@@ -145,7 +154,7 @@ def b_links(items, lang):
 
 
 BLOCKS = {"terms": b_terms, "work": b_work, "ticks": b_ticks, "table": b_table, "routes": b_routes, "rmap": b_rmap, "steps": b_steps,
-          "faq": b_faq, "groups": b_groups, "p": b_p, "news": b_news, "note": b_note, "dl": b_dl, "links": b_links}
+          "faq": b_faq, "groups": b_groups, "p": b_p, "news": b_news, "posts": b_posts, "note": b_note, "dl": b_dl, "links": b_links}
 
 
 def render_block(b, lang):
@@ -172,7 +181,8 @@ STICKY = {k: chunk(v, r'<a class="stk".*?</a>') + "\n" + chunk(v, r"<script>\(fu
 def header(lang, key):
     t = T[lang]
     alts = PATHS[key] if key else tuple(HOMES[k] for k in LANGS)
-    links = "".join(f'<a href="{L(lang, k)}"' + (' aria-current="page"' if k == key or (key == "meal" and k == "products") else "")
+    links = "".join(f'<a href="{L(lang, k)}"' + (' class="nx"' if k == "news" else "")
+                    + (' aria-current="page"' if k == key or (key == "meal" and k == "products") else "")
                     + f'>{t["nav"][k]}</a>' for k in NAV)
     home = HOMES[lang]
     langs = "".join(f'<a href="{alts[i]}" hreflang="{k}"' + (' aria-current="true"' if k == lang else "") + f'>{LABEL[k]}</a>'
