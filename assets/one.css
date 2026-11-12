@@ -460,3 +460,9 @@ main:has(.lh)+footer .legal{border-top-color:rgba(255,255,255,.1)}
 /* соцмережі у підвалі та в контактах */
 footer .soc{display:flex;gap:14px;margin-top:12px}footer .soc a{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.22);border-radius:50%;color:#fff;transition:border-color .2s,background .2s}
 footer .soc a:hover{border-color:#fff;background:rgba(255,255,255,.08)}footer .soc svg{width:17px;height:17px;fill:currentColor}
+.posts{display:grid;gap:28px;max-width:900px;margin:clamp(32px,5vw,56px) 0 0}
+.post img{aspect-ratio:1200/627;background:#101418}
+.post time{display:block;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--wheat-ink);margin-bottom:8px}
+.post p{font-size:16px;color:var(--ink2)}
+.post div{margin:0;border-radius:0 0 4px 4px;box-shadow:none;border:0}
+@media (max-width:1439px){.mnav .nx{display:none}}
