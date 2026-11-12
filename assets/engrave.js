@@ -54,6 +54,9 @@
     }, { threshold: 0.05 }).observe(sec);
   } else { seen = true; reveal(); }
   var beam = eg.querySelector('.beam'), lamp = eg.querySelector('.lamp'), rays = eg.querySelector('.rays');
+  /* м'яке сяйво лампи замість пунктирних променів; стан світла для води (water.js) */
+  var flare = document.createElement('div'); flare.className = 'flare'; eg.insertBefore(flare, rays.parentNode);
+  window.avLight = { th: 20, fl: 0, toUs: 0 };
   var last = performance.now(), t0 = last, th = 20;
   function place(t) {
     ships.forEach(function (s, i) {
@@ -94,7 +97,11 @@
     var fl = Math.max(0, toUs - 0.86) / 0.14, bo = side * 0.9 + 0.1 * Math.max(0, -toUs);
     beam.style.transform = 'rotate(' + sa + 'deg)'; beam.style.opacity = (bo * (1 - fl)).toFixed(3);
     var br = 0.55 + 0.1 * Math.abs(Math.sin(t / 1000 * 1.3)) + 0.45 * fl;
-    lamp.style.opacity = br; rays.style.opacity = (fl * 0.9).toFixed(3);
+    lamp.style.opacity = br; rays.style.opacity = 0;
+    var fs = (260 + 420 * fl) * K; flare.style.width = flare.style.height = fs + 'px';
+    flare.style.transform = 'translate(' + ((LAMP[0] - X0) * K - fs / 2).toFixed(1) + 'px,' + (LAMP[1] * K - fs / 2).toFixed(1) + 'px)';
+    flare.style.opacity = (0.18 + 0.82 * fl).toFixed(3);
+    window.avLight.th = th; window.avLight.fl = fl; window.avLight.toUs = toUs;
     /* блик на воді: далеко біля горизонту збоку, ближче і ширше, коли світло йде на нас */
     var gx = LAMP[0] + 1500 * Math.cos(r), gy = HOR + 40 + 420 * Math.max(0, toUs), gw = 520 + 900 * Math.max(0, toUs), gh = 60 + 160 * Math.max(0, toUs);
     glint.style.transform = 'translate(' + ((gx - X0 - gw / 2) * K).toFixed(1) + 'px,' + ((gy - gh / 2) * K).toFixed(1) + 'px)';
